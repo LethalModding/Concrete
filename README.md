@@ -25,6 +25,9 @@ cd Concrete
 Finally, install the dependencies:
 
 ```bash
+# Install Wails
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
 # Install Go dependencies
 go get -u ./...
 cd frontend
