@@ -12,6 +12,7 @@
 # next.js
 /.next/
 /dist/**/*
+!/dist/.gitkeep
 
 # production
 /build

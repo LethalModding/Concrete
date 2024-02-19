@@ -4,17 +4,30 @@ import (
 	"context"
 
 	log "github.com/AlbinoGeek/logxi/v1"
+
+	"lethalmodding.com/concrete/src/app/loopbackServer"
+	"lethalmodding.com/concrete/src/app/steam"
+	"lethalmodding.com/concrete/src/app/types"
 )
 
 type App struct {
-	ctx context.Context
+	ctx    context.Context
 	logger log.Logger
+
+	Config         *types.Config
+	LoopbackServer *loopbackServer.Server
+	Steam          *steam.Steam
 }
 
 func NewApp() *App {
 	return &App{
+		Config: types.NewConfig(),
 		logger: log.New("Concrete"),
 	}
+}
+
+func (a *App) GetSteam() steam.Steam {
+	return *a.Steam
 }
 
 //!! Lifecycle Documentation !!

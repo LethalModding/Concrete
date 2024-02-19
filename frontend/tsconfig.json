@@ -16,6 +16,8 @@
         "moduleResolution": "bundler",
         "noEmit": true,
         "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "paths": {
@@ -31,15 +33,17 @@
         "resolveJsonModule": true,
         "skipLibCheck": true,
         "strict": true,
+        "strictNullChecks": true,
         "target": "ES2020",
         "useDefineForClassFields": true,
     },
     "include": [
         "./src",
+        "./wailsjs",
         "./dist/types/**/*.ts",
         "./next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx"
+        // "**/*.ts",
+        // "**/*.tsx"
     ],
     "exclude": [
         "./node_modules"
