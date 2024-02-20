@@ -1,31 +1,62 @@
 package gui
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 )
 
-func (a *App) GetTSMod(name string) string {
-	req, err := http.NewRequest("GET", "http://localhost:9000/api/ts/package/"+name, nil)
+var apiRoot = "http://localhost:9000/api"
+
+func APIPath(path string) string {
+	return fmt.Sprintf("%s/%s", apiRoot, path)
+}
+
+func APIGet(path string) (string, error) {
+	req, err := http.NewRequest("GET", APIPath(path), nil)
 	if err != nil {
-		a.logger.Error("Error creating request", "error", err)
-		return ""
+		return "", err
 	}
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		a.logger.Error("Error sending request", "error", err)
-		return ""
+		return "", err
 	}
 
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		a.logger.Error("Error reading response", "error", err)
+		return "", err
+	}
+
+	return string(body), nil
+}
+
+func (a *App) GetRecommendedMods() []string {
+	result, err := APIGet("concrete/mods/recommended")
+	if err != nil {
+		a.logger.Error("Error getting recommended mods", "error", err)
+		return nil
+	}
+
+	var mods []string
+	err = json.Unmarshal([]byte(result), &mods)
+	if err != nil {
+		a.logger.Error("Error unmarshalling response", "error", err)
+		return nil
+	}
+
+	return mods
+}
+
+func (a *App) GetTSMod(name string) string {
+	result, err := APIGet(fmt.Sprintf("ts/package/%s", name))
+	if err != nil {
+		a.logger.Error("Error getting TS mod", "error", err)
 		return ""
 	}
 
-	result := string(body)
 	return result
 }
