@@ -112,12 +112,12 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 
 func (l *Launcher) DoLaunchGame(libraryPath, steamPath, profileJSON string) error {
 	if libraryPath == "" {
-		return errors.New("Library path is empty")
+		return errors.New("library path is empty")
 	}
 
 	var profile types.Profile
 	if err := json.Unmarshal([]byte(profileJSON), &profile); err != nil {
-		return fmt.Errorf("Failed to unmarshal profile JSON: %w", err)
+		return fmt.Errorf("failed to unmarshal profile JSON: %w", err)
 	}
 
 	//
@@ -125,12 +125,13 @@ func (l *Launcher) DoLaunchGame(libraryPath, steamPath, profileJSON string) erro
 	//
 
 	if err := l.InstallBepInEx(libraryPath, profile.ID); err != nil {
-		return fmt.Errorf("Failed to install BepInEx: %w", err)
+		return fmt.Errorf("failed to install BepInEx: %w", err)
 	}
 
 	//
 	// Ensure all mods are present in /BepInEx/plugins/* in the profile directory
 	//
+	fmt.Printf("Profile: %+v\n", profile)
 
 	//
 	// Steam.exe -applaunch 1966720 --doorstop-enabled true --doorstop-target-assembly "C:\Users\Belial\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\ProfileName\BepInEx\core\BepInEx.Preloader.dll"
