@@ -16,7 +16,6 @@ import (
 	"lethalmodding.com/concrete/src/app/gui"
 	"lethalmodding.com/concrete/src/app/launcher"
 	"lethalmodding.com/concrete/src/app/steam"
-	"lethalmodding.com/concrete/src/app/types"
 )
 
 //go:embed all:frontend/dist/*
@@ -31,8 +30,6 @@ func main() {
 			app,
 			launcher.NewLauncher(),
 			steam.NewSteam(),
-			types.NewConfig(),
-			types.NewProfile(),
 		},
 		Logger:             app.StdLogger(),
 		LogLevel:           log.LevelDebug,
