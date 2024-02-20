@@ -209,7 +209,7 @@ export default function HomePage() {
 
             router.push('/dashboard')
             clearInterval(interval)
-          }, 200)
+          }, 50)
 
           break
       }
