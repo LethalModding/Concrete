@@ -11,6 +11,8 @@ export function GetConfig():Promise<types.Config>;
 
 export function GetConfigValue(arg1:string):Promise<string>;
 
+export function GetRecommendedMods():Promise<Array<string>>;
+
 export function GetSteam():Promise<steam.Steam>;
 
 export function GetTSMod(arg1:string):Promise<string>;

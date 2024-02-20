@@ -14,6 +14,10 @@ export function GetConfigValue(arg1) {
   return window['go']['gui']['App']['GetConfigValue'](arg1);
 }
 
+export function GetRecommendedMods() {
+  return window['go']['gui']['App']['GetRecommendedMods']();
+}
+
 export function GetSteam() {
   return window['go']['gui']['App']['GetSteam']();
 }
