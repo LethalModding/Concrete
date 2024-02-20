@@ -66,9 +66,19 @@ const createModSlice: StateCreator<
   addMod: mod => {
     const state = get()
 
+    // check the UUID doesn't already exist (if so, replace it)
+    const existingMod = state.mods.find(x => x.id === mod.id)
+    if (existingMod) {
+      mod = {
+        ...existingMod,
+        ...mod,
+        updated: new Date().getTime(),
+      }
+    }
+
     set({
       mods: [
-        ...state.mods,
+        ...state.mods.filter(x => x.id !== mod.id),
         {
           ...mod,
           id: mod.id ?? uuidv4(),
