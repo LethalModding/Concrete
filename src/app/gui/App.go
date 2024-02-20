@@ -21,8 +21,10 @@ type App struct {
 
 func NewApp() *App {
 	return &App{
-		Config: types.NewConfig(),
 		logger: log.New("Concrete"),
+
+		Config: types.NewConfig(),
+		Steam:  steam.NewSteam(),
 	}
 }
 
