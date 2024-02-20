@@ -6,8 +6,10 @@ import BugReportIcon from '@mui/icons-material/BugReport'
 import HelpIcon from '@mui/icons-material/Help'
 import PlayIcon from '@mui/icons-material/PlayArrow'
 import SettingsIcon from '@mui/icons-material/Settings'
+import Backdrop from '@mui/material/Backdrop'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import CircularProgress from '@mui/material/CircularProgress'
 import IconButton from '@mui/material/IconButton'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -22,8 +24,8 @@ const sidebarMinWidth = 150
 const sidebarMaxWidth = 300
 
 import { GetConfig } from '@/../wailsjs/go/gui/App'
-
 import { DoLaunchGame } from '@/../wailsjs/go/launcher/Launcher'
+import { types } from '../../wailsjs/go/models'
 
 export default function DashboardPage() {
   //
@@ -132,13 +134,24 @@ export default function DashboardPage() {
   const [libraryPath, setLibraryPath] = useState('')
   const [steamPath, setSteamPath] = useState('')
   useEffect(() => {
-    GetConfig().then(config => {
+    GetConfig().then((config: types.Config) => {
+      console.log('Loaded config', config)
+
       setLibraryPath(config.libraryPath)
       setSteamPath(config.steamPath)
     })
   }, [])
+
+  const [loading, setLoading] = useState(false)
   const playGame = useCallback(() => {
+    setLoading(true)
     DoLaunchGame(libraryPath, steamPath, JSON.stringify(selectedProfile))
+      .catch(x => {
+        console.error(x)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [libraryPath, steamPath, selectedProfile])
 
   return (
@@ -167,6 +180,39 @@ export default function DashboardPage() {
         onClose={() => setSettingsShown(false)}
       />
 
+      <Backdrop
+        open={loading}
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0.80)',
+
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+          gap: 1,
+          justifyContent: 'center',
+
+          zIndex: 1,
+        }}
+      >
+        <CircularProgress size="4em" />
+
+        <Typography
+          color="text.secondary"
+          component="h3"
+          variant="h4"
+        >
+          Launching Game
+        </Typography>
+
+        <Typography
+          color="text.secondary"
+          component="p"
+          variant="body1"
+        >
+          This may take a few moments.
+        </Typography>
+      </Backdrop>
+
       {sortedProfiles.length ? (
         <>
           <Paper
@@ -176,7 +222,7 @@ export default function DashboardPage() {
               position: 'absolute',
               bottom: 0,
               width: sidebarWidth - 2,
-              zIndex: 1000,
+              zIndex: 1001,
             }}
           >
             <Box
@@ -237,6 +283,8 @@ export default function DashboardPage() {
               borderRight: 2,
               borderColor: 'primary.main',
               position: 'relative',
+
+              zIndex: 1000,
             }}
           >
             <Box
