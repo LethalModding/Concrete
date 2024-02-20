@@ -113,6 +113,8 @@ export default function HomePage() {
     setLoading(true)
 
     const loadAllMods = async () => {
+      if (loading) return
+
       const recommendedMods = await GetRecommendedMods()
       setLoadedMods(0)
       setTotalMods(recommendedMods.length)
@@ -186,7 +188,7 @@ export default function HomePage() {
     }
 
     loadAllMods()
-  }, [addMod])
+  }, [addMod, loading])
 
   const router = useRouter()
   const advanceOOBE = useCallback(() => {
