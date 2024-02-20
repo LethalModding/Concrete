@@ -21,6 +21,7 @@ import { useCallback, useEffect, useState } from 'react'
 import {
   BrowseDirectory,
   GetConfig,
+  GetRecommendedMods,
   GetSteam,
   GetTSMod,
   SetConfigValue,
@@ -30,8 +31,6 @@ import {
   ValidateLibraryPath,
   ValidateSteamPath,
 } from '@/../wailsjs/go/steam/Steam'
-
-import { recommendedMods } from '@/recommendedMods'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true)
@@ -108,87 +107,86 @@ export default function HomePage() {
   //
 
   const addMod = useStore(state => state.addMod)
-  const mods = useStore(state => state.mods)
-
   const [loadedMods, setLoadedMods] = useState(0)
-  const ensureRecommendedMods = useCallback(
-    (callback: () => void) => {
-      const promises: Promise<string>[] = []
-      for (const x of recommendedMods) {
-        promises.push(
-          GetTSMod(x).then(res => {
-            setLoadedMods(loaded => loaded + 1)
+  const [totalMods, setTotalMods] = useState(0)
+  useEffect(() => {
+    setLoading(true)
 
-            const mod = JSON.parse(res)
-            addMod({
-              id: `ts-${mod.full_name}`,
-              created: mod.date_created,
-              updated: mod.date_updated,
+    const loadAllMods = async () => {
+      const recommendedMods = await GetRecommendedMods()
+      setLoadedMods(0)
+      setTotalMods(recommendedMods.length)
 
-              description: mod.latest.description,
-              owner: `ts-${mod.namespace}`,
-              name: mod.name,
-              recommended: true,
-              tags:
-                mod.community_listings.filter(
-                  (x: { community: string }) => x.community === 'lethal-company'
-                )?.[0]?.categories || [],
+      for (const mod of recommendedMods) {
+        const modData = await GetTSMod(mod)
+        const parsedMod = JSON.parse(modData)
 
-              dependencies: mod.latest.dependencies.map(
-                (x: string) => `ts-${x}`
-              ),
-              version: mod.latest.version_number,
+        addMod({
+          id: `ts-${parsedMod.full_name}`,
+          created: parsedMod.date_created,
+          updated: parsedMod.date_updated,
 
-              // dropped the following properties on the floor:
-              // - package_url
-              // - rating_score
-              // - is_pinned
-              // - is_deprecated
-              // - total_downloads
-              /*
-                "package_url": "https://thunderstore.io/package/EliteMasterEric/SlimeTamingFix/",
-                "rating_score": -1,
-                "is_pinned": false,
-                "is_deprecated": false,
-                "total_downloads": -1,
-              */
-              // - latest.icon
-              // - latest.download_url
-              // - latest.downloads
-              // - latest.website_url
-              // - latest.is_active (???)
-              /*
-                "latest": {
-                    "icon": "https://gcdn.thunderstore.io/live/repository/icons/EliteMasterEric-SlimeTamingFix-1.0.2.png",
-                    "download_url": "https://thunderstore.io/package/download/EliteMasterEric/SlimeTamingFix/1.0.2/",
-                    "downloads": 461144,
-                    "website_url": "https://github.com/EliteMasterEric/SlimeTamingFix",
-                    "is_active": true
-                },
-              */
-              // - community_listings[].has_nsfw_content
-              // - community_listings[].review_status
-              /*
-                "community_listings": [
-                    {
-                        "has_nsfw_content": false,
-                        "review_status": "unreviewed"
-                    }
-                ]
-              */
-            })
+          description: parsedMod.latest.description,
+          owner: `ts-${parsedMod.namespace}`,
+          name: parsedMod.name,
+          recommended: true,
+          tags:
+            parsedMod.community_listings.filter(
+              (x: { community: string }) => x.community === 'lethal-company'
+            )?.[0]?.categories || [],
 
-            return res
-          })
-        )
+          dependencies: parsedMod.latest.dependencies.map(
+            (x: string) => `ts-${x}`
+          ),
+          version: parsedMod.latest.version_number,
+        })
+
+        // dropped the following properties on the floor:
+        // - package_url
+        // - rating_score
+        // - is_pinned
+        // - is_deprecated
+        // - total_downloads
+        /*
+          "package_url": "https://thunderstore.io/package/EliteMasterEric/SlimeTamingFix/",
+          "rating_score": -1,
+          "is_pinned": false,
+          "is_deprecated": false,
+          "total_downloads": -1,
+        */
+        // - latest.icon
+        // - latest.download_url
+        // - latest.downloads
+        // - latest.website_url
+        // - latest.is_active (???)
+        /*
+          "latest": {
+              "icon": "https://gcdn.thunderstore.io/live/repository/icons/EliteMasterEric-SlimeTamingFix-1.0.2.png",
+              "download_url": "https://thunderstore.io/package/download/EliteMasterEric/SlimeTamingFix/1.0.2/",
+              "downloads": 461144,
+              "website_url": "https://github.com/EliteMasterEric/SlimeTamingFix",
+              "is_active": true
+          },
+        */
+        // - community_listings[].has_nsfw_content
+        // - community_listings[].review_status
+        /*
+          "community_listings": [
+              {
+                  "has_nsfw_content": false,
+                  "review_status": "unreviewed"
+              }
+          ]
+        */
+
+        setLoadedMods(loaded => loaded + 1)
       }
 
-      Promise.all(promises).then(() => {
-        return callback()
-      })
-    },
-    [addMod]
-  )
+      setLoading(false)
+    }
+
+    loadAllMods()
+  }, [addMod])
 
   const router = useRouter()
   const advanceOOBE = useCallback(() => {
@@ -204,30 +202,19 @@ export default function HomePage() {
 
         case 2:
           // Create a default profile if none exist
-          if (mods.length > 0) {
-            setLoadedMods(mods.length)
-            setLoading(false)
-            setTimeout(() => {
-              router.push('/dashboard')
-            }, 250)
-            return step + 2
-          }
+          const interval = setInterval(() => {
+            if (loading) return // Wait for the mods to load
 
-          ensureRecommendedMods(() => {
-            advanceOOBE()
-          })
-          break
-
-        case 3:
-          setLoading(true)
-          setTimeout(() => {
             router.push('/dashboard')
-          }, 250)
+            clearInterval(interval)
+          }, 200)
+
+          break
       }
 
       return step + 1
     })
-  }, [ensureRecommendedMods, libraryPathChoice, mods, router, steamPathChoice])
+  }, [libraryPathChoice, loading, router, steamPathChoice])
 
   return (
     <Box
@@ -416,12 +403,10 @@ export default function HomePage() {
                 component="h3"
                 variant="h6"
               >
-                {loadedMods} / {recommendedMods.length}
+                {loadedMods} / {totalMods}
               </Typography>
 
-              <LinearProgress
-                value={(loadedMods / recommendedMods.length) * 100}
-              />
+              <LinearProgress value={(loadedMods / totalMods) * 100} />
             </Box>
           ) : null}
 
