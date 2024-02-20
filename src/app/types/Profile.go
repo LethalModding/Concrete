@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/json"
 	"time"
 
 	uuid "github.com/satori/go.uuid"
@@ -44,4 +45,11 @@ func NewProfile() *Profile {
 		Order:   0,
 		Visible: true,
 	}
+}
+
+func UnmarshalProfile(data []byte) (*Profile, error) {
+	profile := &Profile{}
+	err := json.Unmarshal(data, profile)
+
+	return profile, err
 }
