@@ -40,8 +40,15 @@ cd ..
 ### Running in Dev Mode
 
 You can run the application locally in dev mode with the following command:
-
 ```bash
+LOGXI=* wails dev
+```
+
+> May need build to in the front end first, if so...
+```bash
+cd frontend
+yarn run build
+cd ..
 LOGXI=* wails dev
 ```
 
