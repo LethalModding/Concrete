@@ -102,7 +102,7 @@ export default function ProfileDetailsPane(props: Props) {
             gridTemplateColumns: isTablet
               ? 'repeat(2, minmax(0, 1fr))'
               : 'repeat(4, minmax(0, 1fr))',
-            gap: isTablet ? 1 : 2,
+            gap: 1,
             placeItems: 'end stretch',
 
             height: isTablet ? 200 : 300,
@@ -274,18 +274,20 @@ export default function ProfileDetailsPane(props: Props) {
             </Typography>
           </Paper>
         </Paper>
-      ) : selectedTab === 1 ? (
+      ) : null}
+
+      {selectedTab === 1 ? (
         <>
           <Box
             sx={{
               display: 'grid',
-              gap: isMobile ? 0.25 : isTablet ? 0.5 : 0.75,
+              gap: isMobile ? 0.25 : 0.5,
               gridTemplateColumns: `repeat(auto-fill, minmax(${
                 isMobile ? 240 : isTablet ? 250 : 330
               }px, 1fr))`,
               mb: -0.5,
-              mt: isMobile ? 0.25 : isTablet ? 0.5 : 1,
-              mx: isMobile ? -1.5 : isTablet ? -1.25 : -0.5,
+              mt: isMobile ? 0.25 : 0.5,
+              mx: isMobile ? -1.5 : -1.25,
             }}
           >
             {profile.enabledMods.length ||
@@ -309,7 +311,7 @@ export default function ProfileDetailsPane(props: Props) {
 
             {profile.disabledMods?.map(id => (
               <ModListItem
-                imageSize={48}
+                imageSize={isMobile ? 48 : isTablet ? 64 : 96}
                 key={id}
                 modID={id}
                 profileID={profile.id}

@@ -15,7 +15,6 @@ import (
 
 	"lethalmodding.com/concrete/src/app/gui"
 	"lethalmodding.com/concrete/src/app/launcher"
-	"lethalmodding.com/concrete/src/app/steam"
 )
 
 //go:embed all:frontend/dist/*
@@ -28,8 +27,8 @@ func main() {
 		AssetServer: &assetserver.Options{Assets: assets},
 		Bind: []interface{}{
 			app,
+			app.Steam,
 			launcher.NewLauncher(),
-			steam.NewSteam(),
 		},
 		Logger:             app.StdLogger(),
 		LogLevel:           log.LevelDebug,

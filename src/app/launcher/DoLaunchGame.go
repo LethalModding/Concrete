@@ -9,7 +9,9 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"runtime"
 
 	"lethalmodding.com/concrete/src/app/types"
 )
@@ -30,11 +32,11 @@ var (
 func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 	// Ensure gamePath and profilePath exist
 	if _, err := os.Stat(gamePath); os.IsNotExist(err) {
-		return fmt.Errorf("Game path does not exist: %s", gamePath)
+		return fmt.Errorf("game path does not exist: %s", gamePath)
 	}
 
 	if _, err := os.Stat(profilePath); os.IsNotExist(err) {
-		return fmt.Errorf("Profile path does not exist: %s", profilePath)
+		return fmt.Errorf("profile path does not exist: %s", profilePath)
 	}
 
 	// Download the latest BepInEx release
@@ -133,9 +135,31 @@ func (l *Launcher) DoLaunchGame(libraryPath, steamPath, profileJSON string) erro
 	//
 	fmt.Printf("Profile: %+v\n", profile)
 
-	//
-	// Steam.exe -applaunch 1966720 --doorstop-enabled true --doorstop-target-assembly "C:\Users\Belial\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\ProfileName\BepInEx\core\BepInEx.Preloader.dll"
-	//
+	// Execute the game
+	exeName := ""
+	if runtime.GOOS == "windows" {
+		exeName = "steam.exe"
+	} else if runtime.GOOS == "darwin" {
+		exeName = "Steam.app"
+	} else if runtime.GOOS == "linux" {
+		exeName = "steam"
+	}
+
+	args := []string{
+		"-applaunch",
+		"1966720",
+		"--doorstop-enabled",
+		"true",
+		"--doorstop-target-assembly",
+		profile.ID + "/BepInEx/core/BepInEx.Preloader.dll",
+	}
+
+	cmd := exec.Command(filepath.Join(steamPath, exeName), args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("failed to launch game: %w", err)
+	}
 
 	return nil
 }

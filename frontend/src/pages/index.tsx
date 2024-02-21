@@ -34,21 +34,65 @@ import {
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true)
-  const [steamPathChoice, setSteamPathChoice] = useState('')
-  const [libraryPathChoice, setLibraryPathChoice] = useState('')
+  const [loadedMods, setLoadedMods] = useState(0)
+  const [totalMods, setTotalMods] = useState(0)
+
+  const [chosenSteamPath, setChosenSteamPath] = useState('')
+  const [chosenLibraryPath, setChosenLibraryPath] = useState('')
+  const [detectedLibraryPaths, setDetectedLibraryPaths] = useState<string[]>([])
 
   const [oobeStep, setOOBEStep] = useState(0)
   useEffect(() => {
-    GetConfig().then(value => {
-      setSteamPathChoice(value.steamPath)
-      setLibraryPathChoice(value.libraryPath)
+    GetConfig().then(config => {
+      setChosenSteamPath(config.steamPath)
+      setChosenLibraryPath(config.libraryPath)
 
-      if (value.dismissLogin) setOOBEStep(1)
-      if (value.steamPath && value.libraryPath) setOOBEStep(2)
+      if (config.dismissLogin) setOOBEStep(1)
+      if (config.steamPath && config.libraryPath) setOOBEStep(2)
 
-      setLoading(false)
+      GetSteam().then(steam => {
+        if (!config.steamPath) {
+          setChosenSteamPath(steam.installPath)
+        }
+
+        setDetectedLibraryPaths(steam.libraryFolders)
+        if (!config.libraryPath) {
+          setChosenLibraryPath(steam.libraryFolders?.[0] || '')
+        }
+
+        setLoading(false)
+      })
     })
   }, [])
+
+  //
+  // OOBE
+  //
+
+  const router = useRouter()
+  const advanceOOBE = useCallback(() => {
+    setOOBEStep(step => {
+      switch (step) {
+        case 1:
+          SetConfigValue('SteamPath', chosenSteamPath)
+          break
+
+        case 2:
+          SetConfigValue('LibraryPath', chosenLibraryPath)
+
+          const interval = setInterval(() => {
+            if (loadedMods < totalMods) return // Wait for the mods to load
+
+            router.push('/dashboard')
+            clearInterval(interval)
+          }, 250)
+
+          break
+      }
+
+      return step + 1
+    })
+  }, [chosenLibraryPath, chosenSteamPath, loadedMods, router, totalMods])
 
   //
   // OOBE Step 0
@@ -56,63 +100,52 @@ export default function HomePage() {
 
   const dismissLoginRequest = useCallback(() => {
     SetConfigValue('DismissLogin', 'true')
-    setOOBEStep(1)
-  }, [])
+    advanceOOBE()
+  }, [advanceOOBE])
 
   //
   // OOBE Step 1
   //
 
+  const [steamPathValid, setSteamPathValid] = useState(false)
   const browseSteamPath = useCallback(() => {
     BrowseDirectory('Select Steam Directory').then(choice => {
-      if (choice) setSteamPathChoice(choice)
+      if (choice) setChosenSteamPath(choice)
     })
   }, [])
-
-  const [steamPathValid, setSteamPathValid] = useState(false)
   useEffect(() => {
-    ValidateSteamPath(steamPathChoice).then(isValid =>
+    ValidateSteamPath(chosenSteamPath).then(isValid => {
       setSteamPathValid(isValid)
-    )
-  }, [steamPathChoice])
+    })
+  }, [chosenSteamPath])
 
   //
   // OOBE Step 2
   //
 
-  const [detectedLibraryPaths, setDetectedLibraryPaths] = useState<string[]>([])
-  // const [detectedSteamPath, setDetectedSteamPath] = useState('')
-  useEffect(() => {
-    GetSteam().then(value => {
-      setDetectedLibraryPaths(value.libraryFolders)
-      // setDetectedSteamPath(value.installPath)
-    })
-  })
-
+  const [libraryPathValid, setLibraryPathValid] = useState(false)
   const browseLibraryPath = useCallback(() => {
     BrowseDirectory('Select Library Directory').then(choice => {
-      if (choice) setLibraryPathChoice(choice)
+      if (!choice) setChosenLibraryPath(choice)
     })
   }, [])
-
-  const [libraryPathValid, setLibraryPathValid] = useState(false)
   useEffect(() => {
-    ValidateLibraryPath(libraryPathChoice).then(isValid =>
+    ValidateLibraryPath(chosenLibraryPath).then(isValid => {
       setLibraryPathValid(isValid)
-    )
-  }, [libraryPathChoice])
+    })
+  }, [chosenLibraryPath])
 
   //
-  // OOBE
+  // OOBE Step 3
   //
 
   const addMod = useStore(state => state.addMod)
-  const [loadedMods, setLoadedMods] = useState(0)
-  const [totalMods, setTotalMods] = useState(0)
   useEffect(() => {
     setLoading(true)
 
     const loadAllMods = async () => {
+      if (loading) return
+
       const recommendedMods = await GetRecommendedMods()
       setLoadedMods(0)
       setTotalMods(recommendedMods.length)
@@ -186,35 +219,7 @@ export default function HomePage() {
     }
 
     loadAllMods()
-  }, [addMod])
-
-  const router = useRouter()
-  const advanceOOBE = useCallback(() => {
-    setOOBEStep(step => {
-      switch (step) {
-        case 0:
-          SetConfigValue('SteamPath', steamPathChoice)
-          break
-
-        case 1:
-          SetConfigValue('LibraryPath', libraryPathChoice)
-          break
-
-        case 2:
-          // Create a default profile if none exist
-          const interval = setInterval(() => {
-            if (loading) return // Wait for the mods to load
-
-            router.push('/dashboard')
-            clearInterval(interval)
-          }, 200)
-
-          break
-      }
-
-      return step + 1
-    })
-  }, [libraryPathChoice, loading, router, steamPathChoice])
+  }, [addMod, loading])
 
   return (
     <Box
@@ -302,6 +307,7 @@ export default function HomePage() {
                 error={!steamPathValid}
                 fullWidth
                 InputProps={{
+                  readOnly: true,
                   startAdornment: steamPathValid ? (
                     <CheckIcon
                       color="success"
@@ -315,8 +321,8 @@ export default function HomePage() {
                   ),
                 }}
                 label="Path to your Steam Executable"
-                onChange={e => setSteamPathChoice(e.target.value)}
-                value={steamPathChoice}
+                onChange={e => setChosenSteamPath(e.target.value)}
+                value={chosenSteamPath}
                 variant="standard"
               />
               <Button onClick={browseSteamPath}>Browse</Button>
@@ -341,7 +347,7 @@ export default function HomePage() {
                 </InputLabel>
                 <Select
                   displayEmpty
-                  onChange={e => setLibraryPathChoice(e.target.value)}
+                  onChange={e => setChosenLibraryPath(e.target.value)}
                   startAdornment={
                     libraryPathValid ? (
                       <CheckIcon
@@ -358,7 +364,7 @@ export default function HomePage() {
                   sx={{
                     textAlign: 'left',
                   }}
-                  value={libraryPathChoice}
+                  value={chosenLibraryPath}
                 >
                   <ListSubheader>Detected from Steam</ListSubheader>
                   {detectedLibraryPaths.map(folder => (
@@ -369,13 +375,12 @@ export default function HomePage() {
                       {folder}
                     </MenuItem>
                   ))}
-                  {detectedLibraryPaths.indexOf(libraryPathChoice) === -1 ? (
-                    <>
-                      <ListSubheader>Manually Selected</ListSubheader>
-                      <MenuItem value={libraryPathChoice}>
-                        {libraryPathChoice}
-                      </MenuItem>
-                    </>
+                  <ListSubheader>Manually Selected</ListSubheader>
+                  {chosenLibraryPath !== '' &&
+                  detectedLibraryPaths.indexOf(chosenLibraryPath) === -1 ? (
+                    <MenuItem value={chosenLibraryPath}>
+                      {chosenLibraryPath}
+                    </MenuItem>
                   ) : null}
                 </Select>
               </FormControl>

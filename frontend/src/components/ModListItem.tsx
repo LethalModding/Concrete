@@ -100,8 +100,6 @@ export default function ModListItem(props: Props) {
                 alt={mod.name}
                 height={imageSize}
                 loading="lazy"
-                objectFit="cover"
-                objectPosition="center"
                 quality={100}
                 src={modIcon}
                 width={imageSize}

@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"lethalmodding.com/concrete/src/app/loopbackServer"
-	"lethalmodding.com/concrete/src/app/steam"
 )
 
 // onStartup is a Wails function that is called when the application is started.
@@ -16,7 +15,6 @@ func (app *App) OnStartup(ctx context.Context) {
 	//
 	// Initialize reference to the Steam installation
 	//
-	app.Steam = steam.NewSteam()
 	if err := app.Steam.Find(); err != nil {
 		app.logger.Error("Failed to find Steam installation", "error", err)
 	} else {
