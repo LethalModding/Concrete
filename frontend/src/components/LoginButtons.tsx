@@ -7,7 +7,7 @@ type Props = {
   onDontClick?: () => void
 }
 
-export default function LoginButtons(props: Props) {
+export default function LoginButtons(props: Props): JSX.Element {
   const { onDontClick } = props
 
   return (
