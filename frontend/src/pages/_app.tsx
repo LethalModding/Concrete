@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import darkThemeOptions from '@/styles/darkThemeOptions'
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 import Box from '@mui/material/Box'

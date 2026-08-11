@@ -111,6 +111,7 @@ export default function ProfilesPage() {
   return (
     <>
       <ProfileRenameDialog
+        key={editing?.id ?? 'new-profile'}
         onCancel={handleCancelRename}
         onClose={handleCancelRename}
         onSubmit={handleSubmitRename}

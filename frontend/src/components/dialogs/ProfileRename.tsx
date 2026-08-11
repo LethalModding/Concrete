@@ -20,14 +20,11 @@ export default function ProfileRenameDialog(props: Props) {
 
   const [name, setName] = useState(profile.name)
   useEffect(() => {
-    // Reset the name when the profile changes
-    setName(profile.name)
-
     // Focus the input when the dialog opens
     if (open) {
       document.getElementById('profile-rename-input')?.focus()
     }
-  }, [open, profile.name])
+  }, [open])
 
   const handleChangeName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value

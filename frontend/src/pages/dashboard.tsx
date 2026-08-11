@@ -62,9 +62,6 @@ export default function DashboardPage() {
   //
 
   const [selectedProfileID, setSelectedProfileID] = useState<string>('')
-  const selectedProfile = useStore(state =>
-    state.profiles.find(x => x.id === selectedProfileID)
-  )
   const sortedProfiles = useStore(state =>
     state.profiles
       .filter(x => x.visible)
@@ -74,18 +71,13 @@ export default function DashboardPage() {
         return 0
       })
   )
-
-  // Select the first profile if the selected profile is not visible or non-existent
-  useEffect(() => {
-    if (sortedProfiles.length === 0) return
-
-    if (
-      selectedProfileID === '' ||
-      !sortedProfiles.some(x => x.id === selectedProfileID)
-    ) {
-      setSelectedProfileID(sortedProfiles[0].id)
-    }
-  }, [selectedProfileID, sortedProfiles])
+  const activeProfileID =
+    sortedProfiles.find(x => x.id === selectedProfileID)?.id ??
+    sortedProfiles[0]?.id ??
+    ''
+  const selectedProfile = useStore(state =>
+    state.profiles.find(x => x.id === activeProfileID)
+  )
 
   const addProfile = useStore(state => state.addProfile)
   const recommendedMods = useStore(state =>
@@ -324,7 +316,7 @@ export default function DashboardPage() {
                     <ListItemButton
                       key={x.id}
                       onClick={() => setSelectedProfileID(x.id)}
-                      selected={x.id === selectedProfileID}
+                      selected={x.id === activeProfileID}
                     >
                       <ListItemText>{x.name}</ListItemText>
                     </ListItemButton>
@@ -343,7 +335,7 @@ export default function DashboardPage() {
               overflowY: 'auto',
             }}
           >
-            <ProfileDetailsPane profileID={selectedProfileID} />
+            <ProfileDetailsPane profileID={activeProfileID} />
           </Box>
         </>
       ) : (
