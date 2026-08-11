@@ -12,6 +12,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 
 	"lethalmodding.com/concrete/src/app/types"
 )
@@ -23,6 +24,29 @@ type Launcher struct {
 
 func NewLauncher() *Launcher {
 	return &Launcher{}
+}
+
+func secureArchivePath(basePath, archiveName string) (string, error) {
+	basePath, err := filepath.Abs(basePath)
+	if err != nil {
+		return "", fmt.Errorf("failed to resolve destination path: %w", err)
+	}
+
+	archivePath := filepath.FromSlash(archiveName)
+	if filepath.IsAbs(archivePath) {
+		return "", fmt.Errorf("invalid archive path: %s", archiveName)
+	}
+
+	targetPath := filepath.Clean(filepath.Join(basePath, archivePath))
+	destinationPrefix := basePath
+	if !strings.HasSuffix(destinationPrefix, string(os.PathSeparator)) {
+		destinationPrefix += string(os.PathSeparator)
+	}
+	if !strings.HasPrefix(targetPath, destinationPrefix) {
+		return "", fmt.Errorf("invalid archive path: %s", archiveName)
+	}
+
+	return targetPath, nil
 }
 
 var (
@@ -80,15 +104,18 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 		// Close the input file
 		fileReader.Close()
 
-		var targetPath string
+		var destinationPath string
 
 		// Write /doorstop_config.ini and /winhttp.dll to the game directory
 		if file.Name == "doorstop_config.ini" || file.Name == "winhttp.dll" {
-			// Write the file to the game directory
-			targetPath = gamePath + "/" + file.Name
+			destinationPath = gamePath
 		} else {
-			// Write the file to the profile directory
-			targetPath = profilePath + "/" + file.Name
+			destinationPath = profilePath
+		}
+
+		targetPath, err := secureArchivePath(destinationPath, file.Name)
+		if err != nil {
+			return err
 		}
 
 		// Ensure the directory exists
