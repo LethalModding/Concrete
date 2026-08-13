@@ -25,7 +25,7 @@ func main() {
 
 	err := wails.Run(&options.App{
 		AssetServer: &assetserver.Options{Assets: assets},
-		Bind: []interface{}{
+		Bind: []any{
 			app,
 			app.Steam,
 			launcher.NewLauncher(),

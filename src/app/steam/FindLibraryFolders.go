@@ -31,9 +31,9 @@ func (s *Steam) FindLibraryFolders() error {
 			"could not parse Steam library folders", err)
 	}
 
-	vdfMap = vdfMap["libraryfolders"].(map[string]interface{})
+	vdfMap = vdfMap["libraryfolders"].(map[string]any)
 	for _, entry := range vdfMap {
-		this := entry.(map[string]interface{})
+		this := entry.(map[string]any)
 		if this["path"] == nil {
 			continue
 		}
