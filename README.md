@@ -7,13 +7,7 @@
 
 ### First-Time Setup
 
-If this is your first time using NodeJS, you should install Yarn to work with this project:
-
-(You only need to do this once per system you develop on.)
-
-```bash
-npm install -g yarn
-```
+If this is your first time using NodeJS, install Bun to work with this project: [bun.sh](https://bun.sh).
 
 Then, we can clone the repository into a path of your choosing:
 
@@ -33,21 +27,23 @@ go get -u ./...
 cd frontend
 
 # Install NodeJS dependencies
-yarn install
+bun install
 cd ..
 ```
 
 ### Running in Dev Mode
 
 You can run the application locally in dev mode with the following command:
+
 ```bash
 LOGXI=* wails dev
 ```
 
 > May need build to in the front end first, if so...
+
 ```bash
 cd frontend
-yarn run build
+bun run build
 cd ..
 LOGXI=* wails dev
 ```
