@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from '@/components/mui/Link'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
