@@ -33,17 +33,11 @@ export default function LoginButtons(props: Props): JSX.Element {
 
       <Button variant="contained">
         Github
-        <GitHubIcon
-          color="action"
-          sx={{ ml: '0.25em' }}
-        />
+        <GitHubIcon color="action" sx={{ ml: '0.25em' }} />
       </Button>
 
       {onDontClick ? (
-        <Button
-          variant="outlined"
-          onClick={onDontClick}
-        >
+        <Button variant="outlined" onClick={onDontClick}>
           Don&apos;t
         </Button>
       ) : null}

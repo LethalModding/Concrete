@@ -1,4 +1,3 @@
-import { useStore } from '@/store'
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -11,6 +10,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import { useCallback, useMemo } from 'react'
+import { useStore } from '@/store'
 
 type Props = {
   detailed?: boolean
@@ -24,7 +24,7 @@ export default function ModListItem(props: Props) {
   const { detailed, draggable, imageSize, profileID } = props
 
   const profile = useStore(state =>
-    state.profiles.find(x => x.id === profileID)
+    state.profiles.find(x => x.id === profileID),
   )
 
   const updateProfile = useStore(state => state.updateProfile)
@@ -37,7 +37,7 @@ export default function ModListItem(props: Props) {
         disabledMods: profile.disabledMods?.filter(x => x !== modID) || [],
       })
     },
-    [profile, updateProfile]
+    [profile, updateProfile],
   )
 
   const mod = useStore(state => state.mods.find(x => x.id === props.modID))
@@ -58,102 +58,95 @@ export default function ModListItem(props: Props) {
   }, [mod])
 
   return (
-    <>
-      <Paper
-        elevation={profile?.visible ? 2 : 0}
-        key={profile?.id || 'invalid'}
-        ref={setNodeRef}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'row',
-          justifyContent: 'center',
+    <Paper
+      elevation={profile?.visible ? 2 : 0}
+      key={profile?.id || 'invalid'}
+      ref={setNodeRef}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
 
-          color: profile?.visible ? 'text.primary' : 'text.disabled',
-          transform: CSS.Translate.toString(transform),
-        }}
-        {...listeners}
-        {...attributes}
-      >
-        {profile && mod ? (
-          <>
-            {draggable ? (
-              <Tooltip title="Drag to Reorder">
-                <DragIndicatorIcon sx={{ cursor: 'grab' }} />
-              </Tooltip>
-            ) : null}
+        color: profile?.visible ? 'text.primary' : 'text.disabled',
+        transform: CSS.Translate.toString(transform),
+      }}
+      {...listeners}
+      {...attributes}
+    >
+      {profile && mod ? (
+        <>
+          {draggable ? (
+            <Tooltip title="Drag to Reorder">
+              <DragIndicatorIcon sx={{ cursor: 'grab' }} />
+            </Tooltip>
+          ) : null}
 
-            <Box
-              sx={{
-                // m: -0.5,
-                m: 0.5,
+          <Box
+            sx={{
+              // m: -0.5,
+              m: 0.5,
 
-                '&, & > img': {
-                  borderRadius: 1,
-                  height: `${imageSize}px`,
-                  overflow: 'hidden',
-                  width: `${imageSize}px`,
-                },
-              }}
+              '&, & > img': {
+                borderRadius: 1,
+                height: `${imageSize}px`,
+                overflow: 'hidden',
+                width: `${imageSize}px`,
+              },
+            }}
+          >
+            <Image
+              alt={mod.name}
+              height={imageSize}
+              loading="lazy"
+              quality={100}
+              src={modIcon}
+              width={imageSize}
+            />
+          </Box>
+
+          <Box
+            sx={{
+              borderLeft: '1px solid',
+              borderColor: 'divider',
+              pl: imageSize / 96,
+            }}
+          >
+            <Typography
+              sx={{ gridColumnStart: 1, gridColumnEnd: 3 }}
+              variant="h6"
             >
-              <Image
-                alt={mod.name}
-                height={imageSize}
-                loading="lazy"
-                quality={100}
-                src={modIcon}
-                width={imageSize}
-              />
-            </Box>
-
-            <Box
-              sx={{
-                borderLeft: '1px solid',
-                borderColor: 'divider',
-                pl: imageSize / 96,
-              }}
+              {mod.name.replace(/_/g, ' ')}
+            </Typography>
+            <Typography
+              color="text.secondary"
+              sx={{ mt: -0.75 }}
+              variant="subtitle1"
             >
-              <Typography
-                sx={{ gridColumnStart: 1, gridColumnEnd: 3 }}
-                variant="h6"
-              >
-                {mod.name.replace(/_/g, ' ')}
-              </Typography>
+              {mod.owner}
               <Typography
                 color="text.secondary"
-                sx={{ mt: -0.75 }}
-                variant="subtitle1"
+                sx={{ ml: 0.5 }}
+                variant="caption"
               >
-                {mod.owner}
-                <Typography
-                  color="text.secondary"
-                  sx={{ ml: 0.5 }}
-                  variant="caption"
-                >
-                  ({mod.version})
-                </Typography>
+                ({mod.version})
               </Typography>
-            </Box>
+            </Typography>
+          </Box>
 
-            <Divider sx={{ mx: 'auto' }} />
+          <Divider sx={{ mx: 'auto' }} />
 
-            {detailed ? (
-              <>
-                <Tooltip title="Delete">
-                  <IconButton
-                    color="error"
-                    onClick={() => deleteMod(mod.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
-              </>
-            ) : null}
-          </>
-        ) : (
-          <Typography variant="h5">Invalid Mod</Typography>
-        )}
-      </Paper>
-    </>
+          {detailed ? (
+            <Tooltip title="Delete">
+              <IconButton color="error" onClick={() => deleteMod(mod.id)}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          ) : null}
+        </>
+      ) : (
+        <Typography variant="h5">Invalid Mod</Typography>
+      )}
+    </Paper>
   )
 }

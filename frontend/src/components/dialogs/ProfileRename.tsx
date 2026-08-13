@@ -1,11 +1,11 @@
-import { type Profile } from '@/store'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
-import { useCallback, useEffect, useState, type ChangeEvent } from 'react'
+import { type ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { type Profile } from '@/store'
 
 type Props = {
   onCancel: () => void
@@ -41,11 +41,7 @@ export default function ProfileRenameDialog(props: Props) {
   }, [name, onSubmit])
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth="sm"
-    >
+    <Dialog open={open} onClose={onClose} maxWidth="sm">
       <DialogTitle>Rename Profile</DialogTitle>
 
       <DialogContent dividers>
@@ -61,16 +57,10 @@ export default function ProfileRenameDialog(props: Props) {
       </DialogContent>
 
       <DialogActions>
-        <Button
-          color="primary"
-          onClick={onCancel}
-        >
+        <Button color="primary" onClick={onCancel}>
           Cancel
         </Button>
-        <Button
-          color="primary"
-          onClick={handleClickRename}
-        >
+        <Button color="primary" onClick={handleClickRename}>
           Rename
         </Button>
       </DialogActions>

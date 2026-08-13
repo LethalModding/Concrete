@@ -1,4 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -8,11 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Grow from '@mui/material/Grow'
 import IconButton from '@mui/material/IconButton'
 import { useCallback, useEffect, useState } from 'react'
-
 import { GetConfig } from '@/../wailsjs/go/gui/App'
-
 import { types } from '@/../wailsjs/go/models'
-import Box from '@mui/material/Box'
 
 type Props = {
   open: boolean

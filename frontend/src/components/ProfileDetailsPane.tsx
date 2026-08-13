@@ -1,4 +1,3 @@
-import { useStore } from '@/store'
 import PencilIcon from '@mui/icons-material/Edit'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -7,13 +6,14 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import ListItemText from '@mui/material/ListItemText'
 import Paper from '@mui/material/Paper'
+import { type Theme } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { type Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useCallback, useMemo, useState, type SyntheticEvent } from 'react'
+import { type SyntheticEvent, useCallback, useMemo, useState } from 'react'
+import { useStore } from '@/store'
 import ModListItem from './ModListItem'
 
 type Props = {
@@ -31,14 +31,14 @@ export default function ProfileDetailsPane(props: Props) {
     (_event: SyntheticEvent, newValue: number) => {
       setSelectedTab(newValue)
     },
-    []
+    [],
   )
 
   const profile = useStore(state =>
-    state.profiles.find(x => x.id === profileID)
+    state.profiles.find(x => x.id === profileID),
   )
   const recommendedMods = useStore(state =>
-    state.mods.filter(x => x.recommended)
+    state.mods.filter(x => x.recommended),
   )
   const enabledMods = useStore(state => {
     if (!profile) return []
@@ -208,10 +208,7 @@ export default function ProfileDetailsPane(props: Props) {
 
           {profile.owner !== 'local' ? (
             <Paper>
-              <ListItemText
-                primary="Owner"
-                secondary={profile.owner}
-              />
+              <ListItemText primary="Owner" secondary={profile.owner} />
             </Paper>
           ) : null}
 
@@ -251,24 +248,15 @@ export default function ProfileDetailsPane(props: Props) {
             mt: 0.5,
           }}
         >
-          <Typography
-            color="text.secondary"
-            variant="body1"
-          >
+          <Typography color="text.secondary" variant="body1">
             {profile.description ?? 'No description provided.'}
           </Typography>
 
-          <Typography
-            sx={{ mt: 2 }}
-            variant="h6"
-          >
+          <Typography sx={{ mt: 2 }} variant="h6">
             README
           </Typography>
 
-          <Paper
-            elevation={2}
-            sx={{ my: 0.5, p: 1, px: 1.5 }}
-          >
+          <Paper elevation={2} sx={{ my: 0.5, p: 1, px: 1.5 }}>
             <Typography variant="body1">
               {profile.instructions ?? 'No README provided.'}
             </Typography>
@@ -292,10 +280,7 @@ export default function ProfileDetailsPane(props: Props) {
           >
             {profile.enabledMods.length ||
             profile.disabledMods?.length ? null : (
-              <Typography
-                sx={{ mb: 2, ml: 0.5 }}
-                variant="h6"
-              >
+              <Typography sx={{ mb: 2, ml: 0.5 }} variant="h6">
                 Profile contains no mods (yet).
               </Typography>
             )}
@@ -333,11 +318,7 @@ export default function ProfileDetailsPane(props: Props) {
                   p: 2,
                 }}
               >
-                <Typography
-                  align="center"
-                  color="textSecondary"
-                  variant="h6"
-                >
+                <Typography align="center" color="textSecondary" variant="h6">
                   Missing {missingRecommendedMods.length} recommended mods.
                 </Typography>
 

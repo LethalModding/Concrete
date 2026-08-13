@@ -1,4 +1,3 @@
-import { useStore } from '@/store'
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
@@ -14,6 +13,7 @@ import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { useCallback } from 'react'
+import { useStore } from '@/store'
 
 type Props = {
   detailed?: boolean
@@ -26,7 +26,7 @@ export default function ProfileListItem(props: Props) {
   const { detailed, draggable, onClickRename, profileID } = props
 
   const profile = useStore(state =>
-    state.profiles.find(x => x.id === profileID)
+    state.profiles.find(x => x.id === profileID),
   )
 
   const addProfile = useStore(state => state.addProfile)
@@ -59,86 +59,81 @@ export default function ProfileListItem(props: Props) {
   })
 
   return (
-    <>
-      <Paper
-        elevation={profile?.visible ? 2 : 0}
-        key={profile?.id || 'invalid'}
-        ref={setNodeRef}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'row',
-          gap: 0.5,
+    <Paper
+      elevation={profile?.visible ? 2 : 0}
+      key={profile?.id || 'invalid'}
+      ref={setNodeRef}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 0.5,
 
-          color: profile?.visible ? 'text.primary' : 'text.disabled',
-          px: 1,
-          py: 0.5,
-          transform: CSS.Translate.toString(transform),
-        }}
-        {...listeners}
-        {...attributes}
-      >
-        {profile ? (
-          <>
-            {draggable ? (
-              <Tooltip title="Drag to Reorder">
-                <DragIndicatorIcon sx={{ cursor: 'grab' }} />
-              </Tooltip>
-            ) : null}
+        color: profile?.visible ? 'text.primary' : 'text.disabled',
+        px: 1,
+        py: 0.5,
+        transform: CSS.Translate.toString(transform),
+      }}
+      {...listeners}
+      {...attributes}
+    >
+      {profile ? (
+        <>
+          {draggable ? (
+            <Tooltip title="Drag to Reorder">
+              <DragIndicatorIcon sx={{ cursor: 'grab' }} />
+            </Tooltip>
+          ) : null}
 
-            <Typography
-              sx={{ mx: 1 }}
-              variant="h5"
-            >
-              {profile.name}
-            </Typography>
+          <Typography sx={{ mx: 1 }} variant="h5">
+            {profile.name}
+          </Typography>
 
-            {onClickRename ? (
-              <Tooltip title="Rename">
-                <IconButton onClick={onClickRename}>
-                  <EditIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            ) : null}
-
-            <Divider sx={{ mx: 'auto' }} />
-
-            <Tooltip title="Duplicate">
-              <IconButton onClick={duplicateProfile}>
-                <ContentCopyIcon />
+          {onClickRename ? (
+            <Tooltip title="Rename">
+              <IconButton onClick={onClickRename}>
+                <EditIcon fontSize="small" />
               </IconButton>
             </Tooltip>
+          ) : null}
 
-            {detailed ? (
-              <>
-                <Tooltip title={profile.visible ? 'Hide' : 'Show'}>
-                  <IconButton onClick={toggleProfileVisibility}>
-                    {profile.visible ? <VisibleIcon /> : <InvisibleIcon />}
-                  </IconButton>
-                </Tooltip>
+          <Divider sx={{ mx: 'auto' }} />
 
-                {/* TODO: PUBLISH */}
-                <Tooltip title="Publish (Coming Soon)">
-                  <IconButton disabled>
-                    <PublishIcon />
-                  </IconButton>
-                </Tooltip>
+          <Tooltip title="Duplicate">
+            <IconButton onClick={duplicateProfile}>
+              <ContentCopyIcon />
+            </IconButton>
+          </Tooltip>
 
-                <Tooltip title="Delete">
-                  <IconButton
-                    color="error"
-                    onClick={() => deleteProfile(profile.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
-              </>
-            ) : null}
-          </>
-        ) : (
-          <Typography variant="h5">Invalid Profile</Typography>
-        )}
-      </Paper>
-    </>
+          {detailed ? (
+            <>
+              <Tooltip title={profile.visible ? 'Hide' : 'Show'}>
+                <IconButton onClick={toggleProfileVisibility}>
+                  {profile.visible ? <VisibleIcon /> : <InvisibleIcon />}
+                </IconButton>
+              </Tooltip>
+
+              {/* TODO: PUBLISH */}
+              <Tooltip title="Publish (Coming Soon)">
+                <IconButton disabled>
+                  <PublishIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Delete">
+                <IconButton
+                  color="error"
+                  onClick={() => deleteProfile(profile.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          ) : null}
+        </>
+      ) : (
+        <Typography variant="h5">Invalid Profile</Typography>
+      )}
+    </Paper>
   )
 }

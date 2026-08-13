@@ -1,5 +1,5 @@
-import { create, type StateCreator } from 'zustand'
 import { v4 as uuidv4 } from 'uuid'
+import { create, type StateCreator } from 'zustand'
 
 type UUID = string
 
@@ -72,7 +72,7 @@ const createModSlice: StateCreator<
       mod = {
         ...existingMod,
         ...mod,
-        updated: new Date().getTime(),
+        updated: Date.now(),
       }
     }
 
@@ -82,7 +82,7 @@ const createModSlice: StateCreator<
         {
           ...mod,
           id: mod.id ?? uuidv4(),
-          created: mod.created ?? new Date().getTime(),
+          created: mod.created ?? Date.now(),
           name: mod.name ?? 'Untitled Mod',
           owner: mod.owner ?? 'local',
           version: mod.version ?? '0.1.0',
@@ -107,7 +107,7 @@ const createModSlice: StateCreator<
     const newMod = {
       ...mods.find(x => x.id === id),
       ...mod,
-      updated: new Date().getTime(),
+      updated: Date.now(),
     } as Mod
 
     set({
@@ -133,7 +133,7 @@ const createProfileSlice: StateCreator<
         {
           ...profile,
           id: profile.id ?? uuidv4(),
-          created: profile.created ?? new Date().getTime(),
+          created: profile.created ?? Date.now(),
           enabledMods: profile.enabledMods ?? [],
           name: profile.name ?? 'Untitled Profile',
           order: profile.order ?? state.profiles.length + 1,
@@ -178,7 +178,7 @@ const createProfileSlice: StateCreator<
     const newProfile = {
       ...profiles.find(x => x.id === id),
       ...profile,
-      updated: new Date().getTime(),
+      updated: Date.now(),
     } as Profile
 
     set({

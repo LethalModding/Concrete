@@ -1,6 +1,6 @@
 import { responsiveFontSizes } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
-import { VT323, Open_Sans } from 'next/font/google'
+import { Open_Sans, VT323 } from 'next/font/google'
 
 export const vt323 = VT323({
   display: 'swap',

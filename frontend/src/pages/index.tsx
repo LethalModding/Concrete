@@ -1,5 +1,3 @@
-import LoginButtons from '@/components/LoginButtons'
-import { useStore } from '@/store'
 import CheckIcon from '@mui/icons-material/Check'
 import CrossIcon from '@mui/icons-material/Close'
 import Box from '@mui/material/Box'
@@ -17,7 +15,6 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-
 import {
   BrowseDirectory,
   GetConfig,
@@ -26,11 +23,12 @@ import {
   GetTSMod,
   SetConfigValue,
 } from '@/../wailsjs/go/gui/App'
-
 import {
   ValidateLibraryPath,
   ValidateSteamPath,
 } from '@/../wailsjs/go/steam/Steam'
+import LoginButtons from '@/components/LoginButtons'
+import { useStore } from '@/store'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true)
@@ -77,7 +75,7 @@ export default function HomePage() {
           SetConfigValue('SteamPath', chosenSteamPath)
           break
 
-        case 2:
+        case 2: {
           SetConfigValue('LibraryPath', chosenLibraryPath)
 
           const interval = setInterval(() => {
@@ -88,6 +86,7 @@ export default function HomePage() {
           }, 250)
 
           break
+        }
       }
 
       return step + 1
@@ -165,11 +164,11 @@ export default function HomePage() {
           recommended: true,
           tags:
             parsedMod.community_listings.filter(
-              (x: { community: string }) => x.community === 'lethal-company'
+              (x: { community: string }) => x.community === 'lethal-company',
             )?.[0]?.categories || [],
 
           dependencies: parsedMod.latest.dependencies.map(
-            (x: string) => `ts-${x}`
+            (x: string) => `ts-${x}`,
           ),
           version: parsedMod.latest.version_number,
         })
@@ -235,18 +234,10 @@ export default function HomePage() {
       }}
     >
       <Collapse in={loading}>
-        <Typography
-          component="h1"
-          gutterBottom
-          variant="h3"
-        >
+        <Typography component="h1" gutterBottom variant="h3">
           Concrete - LethalModding.com
         </Typography>
-        <Typography
-          color="text.secondary"
-          component="h2"
-          variant="h5"
-        >
+        <Typography color="text.secondary" component="h2" variant="h5">
           Your source for Lethal Company mods
         </Typography>
 
@@ -261,11 +252,7 @@ export default function HomePage() {
         >
           <CircularProgress size="2em" />
 
-          <Typography
-            color="text.secondary"
-            component="h3"
-            variant="h6"
-          >
+          <Typography color="text.secondary" component="h3" variant="h6">
             Loading...
           </Typography>
         </Box>
@@ -309,15 +296,9 @@ export default function HomePage() {
                 InputProps={{
                   readOnly: true,
                   startAdornment: steamPathValid ? (
-                    <CheckIcon
-                      color="success"
-                      sx={{ mr: 0.5 }}
-                    />
+                    <CheckIcon color="success" sx={{ mr: 0.5 }} />
                   ) : (
-                    <CrossIcon
-                      color="error"
-                      sx={{ mr: 0.5 }}
-                    />
+                    <CrossIcon color="error" sx={{ mr: 0.5 }} />
                   ),
                 }}
                 label="Path to your Steam Executable"
@@ -350,15 +331,9 @@ export default function HomePage() {
                   onChange={e => setChosenLibraryPath(e.target.value)}
                   startAdornment={
                     libraryPathValid ? (
-                      <CheckIcon
-                        color="success"
-                        sx={{ mr: 0.5 }}
-                      />
+                      <CheckIcon color="success" sx={{ mr: 0.5 }} />
                     ) : (
-                      <CrossIcon
-                        color="error"
-                        sx={{ mr: 0.5 }}
-                      />
+                      <CrossIcon color="error" sx={{ mr: 0.5 }} />
                     )
                   }
                   sx={{
@@ -368,10 +343,7 @@ export default function HomePage() {
                 >
                   <ListSubheader>Detected from Steam</ListSubheader>
                   {detectedLibraryPaths.map(folder => (
-                    <MenuItem
-                      key={folder}
-                      value={folder}
-                    >
+                    <MenuItem key={folder} value={folder}>
                       {folder}
                     </MenuItem>
                   ))}
@@ -396,18 +368,10 @@ export default function HomePage() {
                 gap: 1,
               }}
             >
-              <Typography
-                color="text.secondary"
-                component="h3"
-                variant="h6"
-              >
+              <Typography color="text.secondary" component="h3" variant="h6">
                 Loading recommended mods...
               </Typography>
-              <Typography
-                color="text.secondary"
-                component="h3"
-                variant="h6"
-              >
+              <Typography color="text.secondary" component="h3" variant="h6">
                 {loadedMods} / {totalMods}
               </Typography>
 

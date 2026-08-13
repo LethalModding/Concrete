@@ -1,7 +1,3 @@
-import ProfileDetailsPane from '@/components/ProfileDetailsPane'
-import BugReportDialog from '@/components/dialogs/BugReport'
-import SettingsDialog from '@/components/dialogs/Settings'
-import { useStore } from '@/store'
 import BugReportIcon from '@mui/icons-material/BugReport'
 import HelpIcon from '@mui/icons-material/Help'
 import PlayIcon from '@mui/icons-material/PlayArrow'
@@ -18,7 +14,11 @@ import ListSubheader from '@mui/material/ListSubheader'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState, type MouseEvent } from 'react'
+import { type MouseEvent, useCallback, useEffect, useState } from 'react'
+import BugReportDialog from '@/components/dialogs/BugReport'
+import SettingsDialog from '@/components/dialogs/Settings'
+import ProfileDetailsPane from '@/components/ProfileDetailsPane'
+import { useStore } from '@/store'
 
 const sidebarMinWidth = 150
 const sidebarMaxWidth = 300
@@ -41,13 +41,13 @@ export default function DashboardPage() {
       if (sidebarDragging) {
         const newWidth = Math.min(
           Math.max(sidebarMinWidth, e.clientX),
-          sidebarMaxWidth
+          sidebarMaxWidth,
         )
 
         setSidebarWidth(newWidth)
       }
     },
-    [sidebarDragging]
+    [sidebarDragging],
   )
 
   const onStartSidebarDrag = useCallback(() => {
@@ -69,19 +69,19 @@ export default function DashboardPage() {
         if (a.order < b.order) return -1
         if (a.order > b.order) return 1
         return 0
-      })
+      }),
   )
   const activeProfileID =
     sortedProfiles.find(x => x.id === selectedProfileID)?.id ??
     sortedProfiles[0]?.id ??
     ''
   const selectedProfile = useStore(state =>
-    state.profiles.find(x => x.id === activeProfileID)
+    state.profiles.find(x => x.id === activeProfileID),
   )
 
   const addProfile = useStore(state => state.addProfile)
   const recommendedMods = useStore(state =>
-    state.mods.filter(x => x.recommended)
+    state.mods.filter(x => x.recommended),
   )
   const createProfile = useCallback(
     (useRecommended: boolean = true) => {
@@ -92,7 +92,7 @@ export default function DashboardPage() {
         visible: true,
       })
     },
-    [addProfile, recommendedMods]
+    [addProfile, recommendedMods],
   )
 
   //
@@ -104,7 +104,7 @@ export default function DashboardPage() {
     setBugReporterShown(true)
   }, [])
 
-  const [helpShown, setHelpShown] = useState(false)
+  const [_helpShown, setHelpShown] = useState(false)
   const showHelp = useCallback(() => {
     setHelpShown(true)
   }, [])
@@ -188,19 +188,11 @@ export default function DashboardPage() {
       >
         <CircularProgress size="4em" />
 
-        <Typography
-          color="text.secondary"
-          component="h3"
-          variant="h4"
-        >
+        <Typography color="text.secondary" component="h3" variant="h4">
           Launching Game
         </Typography>
 
-        <Typography
-          color="text.secondary"
-          component="p"
-          variant="body1"
-        >
+        <Typography color="text.secondary" component="p" variant="body1">
           This may take a few moments.
         </Typography>
       </Backdrop>
@@ -225,22 +217,13 @@ export default function DashboardPage() {
                 m: 1,
               }}
             >
-              <IconButton
-                onClick={showBugReport}
-                title="Report Bug"
-              >
+              <IconButton onClick={showBugReport} title="Report Bug">
                 <BugReportIcon />
               </IconButton>
-              <IconButton
-                onClick={showHelp}
-                title="Get Help"
-              >
+              <IconButton onClick={showHelp} title="Get Help">
                 <HelpIcon />
               </IconButton>
-              <IconButton
-                onClick={showSettings}
-                title="Settings"
-              >
+              <IconButton onClick={showSettings} title="Settings">
                 <SettingsIcon />
               </IconButton>
             </Box>
@@ -348,18 +331,11 @@ export default function DashboardPage() {
             justifyContent: 'center',
           }}
         >
-          <Typography
-            align="center"
-            variant="h3"
-          >
+          <Typography align="center" variant="h3">
             Create Your First Profile
           </Typography>
 
-          <Typography
-            align="center"
-            color="textSecondary"
-            variant="h6"
-          >
+          <Typography align="center" color="textSecondary" variant="h6">
             Get started by creating a new profile.
           </Typography>
 
@@ -371,10 +347,7 @@ export default function DashboardPage() {
             Recommended Mods
           </Button>
 
-          <Button
-            onClick={() => createProfile(false)}
-            variant="outlined"
-          >
+          <Button onClick={() => createProfile(false)} variant="outlined">
             No Mods (Empty)
           </Button>
         </Box>

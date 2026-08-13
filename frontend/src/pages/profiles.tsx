@@ -1,6 +1,3 @@
-import ProfileListItem from '@/components/ProfileListItem'
-import ProfileRenameDialog from '@/components/dialogs/ProfileRename'
-import { useStore, type Profile } from '@/store'
 import {
   DndContext,
   DragEndEvent,
@@ -22,6 +19,9 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
+import ProfileRenameDialog from '@/components/dialogs/ProfileRename'
+import ProfileListItem from '@/components/ProfileListItem'
+import { type Profile, useStore } from '@/store'
 
 export default function ProfilesPage() {
   const [editing, setEditing] = useState<Profile | null>(null)
@@ -39,7 +39,7 @@ export default function ProfilesPage() {
         name,
       })
     },
-    [editing, updateProfile]
+    [editing, updateProfile],
   )
 
   //
@@ -74,12 +74,12 @@ export default function ProfilesPage() {
       const delta = e.delta.y / 75
       const targetIndex = Math.max(
         0,
-        Math.min(sortedProfiles.length - 1, sourceIndex + delta)
+        Math.min(sortedProfiles.length - 1, sourceIndex + delta),
       )
 
       reorderProfile(sourceIndex, targetIndex)
     },
-    [sortedProfiles, reorderProfile]
+    [sortedProfiles, reorderProfile],
   )
 
   const pointerSensor = useSensor(PointerSensor, {
@@ -96,7 +96,7 @@ export default function ProfilesPage() {
     mouseSensor,
     touchSensor,
     keyboardSensor,
-    pointerSensor
+    pointerSensor,
   )
 
   //
@@ -128,10 +128,7 @@ export default function ProfilesPage() {
       >
         <Typography variant="h4">
           <Tooltip title="Back to Dashboard">
-            <IconButton
-              onClick={navigateHome}
-              sx={{ mr: 1.5, mt: -0.5 }}
-            >
+            <IconButton onClick={navigateHome} sx={{ mr: 1.5, mt: -0.5 }}>
               <BackIcon />
             </IconButton>
           </Tooltip>
@@ -180,11 +177,7 @@ export default function ProfilesPage() {
           overflowX: 'hidden',
         }}
       >
-        <DndContext
-          autoScroll
-          onDragEnd={handleDragEnd}
-          sensors={sensors}
-        >
+        <DndContext autoScroll onDragEnd={handleDragEnd} sensors={sensors}>
           {sortedProfiles.map(x => (
             <ProfileListItem
               detailed

@@ -1,8 +1,8 @@
-import Link from '@/components/mui/Link'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import Link from '@/components/mui/Link'
 
 export default function GlobalAppBar() {
   return (
@@ -32,10 +32,7 @@ export default function GlobalAppBar() {
           }}
         />
       </Link>
-      <Typography
-        sx={{ flex: 1 }}
-        variant="h6"
-      >
+      <Typography sx={{ flex: 1 }} variant="h6">
         Concrete
       </Typography>
       <Box
