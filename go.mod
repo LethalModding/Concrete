@@ -1,6 +1,6 @@
 module lethalmodding.com/concrete
 
-go 1.26.5
+go 1.26.6
 
 require (
 	github.com/AlbinoGeek/logxi v0.0.0-20200425095309-d0ab8e34db2d
