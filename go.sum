@@ -1,7 +1,7 @@
 git.sr.ht/~jackmordaunt/go-toast/v2 v2.0.3 h1:N3IGoHHp9pb6mj1cbXbuaSXV/UMKwmbKLf53nQmtqMA=
 git.sr.ht/~jackmordaunt/go-toast/v2 v2.0.3/go.mod h1:QtOLZGz8olr4qH2vWK0QH0w0O4T9fEIjMuWpKUsH7nc=
-github.com/AlbinoGeek/logxi v0.0.0-20200425095309-d0ab8e34db2d h1:5uG+YuRcasStTBZTEKvOm4aMK0mQs+fQrcXG312EO6M=
-github.com/AlbinoGeek/logxi v0.0.0-20200425095309-d0ab8e34db2d/go.mod h1:EZboUcB29j/1PDNBXwG7iNQuy2oCbbASd/qDiCzAekU=
+github.com/AlbinoGeek/logxi v0.0.0-20260814053308-6796234b10ca h1:gnJFLjdSJIC76YQfHIcfMzJym1aF7+O7vkIRNuABRlo=
+github.com/AlbinoGeek/logxi v0.0.0-20260814053308-6796234b10ca/go.mod h1:EZboUcB29j/1PDNBXwG7iNQuy2oCbbASd/qDiCzAekU=
 github.com/andygrunwald/vdf v1.1.0 h1:gmstp0R7DOepIZvWoSJY97ix7QOrsxpGPU6KusKXqvw=
 github.com/andygrunwald/vdf v1.1.0/go.mod h1:f31AAs7HOKvs5B167iwLHwKuqKc4bE46Vdt7xQogA0o=
 github.com/bep/debounce v1.2.1 h1:v67fRdBA9UQu2NhLFXrSg0Brw7CexQekrBwDMM8bzeY=
