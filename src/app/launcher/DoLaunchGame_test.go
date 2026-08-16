@@ -61,7 +61,7 @@ func Test_InstallBepInEx(t *testing.T) {
 		t.Errorf("Test_InstallBepInEx failed: %v", err)
 		return
 	}
-	defer os.RemoveAll(tmpGamePath)
+	defer func() { _ = os.RemoveAll(tmpGamePath) }()
 
 	// Create a temp profilePath
 	tmpProfilePath, err := os.MkdirTemp("", "Test_InstallBepInEx_profilePath")
@@ -69,7 +69,7 @@ func Test_InstallBepInEx(t *testing.T) {
 		t.Errorf("Test_InstallBepInEx failed: %v", err)
 		return
 	}
-	defer os.RemoveAll(tmpProfilePath)
+	defer func() { _ = os.RemoveAll(tmpProfilePath) }()
 
 	// Fail on bad gamePath
 	if err := l.InstallBepInEx("does_not_exist", ""); err != nil {

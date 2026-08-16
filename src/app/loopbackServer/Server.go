@@ -35,12 +35,11 @@ func (s *Server) Start() error {
 	})
 
 	s.echo.HideBanner = true
-	err := s.echo.Start(strings.Split(s.URL(), "://")[1])
 
+	// Start blocks until the server is shut down via Stop.
 	s.running = true
-	for s.running {
-		// Wait for the server to stop
-	}
+	err := s.echo.Start(strings.Split(s.URL(), "://")[1])
+	s.running = false
 
 	return err
 }

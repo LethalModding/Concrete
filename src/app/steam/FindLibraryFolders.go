@@ -21,7 +21,7 @@ func (s *Steam) FindLibraryFolders() error {
 		return fmt.Errorf("%w: %s: %v", ErrSteamNotFound,
 			"could not read Steam library folders", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	// Parse the file
 	parser := vdf.NewParser(f)

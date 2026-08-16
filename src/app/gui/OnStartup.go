@@ -16,7 +16,7 @@ func (app *App) OnStartup(ctx context.Context) {
 	// Initialize reference to the Steam installation
 	//
 	if err := app.Steam.Find(); err != nil {
-		app.logger.Error("Failed to find Steam installation", "error", err)
+		_ = app.logger.Error("Failed to find Steam installation", "error", err)
 	} else {
 		app.logger.Info("Found Steam installation",
 			"configured path", app.Config.SteamPath,
@@ -33,7 +33,7 @@ func (app *App) OnStartup(ctx context.Context) {
 		"url", app.LoopbackServer.URL())
 	go func() {
 		if err := app.LoopbackServer.Start(); err != nil {
-			app.logger.Error("Failed to start local web server", "error", err)
+			_ = app.logger.Error("Failed to start local web server", "error", err)
 		}
 	}()
 }

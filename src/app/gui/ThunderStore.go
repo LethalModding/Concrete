@@ -24,7 +24,7 @@ func APIGet(path string) (string, error) {
 		return "", err
 	}
 
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -37,14 +37,14 @@ func APIGet(path string) (string, error) {
 func (a *App) GetRecommendedMods() []string {
 	result, err := APIGet("concrete/mods/recommended")
 	if err != nil {
-		a.logger.Error("Error getting recommended mods", "error", err)
+		_ = a.logger.Error("Error getting recommended mods", "error", err)
 		return nil
 	}
 
 	var mods []string
 	err = json.Unmarshal([]byte(result), &mods)
 	if err != nil {
-		a.logger.Error("Error unmarshalling response", "error", err)
+		_ = a.logger.Error("Error unmarshalling response", "error", err)
 		return nil
 	}
 
@@ -54,7 +54,7 @@ func (a *App) GetRecommendedMods() []string {
 func (a *App) GetTSMod(name string) string {
 	result, err := APIGet(fmt.Sprintf("ts/package/%s", name))
 	if err != nil {
-		a.logger.Error("Error getting TS mod", "error", err)
+		_ = a.logger.Error("Error getting TS mod", "error", err)
 		return ""
 	}
 

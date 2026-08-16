@@ -9,7 +9,7 @@ func (a *App) BrowseDirectory(title string) string {
 		Title:                title,
 	})
 	if err != nil {
-		a.logger.Error("Failed to open directory dialog", "error", err)
+		_ = a.logger.Error("Failed to open directory dialog", "error", err)
 		return ""
 	}
 

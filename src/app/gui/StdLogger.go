@@ -29,11 +29,11 @@ func (l LogxiStdLogger) Info(message string) {
 }
 
 func (l LogxiStdLogger) Warning(message string) {
-	l.logger.Warn(message)
+	_ = l.logger.Warn(message)
 }
 
 func (l LogxiStdLogger) Error(message string) {
-	l.logger.Error(message)
+	_ = l.logger.Error(message)
 }
 
 func (l LogxiStdLogger) Fatal(message string) {

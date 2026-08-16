@@ -68,7 +68,7 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	// Extract the BepInEx release
 	body, err := io.ReadAll(resp.Body)
@@ -93,16 +93,13 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 		if err != nil {
 			return err
 		}
-		defer fileReader.Close()
+		defer func() { _ = fileReader.Close() }()
 
 		// TODO: Chunking for large files
 		data := make([]byte, file.UncompressedSize64)
 		if _, err = fileReader.Read(data); err != nil && err != io.EOF {
 			return err
 		}
-
-		// Close the input file
-		fileReader.Close()
 
 		var destinationPath string
 
@@ -119,7 +116,9 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 		}
 
 		// Ensure the directory exists
-		os.MkdirAll(filepath.Dir(targetPath), 0755)
+		if err := os.MkdirAll(filepath.Dir(targetPath), 0755); err != nil {
+			return err
+		}
 
 		// Create the output file
 		fileWriter, err := os.Create(targetPath)
@@ -132,8 +131,10 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 			return err
 		}
 
-		// Close the output files
-		fileWriter.Close()
+		// Close the output file, flushing it to disk
+		if err := fileWriter.Close(); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -164,11 +165,12 @@ func (l *Launcher) DoLaunchGame(libraryPath, steamPath, profileJSON string) erro
 
 	// Execute the game
 	exeName := ""
-	if runtime.GOOS == "windows" {
+	switch runtime.GOOS {
+	case "windows":
 		exeName = "steam.exe"
-	} else if runtime.GOOS == "darwin" {
+	case "darwin":
 		exeName = "Steam.app"
-	} else if runtime.GOOS == "linux" {
+	case "linux":
 		exeName = "steam"
 	}
 
