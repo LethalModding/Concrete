@@ -32,12 +32,12 @@ export default function BugReportDialog(props: Props) {
       maxWidth="md"
       open={open}
       onClose={onClose}
+      slots={{ transition: Grow }}
       slotProps={{
         backdrop: {
           sx: { bgcolor: 'rgba(0, 0, 0, 0.75)' },
         },
       }}
-      TransitionComponent={Grow}
     >
       <DialogTitle>Bug Report</DialogTitle>
 

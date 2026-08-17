@@ -241,12 +241,16 @@ export default function DashboardPage() {
                     <Box>Play</Box>
                   </>
                 }
-                primaryTypographyProps={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 'bold',
-                  variant: 'h5',
+                slotProps={{
+                  primary: {
+                    variant: 'h5',
+                    sx: {
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 'bold',
+                    },
+                  },
                 }}
               />
             </ListItemButton>

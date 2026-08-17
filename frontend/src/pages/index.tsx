@@ -293,13 +293,15 @@ export default function HomePage() {
               <TextField
                 error={!steamPathValid}
                 fullWidth
-                InputProps={{
-                  readOnly: true,
-                  startAdornment: steamPathValid ? (
-                    <CheckIcon color="success" sx={{ mr: 0.5 }} />
-                  ) : (
-                    <CrossIcon color="error" sx={{ mr: 0.5 }} />
-                  ),
+                slotProps={{
+                  input: {
+                    readOnly: true,
+                    startAdornment: steamPathValid ? (
+                      <CheckIcon color="success" sx={{ mr: 0.5 }} />
+                    ) : (
+                      <CrossIcon color="error" sx={{ mr: 0.5 }} />
+                    ),
+                  },
                 }}
                 label="Path to your Steam Executable"
                 onChange={e => setChosenSteamPath(e.target.value)}

@@ -39,5 +39,7 @@
     // "**/*.ts",
     // "**/*.tsx"
   ],
-  "exclude": ["./node_modules"]
+  // Wails regenerates the .js bindings on every build and they carry no
+  // annotations; their sibling .d.ts files are what callers type against.
+  "exclude": ["./node_modules", "./wailsjs/**/*.js"]
 }
