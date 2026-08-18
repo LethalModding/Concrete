@@ -7,7 +7,7 @@ require (
 	github.com/andygrunwald/vdf v1.1.0
 	github.com/labstack/echo/v4 v4.15.4
 	github.com/satori/go.uuid v1.2.0
-	github.com/wailsapp/wails/v2 v2.14.0
+	github.com/wailsapp/wails/v2 v2.15.0
 	golang.org/x/sys v0.47.0
 )
 
