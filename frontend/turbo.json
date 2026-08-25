@@ -7,7 +7,7 @@
   "tasks": {
     "build": {
       "inputs": ["$TURBO_DEFAULT$"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"]
     },
     "dev": { "cache": false, "persistent": true },
     "lint": { "inputs": ["$TURBO_DEFAULT$"], "outputs": [] },
