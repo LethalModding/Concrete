@@ -27,6 +27,7 @@ ThunderStore HTTP in `src/app/gui/ThunderStore.go` uses `http://localhost:9000/a
 - Production assets from `//go:embed all:frontend/dist/*`; run `bun run build` in `frontend/` before `wails build`.
 - `SingleInstanceLock` UUID in `main.go` stays stable across releases.
 - Launcher stages enabled mods under profile `BepInEx/plugins/` before game start.
+- `frontend/` ships inside the built Wails app — there is no image-optimization endpoint at runtime, so **never use `next/image`**; plain `<img>` is correct here. Satisfy biome's `noImgElement` by scoping the rule off for `frontend/`, not by importing `next/image` (that reflex fix breaks the built app).
 - Install/operator docs: [HUMANS.md](HUMANS.md).
 
 ## Generated code
