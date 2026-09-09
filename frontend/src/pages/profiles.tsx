@@ -148,7 +148,7 @@ export default function ProfilesPage() {
       >
         <Button
           color="primary"
-          fullWidth
+          fullWidth={true}
           onClick={handleClickAdd}
           size="large"
           startIcon={<AddIcon />}
@@ -159,7 +159,7 @@ export default function ProfilesPage() {
 
         <Button
           color="primary"
-          fullWidth
+          fullWidth={true}
           size="large"
           startIcon={<ImportExportIcon />}
           variant="contained"
@@ -178,11 +178,15 @@ export default function ProfilesPage() {
           overflowX: 'hidden',
         }}
       >
-        <DndContext autoScroll onDragEnd={handleDragEnd} sensors={sensors}>
+        <DndContext
+          autoScroll={true}
+          onDragEnd={handleDragEnd}
+          sensors={sensors}
+        >
           {sortedProfiles.map(x => (
             <ProfileListItem
-              detailed
-              draggable
+              detailed={true}
+              draggable={true}
               key={x.id}
               onClickRename={() => setEditing(x)}
               profileID={x.id}

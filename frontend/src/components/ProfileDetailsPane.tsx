@@ -152,7 +152,7 @@ export default function ProfileDetailsPane(props: Props) {
                 fontWeight: 'bold',
                 position: 'relative',
                 // huge white glow
-                textShadow: `0 0 32px rgba(255, 255, 255, 0.5)`,
+                textShadow: '0 0 32px rgba(255, 255, 255, 0.5)',
 
                 '&:before': {
                   content: `"${profile.name}"`,
@@ -185,11 +185,11 @@ export default function ProfileDetailsPane(props: Props) {
             </Paper>
           )}
 
-          {profile.owner !== 'local' ? (
+          {profile.owner === 'local' ? null : (
             <Paper>
               <ListItemText primary="Owner" secondary={profile.owner} />
             </Paper>
-          ) : null}
+          )}
 
           {profile.tags ? (
             <Paper>
@@ -205,7 +205,7 @@ export default function ProfileDetailsPane(props: Props) {
       <Box sx={{ mx: -2 }}>
         <AppBar position="static">
           <Tabs
-            centered
+            centered={true}
             onChange={handleTabChange}
             value={selectedTab}
             variant="fullWidth"

@@ -258,7 +258,7 @@ export default function HomePage() {
       }}
     >
       <Collapse in={loading}>
-        <Typography component="h1" gutterBottom variant="h3">
+        <Typography component="h1" gutterBottom={true} variant="h3">
           Concrete - LethalModding.com
         </Typography>
         <Typography color="text.secondary" component="h2" variant="h5">
@@ -302,7 +302,7 @@ export default function HomePage() {
             flexDirection: 'column',
             gap: 1,
 
-            mx: `calc(40% - 150px)`,
+            mx: 'calc(40% - 150px)',
             p: 2,
           }}
         >
@@ -316,7 +316,7 @@ export default function HomePage() {
             >
               <TextField
                 error={!steamPathValid}
-                fullWidth
+                fullWidth={true}
                 slotProps={{
                   input: {
                     readOnly: true,
@@ -346,14 +346,14 @@ export default function HomePage() {
             >
               <FormControl
                 error={!libraryPathValid}
-                fullWidth
+                fullWidth={true}
                 variant="standard"
               >
                 <InputLabel>
                   Path to your Steam Library containing Lethal Company
                 </InputLabel>
                 <Select
-                  displayEmpty
+                  displayEmpty={true}
                   onChange={e => setChosenLibraryPath(e.target.value)}
                   startAdornment={
                     libraryPathValid ? (
@@ -411,7 +411,7 @@ export default function HomePage() {
                 (oobeStep === 1 && !steamPathValid) ||
                 (oobeStep === 2 && !libraryPathValid)
               }
-              fullWidth
+              fullWidth={true}
               onClick={advanceOOBE}
               variant="contained"
             >

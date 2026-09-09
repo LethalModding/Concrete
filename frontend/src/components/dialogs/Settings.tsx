@@ -33,7 +33,7 @@ export default function SettingsDialog(props: Props) {
 
   return (
     <Dialog
-      fullWidth
+      fullWidth={true}
       maxWidth="md"
       open={open}
       onClose={onClose}
@@ -61,7 +61,7 @@ export default function SettingsDialog(props: Props) {
       </IconButton>
 
       <DialogContent
-        dividers
+        dividers={true}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -76,11 +76,11 @@ export default function SettingsDialog(props: Props) {
           }}
         >
           <pre>
-            Loopback Server Port:{`\t`}
+            Loopback Server Port:{'\t'}
             {config?.loopbackServerPort} <br />
-            Library Path:{`\t\t`}
+            Library Path:{'\t\t'}
             {config?.libraryPath || '<empty string>'} <br />
-            Steam Path:{`\t\t`}
+            Steam Path:{'\t\t'}
             {config?.steamPath || '<empty string>'} <br />
           </pre>
         </Box>

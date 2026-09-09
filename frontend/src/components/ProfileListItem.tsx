@@ -115,7 +115,7 @@ export default function ProfileListItem(props: Props) {
 
               {/* TODO: PUBLISH */}
               <Tooltip title="Publish (Coming Soon)">
-                <IconButton disabled>
+                <IconButton disabled={true}>
                   <PublishIcon />
                 </IconButton>
               </Tooltip>

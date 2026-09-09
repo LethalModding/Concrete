@@ -7,7 +7,7 @@ import Link from '@/components/mui/Link'
 export default function GlobalAppBar() {
   return (
     <AppBar
-      enableColorOnDark
+      enableColorOnDark={true}
       position="static"
       sx={{
         display: 'flex',

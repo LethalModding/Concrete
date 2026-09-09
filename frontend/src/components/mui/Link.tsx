@@ -40,7 +40,7 @@ export function NextLinkComposed(props: NextLinkComposedProps) {
       replace={replace}
       scroll={scroll}
       shallow={shallow}
-      passHref
+      passHref={true}
       locale={locale}
       legacyBehavior={legacyBehavior}
     >

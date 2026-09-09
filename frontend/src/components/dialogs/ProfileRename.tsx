@@ -51,9 +51,9 @@ export default function ProfileRenameDialog(props: Props) {
     <Dialog open={open} onClose={onClose} maxWidth="sm">
       <DialogTitle>Rename Profile</DialogTitle>
 
-      <DialogContent dividers>
+      <DialogContent dividers={true}>
         <TextField
-          fullWidth
+          fullWidth={true}
           id={inputId}
           label="New Profile Name"
           margin="normal"

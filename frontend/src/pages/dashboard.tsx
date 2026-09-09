@@ -86,7 +86,7 @@ export default function DashboardPage() {
     state.mods.filter(x => x.recommended),
   )
   const createProfile = useCallback(
-    (useRecommended: boolean = true) => {
+    (useRecommended = true) => {
       addProfile({
         enabledMods: useRecommended ? recommendedMods.map(mod => mod.id) : [],
         name: 'Default Profile',
@@ -290,11 +290,11 @@ export default function DashboardPage() {
                 onMouseUp={onStopSidebarDrag}
               />
 
-              <List disablePadding>
+              <List disablePadding={true}>
                 <List
-                  disablePadding
+                  disablePadding={true}
                   subheader={
-                    <ListSubheader disableGutters>
+                    <ListSubheader disableGutters={true}>
                       <ListItemButton onClick={navigateProfiles}>
                         <ListItemText>Profiles</ListItemText>
                       </ListItemButton>

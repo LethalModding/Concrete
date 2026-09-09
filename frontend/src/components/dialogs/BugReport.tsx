@@ -28,7 +28,7 @@ export default function BugReportDialog(props: Props) {
 
   return (
     <Dialog
-      fullWidth
+      fullWidth={true}
       maxWidth="md"
       open={open}
       onClose={onClose}
@@ -56,7 +56,7 @@ export default function BugReportDialog(props: Props) {
       </IconButton>
 
       <DialogContent
-        dividers
+        dividers={true}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -70,26 +70,26 @@ export default function BugReportDialog(props: Props) {
         </DialogContentText>
 
         <TextField
-          autoFocus
-          fullWidth
+          autoFocus={true}
+          fullWidth={true}
           label="What were you doing when the bug occurred?"
-          multiline
+          multiline={true}
           rows={1}
           variant="filled"
         />
 
         <TextField
-          fullWidth
+          fullWidth={true}
           label="What did you expect to happen?"
-          multiline
+          multiline={true}
           rows={1}
           variant="filled"
         />
 
         <TextField
-          fullWidth
+          fullWidth={true}
           label="What actually happened?"
-          multiline
+          multiline={true}
           rows={1}
           variant="filled"
         />
@@ -97,9 +97,9 @@ export default function BugReportDialog(props: Props) {
         <Divider />
 
         <TextField
-          fullWidth
+          fullWidth={true}
           label="Additional Information (optional)"
-          multiline
+          multiline={true}
           rows={1}
           variant="filled"
         />
