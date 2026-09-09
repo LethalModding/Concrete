@@ -30,7 +30,8 @@
       "correctness": {
         "preset": "all",
         "noSolidDestructuredProps": "off",
-        "useQwikValidLexicalScope": "off"
+        "useQwikValidLexicalScope": "off",
+        "useImportExtensions": "off"
       },
       "suspicious": { "preset": "all", "noReactSpecificProps": "off" },
       "security": { "preset": "all" },
