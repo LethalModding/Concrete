@@ -70,7 +70,8 @@
           "options": {
             "maxLines": 500
           }
-        }
+        },
+        "noInferrableTypes": "off"
       },
       "complexity": {
         "noExcessiveCognitiveComplexity": "off",
