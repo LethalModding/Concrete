@@ -68,24 +68,20 @@ const createModSlice: StateCreator<
 
     // check the UUID doesn't already exist (if so, replace it)
     const existingMod = state.mods.find(x => x.id === mod.id)
-    if (existingMod) {
-      mod = {
-        ...existingMod,
-        ...mod,
-        updated: Date.now(),
-      }
-    }
+    const merged = existingMod
+      ? { ...existingMod, ...mod, updated: Date.now() }
+      : mod
 
     set({
       mods: [
         ...state.mods.filter(x => x.id !== mod.id),
         {
-          ...mod,
-          id: mod.id ?? uuidv4(),
-          created: mod.created ?? Date.now(),
-          name: mod.name ?? 'Untitled Mod',
-          owner: mod.owner ?? 'local',
-          version: mod.version ?? '0.1.0',
+          ...merged,
+          id: merged.id ?? uuidv4(),
+          created: merged.created ?? Date.now(),
+          name: merged.name ?? 'Untitled Mod',
+          owner: merged.owner ?? 'local',
+          version: merged.version ?? '0.1.0',
         },
       ],
     })

@@ -96,6 +96,9 @@ export default function HomePage() {
 
           break
         }
+
+        default:
+          break
       }
 
       return step + 1
@@ -198,9 +201,9 @@ export default function HomePage() {
           name: parsedMod.name,
           recommended: true,
           tags:
-            parsedMod.community_listings.filter(
+            parsedMod.community_listings.find(
               (x: { community: string }) => x.community === 'lethal-company',
-            )?.[0]?.categories || [],
+            )?.categories || [],
 
           dependencies: parsedMod.latest.dependencies.map(
             (x: string) => `ts-${x}`,
