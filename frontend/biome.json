@@ -51,7 +51,12 @@
         "preset": "all",
         "useSolidForComponent": "off",
         "noJsxPropsBind": "off",
-        "noImgElement": "off"
+        "noImgElement": "off",
+        "noAwaitInLoops": "off"
+      },
+      "nursery": {
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error"
       }
     }
   },
@@ -153,14 +158,6 @@
       "linter": {
         "rules": {
           "correctness": { "noNodejsModules": "off", "noProcessGlobal": "off" }
-        }
-      }
-    },
-    {
-      "includes": ["**/src/pages/index.tsx"],
-      "linter": {
-        "rules": {
-          "performance": { "noAwaitInLoops": "off" }
         }
       }
     }
