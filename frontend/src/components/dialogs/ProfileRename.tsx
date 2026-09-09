@@ -4,8 +4,8 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
-import { type ChangeEvent, useCallback, useEffect, useState } from 'react'
-import { type Profile } from '@/store'
+import { type ChangeEvent, useCallback, useEffect, useId, useState } from 'react'
+import type { Profile } from '@/store'
 
 type Props = {
   onCancel: () => void
@@ -18,13 +18,14 @@ type Props = {
 export default function ProfileRenameDialog(props: Props) {
   const { onClose, onCancel, onSubmit, open, profile } = props
 
+  const inputId = useId()
   const [name, setName] = useState(profile.name)
   useEffect(() => {
     // Focus the input when the dialog opens
     if (open) {
-      document.getElementById('profile-rename-input')?.focus()
+      document.getElementById(inputId)?.focus()
     }
-  }, [open])
+  }, [inputId, open])
 
   const handleChangeName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value
@@ -47,7 +48,7 @@ export default function ProfileRenameDialog(props: Props) {
       <DialogContent dividers>
         <TextField
           fullWidth
-          id="profile-rename-input"
+          id={inputId}
           label="New Profile Name"
           margin="normal"
           onChange={handleChangeName}

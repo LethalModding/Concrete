@@ -1,6 +1,6 @@
 import {
   DndContext,
-  DragEndEvent,
+  type DragEndEvent,
   KeyboardSensor,
   MouseSensor,
   PointerSensor,

@@ -22,7 +22,9 @@ export default function LoginButtons(props: Props) {
         Discord
         <img
           alt="Discord"
+          height={16}
           src="/discord-mark-white.svg"
+          width={21}
           style={{
             height: '16px',
             marginLeft: '0.5em',

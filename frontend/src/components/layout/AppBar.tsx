@@ -25,7 +25,9 @@ export default function GlobalAppBar() {
       >
         <img
           alt="LethalModding.com"
+          height={32}
           src="https://lethalmodding.com/icons/favicon.ico"
+          width={32}
           style={{
             height: '100%',
             width: 'auto',
@@ -49,7 +51,9 @@ export default function GlobalAppBar() {
         >
           <img
             alt="User"
+            height={16}
             src="/discord-mark-white.svg"
+            width={21}
             style={{
               height: '50%',
               width: 'auto',

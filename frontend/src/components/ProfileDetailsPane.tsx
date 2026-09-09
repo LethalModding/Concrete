@@ -1,19 +1,16 @@
-import PencilIcon from '@mui/icons-material/Edit'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
 import ListItemText from '@mui/material/ListItemText'
 import Paper from '@mui/material/Paper'
-import { type Theme } from '@mui/material/styles'
+import type { Theme } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { type SyntheticEvent, useCallback, useMemo, useState } from 'react'
-import { useStore } from '@/store'
+import { type Mod, useStore } from '@/store'
 import ModListItem from './ModListItem'
 
 type Props = {
@@ -46,7 +43,7 @@ export default function ProfileDetailsPane(props: Props) {
     return state.mods.filter(x => profile.enabledMods.includes(x.id))
   })
   const missingRecommendedMods = useMemo(() => {
-    const missing = []
+    const missing: Mod[] = []
     for (const mod of recommendedMods) {
       if (!enabledMods.find(x => x.id === mod.id)) {
         missing.push(mod)
@@ -59,7 +56,6 @@ export default function ProfileDetailsPane(props: Props) {
   const updateProfile = useStore(state => state.updateProfile)
   const addRecommendedMods = useCallback(() => {
     if (!profile) return
-    0.0
     const newEnabledMods = [
       ...profile.enabledMods,
       ...missingRecommendedMods.map(x => x.id),
@@ -150,23 +146,6 @@ export default function ProfileDetailsPane(props: Props) {
               zIndex: 1,
             }}
           >
-            <Tooltip
-              sx={{
-                position: 'absolute',
-                top: 8,
-                right: 10,
-              }}
-              title="Manage Mods"
-            >
-              <IconButton
-                onClick={() => {
-                  console.log('TODO: open mod manager')
-                }}
-                size="small"
-              >
-                <PencilIcon fontSize="inherit" />
-              </IconButton>
-            </Tooltip>
             <Typography
               sx={{
                 color: 'transparent',
@@ -304,7 +283,7 @@ export default function ProfileDetailsPane(props: Props) {
             ))}
           </Box>
 
-          {missingRecommendedMods?.length ? (
+          {missingRecommendedMods.length ? (
             <>
               <Divider sx={{ mt: 4 }} />
               <Box
