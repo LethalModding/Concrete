@@ -47,8 +47,12 @@ export default function HomePage() {
         setChosenSteamPath(config.steamPath)
         setChosenLibraryPath(config.libraryPath)
 
-        if (config.dismissLogin) setOOBEStep(1)
-        if (config.steamPath && config.libraryPath) setOOBEStep(2)
+        if (config.dismissLogin) {
+          setOOBEStep(1)
+        }
+        if (config.steamPath && config.libraryPath) {
+          setOOBEStep(2)
+        }
 
         return GetSteam().then(steam => {
           if (!config.steamPath) {
@@ -82,7 +86,9 @@ export default function HomePage() {
           SetConfigValue('LibraryPath', chosenLibraryPath).catch(logRejection)
 
           const interval = setInterval(() => {
-            if (loadedMods < totalMods) return // Wait for the mods to load
+            if (loadedMods < totalMods) {
+              return // Wait for the mods to load
+            }
 
             router.push('/dashboard').catch(logRejection)
             clearInterval(interval)
@@ -113,7 +119,9 @@ export default function HomePage() {
   const browseSteamPath = useCallback(() => {
     BrowseDirectory('Select Steam Directory')
       .then(choice => {
-        if (choice) setChosenSteamPath(choice)
+        if (choice) {
+          setChosenSteamPath(choice)
+        }
       })
       .catch(logRejection)
   }, [])
@@ -133,7 +141,9 @@ export default function HomePage() {
   const browseLibraryPath = useCallback(() => {
     BrowseDirectory('Select Library Directory')
       .then(choice => {
-        if (choice) setChosenLibraryPath(choice)
+        if (choice) {
+          setChosenLibraryPath(choice)
+        }
       })
       .catch(logRejection)
   }, [])
@@ -156,9 +166,13 @@ export default function HomePage() {
     // The latch is what makes that safe: `loading` is in this effect's deps and
     // the body writes it, so without it every settle re-enters and refetches
     // the whole recommended list.
-    if (loading) return
+    if (loading) {
+      return
+    }
     const alreadyLoaded: boolean = hasLoadedRecommendedMods.current
-    if (alreadyLoaded) return
+    if (alreadyLoaded) {
+      return
+    }
     hasLoadedRecommendedMods.current = true
     setLoading(true)
 

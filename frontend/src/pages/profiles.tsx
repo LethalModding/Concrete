@@ -33,7 +33,9 @@ export default function ProfilesPage() {
   const updateProfile = useStore(state => state.updateProfile)
   const handleSubmitRename = useCallback(
     (name: string) => {
-      if (editing === null) return
+      if (editing === null) {
+        return
+      }
 
       setEditing(null)
       updateProfile(editing.id, {
@@ -49,8 +51,12 @@ export default function ProfilesPage() {
 
   const reorderProfile = useStore(state => state.reorderProfile)
   const sortedProfiles = useStore(state => state.profiles).sort((a, b) => {
-    if (a.order < b.order) return -1
-    if (a.order > b.order) return 1
+    if (a.order < b.order) {
+      return -1
+    }
+    if (a.order > b.order) {
+      return 1
+    }
     return 0
   })
 
@@ -67,7 +73,9 @@ export default function ProfilesPage() {
 
   const handleDragEnd = useCallback(
     (e: DragEndEvent) => {
-      if (!e.active) return
+      if (!e.active) {
+        return
+      }
 
       const sourceId = e.active.id.toString().split('profile-')[1]
       const sourceIndex = sortedProfiles.findIndex(x => x.id === sourceId)

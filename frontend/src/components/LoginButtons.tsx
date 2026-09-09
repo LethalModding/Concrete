@@ -2,7 +2,7 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 
-type Props = {
+interface Props {
   onDontClick?: () => void
 }
 

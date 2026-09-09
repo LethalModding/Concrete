@@ -13,7 +13,7 @@ import { type SyntheticEvent, useCallback, useMemo, useState } from 'react'
 import { type Mod, useStore } from '@/store'
 import ModListItem from './ModListItem'
 
-type Props = {
+interface Props {
   profileID: string
 }
 
@@ -38,7 +38,9 @@ export default function ProfileDetailsPane(props: Props) {
     state.mods.filter(x => x.recommended),
   )
   const enabledMods = useStore(state => {
-    if (!profile) return []
+    if (!profile) {
+      return []
+    }
 
     return state.mods.filter(x => profile.enabledMods.includes(x.id))
   })
@@ -55,7 +57,9 @@ export default function ProfileDetailsPane(props: Props) {
 
   const updateProfile = useStore(state => state.updateProfile)
   const addRecommendedMods = useCallback(() => {
-    if (!profile) return
+    if (!profile) {
+      return
+    }
     const newEnabledMods = [
       ...profile.enabledMods,
       ...missingRecommendedMods.map(x => x.id),

@@ -3,7 +3,7 @@ import { create, type StateCreator } from 'zustand'
 
 type UUID = string
 
-export type Base = {
+export interface Base {
   id: UUID
 
   created: number

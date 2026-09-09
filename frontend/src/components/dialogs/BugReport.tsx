@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
 import { useCallback } from 'react'
 
-type Props = {
+interface Props {
   open: boolean
   onClose: () => void
 }

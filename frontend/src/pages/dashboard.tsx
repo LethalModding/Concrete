@@ -68,8 +68,12 @@ export default function DashboardPage() {
     state.profiles
       .filter(x => x.visible)
       .sort((a, b) => {
-        if (a.order < b.order) return -1
-        if (a.order > b.order) return 1
+        if (a.order < b.order) {
+          return -1
+        }
+        if (a.order > b.order) {
+          return 1
+        }
         return 0
       }),
   )

@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography'
 import { useCallback } from 'react'
 import { useStore } from '@/store'
 
-type Props = {
+interface Props {
   detailed?: boolean
   draggable?: boolean
   onClickRename?: () => void
@@ -34,7 +34,9 @@ export default function ProfileListItem(props: Props) {
   const updateProfile = useStore(state => state.updateProfile)
 
   const duplicateProfile = useCallback(() => {
-    if (!profile) return
+    if (!profile) {
+      return
+    }
 
     addProfile({
       ...profile,
@@ -47,7 +49,9 @@ export default function ProfileListItem(props: Props) {
   }, [addProfile, profile])
 
   const toggleProfileVisibility = useCallback(() => {
-    if (!profile) return
+    if (!profile) {
+      return
+    }
 
     updateProfile(profile.id, {
       visible: !profile.visible,

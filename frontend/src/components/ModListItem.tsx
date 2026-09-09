@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { useCallback, useMemo } from 'react'
 import { useStore } from '@/store'
 
-type Props = {
+interface Props {
   detailed?: boolean
   draggable?: boolean
   imageSize: number
@@ -30,7 +30,9 @@ export default function ModListItem(props: Props) {
   const updateProfile = useStore(state => state.updateProfile)
   const deleteMod = useCallback(
     (modID: string) => {
-      if (!profile) return
+      if (!profile) {
+        return
+      }
 
       updateProfile(profile.id, {
         enabledMods: profile.enabledMods.filter(x => x !== modID),
@@ -47,7 +49,9 @@ export default function ModListItem(props: Props) {
   })
 
   const modIcon = useMemo(() => {
-    if (!mod) return ''
+    if (!mod) {
+      return ''
+    }
 
     let owner = mod.owner
     if (owner.startsWith('ts-')) {

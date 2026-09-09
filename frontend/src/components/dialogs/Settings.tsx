@@ -13,7 +13,7 @@ import { GetConfig } from '@/../wailsjs/go/gui/App'
 import type { types } from '@/../wailsjs/go/models'
 import { logRejection } from '@/log'
 
-type Props = {
+interface Props {
   open: boolean
   onClose: () => void
 }
@@ -76,11 +76,11 @@ export default function SettingsDialog(props: Props) {
           }}
         >
           <pre>
-            Loopback Server Port:{'\t'}
+            Loopback Server Port:\t
             {config?.loopbackServerPort} <br />
-            Library Path:{'\t\t'}
+            Library Path:\t\t
             {config?.libraryPath || '<empty string>'} <br />
-            Steam Path:{'\t\t'}
+            Steam Path:\t\t
             {config?.steamPath || '<empty string>'} <br />
           </pre>
         </Box>

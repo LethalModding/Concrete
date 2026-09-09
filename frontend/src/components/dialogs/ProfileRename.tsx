@@ -13,7 +13,7 @@ import {
 } from 'react'
 import type { Profile } from '@/store'
 
-type Props = {
+interface Props {
   onCancel: () => void
   onClose: () => void
   onSubmit: (name: string) => void
