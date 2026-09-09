@@ -20,7 +20,7 @@ interface Props {
   profileID: string
 }
 
-export default function ModListItem(props: Props) {
+export function ModListItem(props: Props) {
   const { detailed, draggable, imageSize, profileID } = props
 
   const profile = useStore(state =>

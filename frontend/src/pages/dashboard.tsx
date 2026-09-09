@@ -15,9 +15,9 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import { type MouseEvent, useCallback, useEffect, useState } from 'react'
-import BugReportDialog from '@/components/dialogs/BugReport'
-import SettingsDialog from '@/components/dialogs/Settings'
-import ProfileDetailsPane from '@/components/ProfileDetailsPane'
+import { BugReportDialog } from '@/components/dialogs/BugReport'
+import { SettingsDialog } from '@/components/dialogs/Settings'
+import { ProfileDetailsPane } from '@/components/ProfileDetailsPane'
 import { useStore } from '@/store'
 
 const sidebarMinWidth = 150

@@ -11,13 +11,13 @@ import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { type SyntheticEvent, useCallback, useMemo, useState } from 'react'
 import { type Mod, useStore } from '@/store'
-import ModListItem from './ModListItem'
+import { ModListItem } from './ModListItem'
 
 interface Props {
   profileID: string
 }
 
-export default function ProfileDetailsPane(props: Props) {
+export function ProfileDetailsPane(props: Props) {
   const { profileID } = props
 
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))

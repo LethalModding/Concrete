@@ -12,16 +12,13 @@ import {
   NextScript,
 } from 'next/document'
 
-import darkThemeOptions from '@/styles/darkThemeOptions'
+import { darkTheme } from '@/styles/darkThemeOptions'
 
 export default function Document(props: DocumentProps & DocumentHeadTagsProps) {
   return (
     <Html lang="en">
       <Head>
-        <meta
-          name="theme-color"
-          content={darkThemeOptions.palette.primary.main}
-        />
+        <meta name="theme-color" content={darkTheme.palette.primary.main} />
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="emotion-insertion-point" content="" />
         <DocumentHeadTags {...props} />

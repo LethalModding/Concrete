@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import darkThemeOptions from '@/styles/darkThemeOptions'
+import { darkTheme } from '@/styles/darkThemeOptions'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -16,7 +16,7 @@ export default function App(props: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Concrete - LethalModding.com</title>
       </Head>
-      <ThemeProvider theme={darkThemeOptions}>
+      <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Box
           sx={{

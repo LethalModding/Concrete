@@ -21,7 +21,7 @@ interface Props {
   profile: Profile
 }
 
-export default function ProfileRenameDialog(props: Props) {
+export function ProfileRenameDialog(props: Props) {
   const { onClose, onCancel, onSubmit, open, profile } = props
 
   const inputId = useId()

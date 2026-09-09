@@ -60,7 +60,7 @@ export type LinkProps = {
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/pages/api-reference/components/link
-function Link(props: LinkProps) {
+export function Link(props: LinkProps) {
   const {
     activeClassName = 'active',
     as,
@@ -130,5 +130,3 @@ function Link(props: LinkProps) {
     />
   )
 }
-
-export default Link

@@ -22,7 +22,7 @@ interface Props {
   profileID: string
 }
 
-export default function ProfileListItem(props: Props) {
+export function ProfileListItem(props: Props) {
   const { detailed, draggable, onClickRename, profileID } = props
 
   const profile = useStore(state =>

@@ -18,7 +18,7 @@ interface Props {
   onClose: () => void
 }
 
-export default function SettingsDialog(props: Props) {
+export function SettingsDialog(props: Props) {
   const { open, onClose } = props
 
   const [config, setConfig] = useState<types.Config | null>(null)

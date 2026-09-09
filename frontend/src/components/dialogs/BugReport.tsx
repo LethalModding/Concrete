@@ -18,7 +18,7 @@ interface Props {
   onClose: () => void
 }
 
-export default function BugReportDialog(props: Props) {
+export function BugReportDialog(props: Props) {
   const { open, onClose } = props
 
   const submitBugReport = useCallback(() => {

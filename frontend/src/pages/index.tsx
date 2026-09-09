@@ -27,7 +27,7 @@ import {
   ValidateLibraryPath,
   ValidateSteamPath,
 } from '@/../wailsjs/go/steam/Steam'
-import LoginButtons from '@/components/LoginButtons'
+import { LoginButtons } from '@/components/LoginButtons'
 import { logRejection } from '@/log'
 import { useStore } from '@/store'
 

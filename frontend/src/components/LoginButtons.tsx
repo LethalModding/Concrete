@@ -6,7 +6,7 @@ interface Props {
   onDontClick?: () => void
 }
 
-export default function LoginButtons(props: Props) {
+export function LoginButtons(props: Props) {
   const { onDontClick } = props
 
   return (
