@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton'
 import { useCallback, useEffect, useState } from 'react'
 import { GetConfig } from '@/../wailsjs/go/gui/App'
 import type { types } from '@/../wailsjs/go/models'
+import { logRejection } from '@/log'
 
 type Props = {
   open: boolean
@@ -22,7 +23,7 @@ export default function SettingsDialog(props: Props) {
 
   const [config, setConfig] = useState<types.Config | null>(null)
   useEffect(() => {
-    GetConfig().then(setConfig)
+    GetConfig().then(setConfig).catch(logRejection)
   }, [])
 
   const submitBugReport = useCallback(() => {

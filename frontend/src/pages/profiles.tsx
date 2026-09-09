@@ -21,6 +21,7 @@ import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 import ProfileRenameDialog from '@/components/dialogs/ProfileRename'
 import ProfileListItem from '@/components/ProfileListItem'
+import { logRejection } from '@/log'
 import { type Profile, useStore } from '@/store'
 
 export default function ProfilesPage() {
@@ -105,7 +106,7 @@ export default function ProfilesPage() {
 
   const router = useRouter()
   const navigateHome = useCallback(() => {
-    router.push('/dashboard')
+    router.push('/dashboard').catch(logRejection)
   }, [router])
 
   return (

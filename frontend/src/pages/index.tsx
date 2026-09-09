@@ -28,6 +28,7 @@ import {
   ValidateSteamPath,
 } from '@/../wailsjs/go/steam/Steam'
 import LoginButtons from '@/components/LoginButtons'
+import { logRejection } from '@/log'
 import { useStore } from '@/store'
 
 export default function HomePage() {
@@ -41,26 +42,28 @@ export default function HomePage() {
 
   const [oobeStep, setOOBEStep] = useState(0)
   useEffect(() => {
-    GetConfig().then(config => {
-      setChosenSteamPath(config.steamPath)
-      setChosenLibraryPath(config.libraryPath)
+    GetConfig()
+      .then(config => {
+        setChosenSteamPath(config.steamPath)
+        setChosenLibraryPath(config.libraryPath)
 
-      if (config.dismissLogin) setOOBEStep(1)
-      if (config.steamPath && config.libraryPath) setOOBEStep(2)
+        if (config.dismissLogin) setOOBEStep(1)
+        if (config.steamPath && config.libraryPath) setOOBEStep(2)
 
-      GetSteam().then(steam => {
-        if (!config.steamPath) {
-          setChosenSteamPath(steam.installPath)
-        }
+        return GetSteam().then(steam => {
+          if (!config.steamPath) {
+            setChosenSteamPath(steam.installPath)
+          }
 
-        setDetectedLibraryPaths(steam.libraryFolders)
-        if (!config.libraryPath) {
-          setChosenLibraryPath(steam.libraryFolders?.[0] || '')
-        }
+          setDetectedLibraryPaths(steam.libraryFolders)
+          if (!config.libraryPath) {
+            setChosenLibraryPath(steam.libraryFolders?.[0] || '')
+          }
 
-        setLoading(false)
+          setLoading(false)
+        })
       })
-    })
+      .catch(logRejection)
   }, [])
 
   //
@@ -72,16 +75,16 @@ export default function HomePage() {
     setOOBEStep(step => {
       switch (step) {
         case 1:
-          SetConfigValue('SteamPath', chosenSteamPath)
+          SetConfigValue('SteamPath', chosenSteamPath).catch(logRejection)
           break
 
         case 2: {
-          SetConfigValue('LibraryPath', chosenLibraryPath)
+          SetConfigValue('LibraryPath', chosenLibraryPath).catch(logRejection)
 
           const interval = setInterval(() => {
             if (loadedMods < totalMods) return // Wait for the mods to load
 
-            router.push('/dashboard')
+            router.push('/dashboard').catch(logRejection)
             clearInterval(interval)
           }, 250)
 
@@ -98,7 +101,7 @@ export default function HomePage() {
   //
 
   const dismissLoginRequest = useCallback(() => {
-    SetConfigValue('DismissLogin', 'true')
+    SetConfigValue('DismissLogin', 'true').catch(logRejection)
     advanceOOBE()
   }, [advanceOOBE])
 
@@ -108,14 +111,18 @@ export default function HomePage() {
 
   const [steamPathValid, setSteamPathValid] = useState(false)
   const browseSteamPath = useCallback(() => {
-    BrowseDirectory('Select Steam Directory').then(choice => {
-      if (choice) setChosenSteamPath(choice)
-    })
+    BrowseDirectory('Select Steam Directory')
+      .then(choice => {
+        if (choice) setChosenSteamPath(choice)
+      })
+      .catch(logRejection)
   }, [])
   useEffect(() => {
-    ValidateSteamPath(chosenSteamPath).then(isValid => {
-      setSteamPathValid(isValid)
-    })
+    ValidateSteamPath(chosenSteamPath)
+      .then(isValid => {
+        setSteamPathValid(isValid)
+      })
+      .catch(logRejection)
   }, [chosenSteamPath])
 
   //
@@ -124,14 +131,18 @@ export default function HomePage() {
 
   const [libraryPathValid, setLibraryPathValid] = useState(false)
   const browseLibraryPath = useCallback(() => {
-    BrowseDirectory('Select Library Directory').then(choice => {
-      if (choice) setChosenLibraryPath(choice)
-    })
+    BrowseDirectory('Select Library Directory')
+      .then(choice => {
+        if (choice) setChosenLibraryPath(choice)
+      })
+      .catch(logRejection)
   }, [])
   useEffect(() => {
-    ValidateLibraryPath(chosenLibraryPath).then(isValid => {
-      setLibraryPathValid(isValid)
-    })
+    ValidateLibraryPath(chosenLibraryPath)
+      .then(isValid => {
+        setLibraryPathValid(isValid)
+      })
+      .catch(logRejection)
   }, [chosenLibraryPath])
 
   //
@@ -220,7 +231,7 @@ export default function HomePage() {
       setLoading(false)
     }
 
-    loadAllMods()
+    loadAllMods().catch(logRejection)
   }, [addMod, loading])
 
   return (

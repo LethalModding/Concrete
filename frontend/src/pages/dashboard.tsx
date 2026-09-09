@@ -26,6 +26,7 @@ const sidebarMaxWidth = 300
 import { GetConfig } from '@/../wailsjs/go/gui/App'
 import { DoLaunchGame } from '@/../wailsjs/go/launcher/Launcher'
 import { LogError } from '@/../wailsjs/runtime/runtime'
+import { logRejection } from '@/log'
 import type { types } from '../../wailsjs/go/models'
 
 export default function DashboardPage() {
@@ -121,16 +122,18 @@ export default function DashboardPage() {
 
   const router = useRouter()
   const navigateProfiles = useCallback(() => {
-    router.push('/profiles')
+    router.push('/profiles').catch(logRejection)
   }, [router])
 
   const [libraryPath, setLibraryPath] = useState('')
   const [steamPath, setSteamPath] = useState('')
   useEffect(() => {
-    GetConfig().then((config: types.Config) => {
-      setLibraryPath(config.libraryPath)
-      setSteamPath(config.steamPath)
-    })
+    GetConfig()
+      .then((config: types.Config) => {
+        setLibraryPath(config.libraryPath)
+        setSteamPath(config.steamPath)
+      })
+      .catch(logRejection)
   }, [])
 
   const [loading, setLoading] = useState(false)
