@@ -125,7 +125,7 @@ export default function HomePage() {
   const [libraryPathValid, setLibraryPathValid] = useState(false)
   const browseLibraryPath = useCallback(() => {
     BrowseDirectory('Select Library Directory').then(choice => {
-      if (!choice) setChosenLibraryPath(choice)
+      if (choice) setChosenLibraryPath(choice)
     })
   }, [])
   useEffect(() => {
