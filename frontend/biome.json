@@ -155,6 +155,14 @@
           "correctness": { "noNodejsModules": "off", "noProcessGlobal": "off" }
         }
       }
+    },
+    {
+      "includes": ["**/src/pages/index.tsx"],
+      "linter": {
+        "rules": {
+          "performance": { "noAwaitInLoops": "off" }
+        }
+      }
     }
   ]
 }

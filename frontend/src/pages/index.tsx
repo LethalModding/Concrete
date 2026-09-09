@@ -149,6 +149,9 @@ export default function HomePage() {
       setLoadedMods(0)
       setTotalMods(recommendedMods.length)
 
+      // One Thunderstore fetch at a time: setLoadedMods below is what advances the
+      // OOBE progress bar, and a fanned-out fetch would both flatten it and burst
+      // the API with the whole recommended list at once.
       for (const mod of recommendedMods) {
         const modData = await GetTSMod(mod)
         const parsedMod = JSON.parse(modData)
