@@ -14,7 +14,7 @@ import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   BrowseDirectory,
   GetConfig,
@@ -150,12 +150,19 @@ export default function HomePage() {
   //
 
   const addMod = useStore(state => state.addMod)
+  const hasLoadedRecommendedMods = useRef(false)
   useEffect(() => {
+    // Wait for the config effect to clear `loading`, then run exactly once.
+    // The latch is what makes that safe: `loading` is in this effect's deps and
+    // the body writes it, so without it every settle re-enters and refetches
+    // the whole recommended list.
+    if (loading) return
+    const alreadyLoaded: boolean = hasLoadedRecommendedMods.current
+    if (alreadyLoaded) return
+    hasLoadedRecommendedMods.current = true
     setLoading(true)
 
     const loadAllMods = async () => {
-      if (loading) return
-
       const recommendedMods = await GetRecommendedMods()
       setLoadedMods(0)
       setTotalMods(recommendedMods.length)
@@ -231,7 +238,10 @@ export default function HomePage() {
       setLoading(false)
     }
 
-    loadAllMods().catch(logRejection)
+    loadAllMods().catch(error => {
+      logRejection(error)
+      setLoading(false)
+    })
   }, [addMod, loading])
 
   return (
