@@ -37,22 +37,44 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "preset": "recommended",
+      "preset": "all",
       "correctness": {
-        "preset": "all",
         "noSolidDestructuredProps": "off",
         "useQwikValidLexicalScope": "off",
         "useImportExtensions": "off"
       },
-      "suspicious": { "preset": "all", "noReactSpecificProps": "off" },
-      "security": { "preset": "all" },
-      "a11y": { "preset": "all" },
+      "suspicious": {
+        "noReactSpecificProps": "off"
+      },
       "performance": {
-        "preset": "all",
         "useSolidForComponent": "off",
         "noJsxPropsBind": "off",
-        "noImgElement": "off",
         "noAwaitInLoops": "off"
+      },
+      "style": {
+        "noTernary": "off",
+        "noNestedTernary": "off",
+        "noMagicNumbers": "off",
+        "noJsxLiterals": "off",
+        "noContinue": "off",
+        "noIncrementDecrement": "off",
+        "useDestructuring": "off",
+        "useExportsLast": "off",
+        "useExplicitLengthCheck": "off",
+        "useErrorCause": "off",
+        "useNamingConvention": "off",
+        "useFilenamingConvention": "off",
+        "noProcessEnv": "off",
+        "noExcessiveLinesPerFile": {
+          "level": "on",
+          "options": {
+            "maxLines": 500
+          }
+        }
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "off",
+        "noExcessiveLinesPerFunction": "off"
       },
       "nursery": {
         "noFloatingPromises": "error",
@@ -89,8 +111,13 @@
             "noProcessGlobal": "off",
             "noUnresolvedImports": "off"
           },
-          "security": { "noSecrets": "off" },
-          "performance": { "noAwaitInLoops": "off", "useTopLevelRegex": "off" },
+          "security": {
+            "noSecrets": "off"
+          },
+          "performance": {
+            "noAwaitInLoops": "off",
+            "useTopLevelRegex": "off"
+          },
           "suspicious": {
             "noBitwiseOperators": "off",
             "noMisplacedAssertion": "off",
@@ -113,9 +140,16 @@
             "noProcessGlobal": "off",
             "noUnresolvedImports": "off"
           },
-          "security": { "noSecrets": "off" },
-          "performance": { "noAwaitInLoops": "off", "useTopLevelRegex": "off" },
-          "suspicious": { "noConsole": "off" }
+          "security": {
+            "noSecrets": "off"
+          },
+          "performance": {
+            "noAwaitInLoops": "off",
+            "useTopLevelRegex": "off"
+          },
+          "suspicious": {
+            "noConsole": "off"
+          }
         }
       }
     },
@@ -134,8 +168,12 @@
             "noProcessGlobal": "off",
             "noUnresolvedImports": "off"
           },
-          "performance": { "useTopLevelRegex": "off" },
-          "suspicious": { "noConsole": "off" }
+          "performance": {
+            "useTopLevelRegex": "off"
+          },
+          "suspicious": {
+            "noConsole": "off"
+          }
         }
       }
     },
@@ -143,7 +181,9 @@
       "includes": ["**/src/store.ts"],
       "linter": {
         "rules": {
-          "correctness": { "noUnresolvedImports": "off" }
+          "correctness": {
+            "noUnresolvedImports": "off"
+          }
         }
       }
     },
@@ -157,7 +197,30 @@
       ],
       "linter": {
         "rules": {
-          "correctness": { "noNodejsModules": "off", "noProcessGlobal": "off" }
+          "correctness": {
+            "noNodejsModules": "off",
+            "noProcessGlobal": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/src/pages/**", "next.config.*"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/src/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noImgElement": "off"
+          }
         }
       }
     }
