@@ -23,7 +23,7 @@ jobs:
       # setup-go runs golangci-lint and govulncheck as one gate, both with
       # continue-on-error, so a run reports every finding rather than stopping
       # at the first. The gate step is what fails the job.
-      - uses: Rethunk-Tech/gh-actions/setup-go@45d60bff5148282bbbf11e6f2460829eab772cf2 # v1.9
+      - uses: Rethunk-Tech/gh-actions/setup-go@5d07bd8adb2dda1caa11cacd886edf73e2e95afb # v1.10
         with:
           run-lint: "true"
           run-govulncheck: "true"
