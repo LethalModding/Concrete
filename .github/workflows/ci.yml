@@ -20,6 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      # frontend/dist is a build output this job does not build; a placeholder
+      # satisfies go:embed all:frontend/dist/* for lint, build, and test
+      - name: Create stub frontend/dist for embed
+        run: mkdir -p frontend/dist && touch frontend/dist/index.html
+
       # setup-go runs golangci-lint and govulncheck as one gate, both with
       # continue-on-error, so a run reports every finding rather than stopping
       # at the first. The gate step is what fails the job.
