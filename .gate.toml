@@ -1,0 +1,10 @@
+# main.go embeds all:frontend/dist/*, which only the frontend's `next build`
+# writes, and no gate here runs it. go build and go test fail on the unmatched
+# pattern, so they create the same placeholder CI does; touch leaves a real
+# export intact. A committed placeholder would not survive: next build deletes
+# everything in dist before writing.
+[gates.build]
+run = "mkdir -p frontend/dist && touch frontend/dist/index.html && go build ./..."
+
+[gates.test]
+run = "mkdir -p frontend/dist && touch frontend/dist/index.html && go test ./..."
