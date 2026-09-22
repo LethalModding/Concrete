@@ -39,11 +39,17 @@
     "rules": {
       "preset": "all",
       "correctness": {
-        "useImportExtensions": "off"
+        "useImportExtensions": "off",
+        "noSolidDestructuredProps": "off",
+        "useQwikValidLexicalScope": "off"
       },
-      "suspicious": {},
+      "suspicious": {
+        "noReactSpecificProps": "off"
+      },
       "performance": {
-        "noAwaitInLoops": "off"
+        "noAwaitInLoops": "off",
+        "noJsxPropsBind": "off",
+        "useSolidForComponent": "off"
       },
       "style": {
         "noTernary": "off",
