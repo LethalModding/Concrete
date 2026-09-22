@@ -64,9 +64,8 @@ export function BugReportDialog(props: Props) {
         }}
       >
         <DialogContentText>
-          It looks like you&apos;ve found a bug! Please fill out the form below
-          to report the issue. We&apos;ll do our best to fix it as soon as
-          possible.
+          It looks like you&apos;ve found a bug! Please fill out the form below to report the issue.
+          We&apos;ll do our best to fix it as soon as possible.
         </DialogContentText>
 
         <TextField

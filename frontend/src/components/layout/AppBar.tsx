@@ -43,12 +43,7 @@ export function GlobalAppBar() {
           flexDirection: 'row',
         }}
       >
-        <Avatar
-          alt="User"
-          color="inherit"
-          sx={{ height: 32, width: 32 }}
-          variant="rounded"
-        >
+        <Avatar alt="User" color="inherit" sx={{ height: 32, width: 32 }} variant="rounded">
           <img
             alt="User"
             height={16}

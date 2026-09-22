@@ -41,10 +41,7 @@ export default function DashboardPage() {
   const onSidebarDrag = useCallback(
     (e: MouseEvent) => {
       if (sidebarDragging) {
-        const newWidth = Math.min(
-          Math.max(sidebarMinWidth, e.clientX),
-          sidebarMaxWidth,
-        )
+        const newWidth = Math.min(Math.max(sidebarMinWidth, e.clientX), sidebarMaxWidth)
 
         setSidebarWidth(newWidth)
       }
@@ -78,17 +75,11 @@ export default function DashboardPage() {
       }),
   )
   const activeProfileID =
-    sortedProfiles.find(x => x.id === selectedProfileID)?.id ??
-    sortedProfiles[0]?.id ??
-    ''
-  const selectedProfile = useStore(state =>
-    state.profiles.find(x => x.id === activeProfileID),
-  )
+    sortedProfiles.find(x => x.id === selectedProfileID)?.id ?? sortedProfiles[0]?.id ?? ''
+  const selectedProfile = useStore(state => state.profiles.find(x => x.id === activeProfileID))
 
   const addProfile = useStore(state => state.addProfile)
-  const recommendedMods = useStore(state =>
-    state.mods.filter(x => x.recommended),
-  )
+  const recommendedMods = useStore(state => state.mods.filter(x => x.recommended))
   const createProfile = useCallback(
     (useRecommended = true) => {
       addProfile({
@@ -158,9 +149,7 @@ export default function DashboardPage() {
       onMouseUp={onStopSidebarDrag}
       sx={{
         display: 'grid',
-        gridTemplateColumns: sortedProfiles.length
-          ? `${sidebarWidth}px 1fr`
-          : '1fr',
+        gridTemplateColumns: sortedProfiles.length ? `${sidebarWidth}px 1fr` : '1fr',
 
         flex: 1,
 
@@ -168,15 +157,9 @@ export default function DashboardPage() {
         position: 'relative',
       }}
     >
-      <BugReportDialog
-        open={bugReporterShown}
-        onClose={() => setBugReporterShown(false)}
-      />
+      <BugReportDialog open={bugReporterShown} onClose={() => setBugReporterShown(false)} />
 
-      <SettingsDialog
-        open={settingsShown}
-        onClose={() => setSettingsShown(false)}
-      />
+      <SettingsDialog open={settingsShown} onClose={() => setSettingsShown(false)} />
 
       <Backdrop
         open={loading}
@@ -349,11 +332,7 @@ export default function DashboardPage() {
             Get started by creating a new profile.
           </Typography>
 
-          <Button
-            onClick={() => createProfile(true)}
-            sx={{ mt: 2 }}
-            variant="contained"
-          >
+          <Button onClick={() => createProfile(true)} sx={{ mt: 2 }} variant="contained">
             Recommended Mods
           </Button>
 

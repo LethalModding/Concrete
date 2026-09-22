@@ -55,12 +55,7 @@ export interface ProfileStore {
   updateProfile: (id: UUID, profile: Partial<Profile>) => void
 }
 
-const createModSlice: StateCreator<
-  ModStore & ProfileStore,
-  [],
-  [],
-  ModStore
-> = (set, get) => ({
+const createModSlice: StateCreator<ModStore & ProfileStore, [], [], ModStore> = (set, get) => ({
   mods: [],
 
   addMod: mod => {
@@ -68,9 +63,7 @@ const createModSlice: StateCreator<
 
     // check the UUID doesn't already exist (if so, replace it)
     const existingMod = state.mods.find(x => x.id === mod.id)
-    const merged = existingMod
-      ? { ...existingMod, ...mod, updated: Date.now() }
-      : mod
+    const merged = existingMod ? { ...existingMod, ...mod, updated: Date.now() } : mod
 
     set({
       mods: [
@@ -112,12 +105,10 @@ const createModSlice: StateCreator<
   },
 })
 
-const createProfileSlice: StateCreator<
-  ModStore & ProfileStore,
-  [],
-  [],
-  ProfileStore
-> = (set, get) => ({
+const createProfileSlice: StateCreator<ModStore & ProfileStore, [], [], ProfileStore> = (
+  set,
+  get,
+) => ({
   profiles: [],
 
   addProfile: profile => {

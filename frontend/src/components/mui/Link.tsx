@@ -9,10 +9,7 @@ const Anchor = styled('a')({})
 
 interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
-    Omit<
-      NextLinkProps,
-      'href' | 'as' | 'passHref' | 'onMouseEnter' | 'onClick' | 'onTouchStart'
-    > {
+    Omit<NextLinkProps, 'href' | 'as' | 'passHref' | 'onMouseEnter' | 'onClick' | 'onTouchStart'> {
   to: NextLinkProps['href']
   linkAs?: NextLinkProps['as']
   ref?: React.Ref<HTMLAnchorElement>
@@ -86,8 +83,7 @@ export function Link(props: LinkProps) {
   })
 
   const isExternal =
-    typeof href === 'string' &&
-    (href.indexOf('http') === 0 || href.indexOf('mailto:') === 0)
+    typeof href === 'string' && (href.indexOf('http') === 0 || href.indexOf('mailto:') === 0)
 
   if (isExternal) {
     if (noLinkStyle) {
@@ -110,14 +106,7 @@ export function Link(props: LinkProps) {
   }
 
   if (noLinkStyle) {
-    return (
-      <NextLinkComposed
-        className={className}
-        ref={ref}
-        {...nextjsProps}
-        {...other}
-      />
-    )
+    return <NextLinkComposed className={className} ref={ref} {...nextjsProps} {...other} />
   }
 
   return (

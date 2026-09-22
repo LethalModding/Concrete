@@ -25,9 +25,7 @@ interface Props {
 export function ProfileListItem(props: Props) {
   const { detailed, draggable, onClickRename, profileID } = props
 
-  const profile = useStore(state =>
-    state.profiles.find(x => x.id === profileID),
-  )
+  const profile = useStore(state => state.profiles.find(x => x.id === profileID))
 
   const addProfile = useStore(state => state.addProfile)
   const deleteProfile = useStore(state => state.deleteProfile)
@@ -125,10 +123,7 @@ export function ProfileListItem(props: Props) {
               </Tooltip>
 
               <Tooltip title="Delete">
-                <IconButton
-                  color="error"
-                  onClick={() => deleteProfile(profile.id)}
-                >
+                <IconButton color="error" onClick={() => deleteProfile(profile.id)}>
                   <DeleteIcon />
                 </IconButton>
               </Tooltip>

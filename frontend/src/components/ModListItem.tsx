@@ -23,9 +23,7 @@ interface Props {
 export function ModListItem(props: Props) {
   const { detailed, draggable, imageSize, profileID } = props
 
-  const profile = useStore(state =>
-    state.profiles.find(x => x.id === profileID),
-  )
+  const profile = useStore(state => state.profiles.find(x => x.id === profileID))
 
   const updateProfile = useStore(state => state.updateProfile)
   const deleteMod = useCallback(
@@ -116,23 +114,12 @@ export function ModListItem(props: Props) {
               pl: imageSize / 96,
             }}
           >
-            <Typography
-              sx={{ gridColumnStart: 1, gridColumnEnd: 3 }}
-              variant="h6"
-            >
+            <Typography sx={{ gridColumnStart: 1, gridColumnEnd: 3 }} variant="h6">
               {mod.name.replace(/_/g, ' ')}
             </Typography>
-            <Typography
-              color="text.secondary"
-              sx={{ mt: -0.75 }}
-              variant="subtitle1"
-            >
+            <Typography color="text.secondary" sx={{ mt: -0.75 }} variant="subtitle1">
               {mod.owner}
-              <Typography
-                color="text.secondary"
-                sx={{ ml: 0.5 }}
-                variant="caption"
-              >
+              <Typography color="text.secondary" sx={{ ml: 0.5 }} variant="caption">
                 ({mod.version})
               </Typography>
             </Typography>

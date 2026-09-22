@@ -81,10 +81,7 @@ export default function ProfilesPage() {
       const sourceIndex = sortedProfiles.findIndex(x => x.id === sourceId)
 
       const delta = e.delta.y / 75
-      const targetIndex = Math.max(
-        0,
-        Math.min(sortedProfiles.length - 1, sourceIndex + delta),
-      )
+      const targetIndex = Math.max(0, Math.min(sortedProfiles.length - 1, sourceIndex + delta))
 
       reorderProfile(sourceIndex, targetIndex)
     },
@@ -101,12 +98,7 @@ export default function ProfilesPage() {
   const touchSensor = useSensor(TouchSensor)
   const keyboardSensor = useSensor(KeyboardSensor)
 
-  const sensors = useSensors(
-    mouseSensor,
-    touchSensor,
-    keyboardSensor,
-    pointerSensor,
-  )
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor, pointerSensor)
 
   //
   // Navigation
@@ -186,11 +178,7 @@ export default function ProfilesPage() {
           overflowX: 'hidden',
         }}
       >
-        <DndContext
-          autoScroll={true}
-          onDragEnd={handleDragEnd}
-          sensors={sensors}
-        >
+        <DndContext autoScroll={true} onDragEnd={handleDragEnd} sensors={sensors}>
           {sortedProfiles.map(x => (
             <ProfileListItem
               detailed={true}

@@ -24,19 +24,12 @@ export function ProfileDetailsPane(props: Props) {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
 
   const [selectedTab, setSelectedTab] = useState(1)
-  const handleTabChange = useCallback(
-    (_event: SyntheticEvent, newValue: number) => {
-      setSelectedTab(newValue)
-    },
-    [],
-  )
+  const handleTabChange = useCallback((_event: SyntheticEvent, newValue: number) => {
+    setSelectedTab(newValue)
+  }, [])
 
-  const profile = useStore(state =>
-    state.profiles.find(x => x.id === profileID),
-  )
-  const recommendedMods = useStore(state =>
-    state.mods.filter(x => x.recommended),
-  )
+  const profile = useStore(state => state.profiles.find(x => x.id === profileID))
+  const recommendedMods = useStore(state => state.mods.filter(x => x.recommended))
   const enabledMods = useStore(state => {
     if (!profile) {
       return []
@@ -60,10 +53,7 @@ export function ProfileDetailsPane(props: Props) {
     if (!profile) {
       return
     }
-    const newEnabledMods = [
-      ...profile.enabledMods,
-      ...missingRecommendedMods.map(x => x.id),
-    ]
+    const newEnabledMods = [...profile.enabledMods, ...missingRecommendedMods.map(x => x.id)]
 
     updateProfile(profile.id, {
       enabledMods: newEnabledMods,
@@ -113,8 +103,7 @@ export function ProfileDetailsPane(props: Props) {
 
             '&:after': {
               backgroundImage: `url(${
-                profile.cover ??
-                `https://picsum.photos/seed/${profile.id}/1920/1080`
+                profile.cover ?? `https://picsum.photos/seed/${profile.id}/1920/1080`
               })`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
@@ -197,10 +186,7 @@ export function ProfileDetailsPane(props: Props) {
 
           {profile.tags ? (
             <Paper>
-              <ListItemText
-                primary="Tags"
-                secondary={profile.tags.join(', ')}
-              />
+              <ListItemText primary="Tags" secondary={profile.tags.join(', ')} />
             </Paper>
           ) : null}
         </Box>
@@ -208,12 +194,7 @@ export function ProfileDetailsPane(props: Props) {
 
       <Box sx={{ mx: -2 }}>
         <AppBar position="static">
-          <Tabs
-            centered={true}
-            onChange={handleTabChange}
-            value={selectedTab}
-            variant="fullWidth"
-          >
+          <Tabs centered={true} onChange={handleTabChange} value={selectedTab} variant="fullWidth">
             <Tab label="Details" />
             <Tab label="Mods" />
           </Tabs>
@@ -240,9 +221,7 @@ export function ProfileDetailsPane(props: Props) {
           </Typography>
 
           <Paper elevation={2} sx={{ my: 0.5, p: 1, px: 1.5 }}>
-            <Typography variant="body1">
-              {profile.instructions ?? 'No README provided.'}
-            </Typography>
+            <Typography variant="body1">{profile.instructions ?? 'No README provided.'}</Typography>
           </Paper>
         </Paper>
       ) : null}
@@ -261,8 +240,7 @@ export function ProfileDetailsPane(props: Props) {
               mx: isMobile ? -1.5 : -1.25,
             }}
           >
-            {profile.enabledMods.length ||
-            profile.disabledMods?.length ? null : (
+            {profile.enabledMods.length || profile.disabledMods?.length ? null : (
               <Typography sx={{ mb: 2, ml: 0.5 }} variant="h6">
                 Profile contains no mods (yet).
               </Typography>
@@ -305,11 +283,7 @@ export function ProfileDetailsPane(props: Props) {
                   Missing {missingRecommendedMods.length} recommended mods.
                 </Typography>
 
-                <Button
-                  onClick={addRecommendedMods}
-                  size="small"
-                  variant="contained"
-                >
+                <Button onClick={addRecommendedMods} size="small" variant="contained">
                   Add Recommended Mods
                 </Button>
               </Box>

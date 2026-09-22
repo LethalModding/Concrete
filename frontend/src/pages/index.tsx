@@ -23,10 +23,7 @@ import {
   GetTSMod,
   SetConfigValue,
 } from '@/../wailsjs/go/gui/App'
-import {
-  ValidateLibraryPath,
-  ValidateSteamPath,
-} from '@/../wailsjs/go/steam/Steam'
+import { ValidateLibraryPath, ValidateSteamPath } from '@/../wailsjs/go/steam/Steam'
 import { LoginButtons } from '@/components/LoginButtons'
 import { logRejection } from '@/log'
 import { useStore } from '@/store'
@@ -205,9 +202,7 @@ export default function HomePage() {
               (x: { community: string }) => x.community === 'lethal-company',
             )?.categories || [],
 
-          dependencies: parsedMod.latest.dependencies.map(
-            (x: string) => `ts-${x}`,
-          ),
+          dependencies: parsedMod.latest.dependencies.map((x: string) => `ts-${x}`),
           version: parsedMod.latest.version_number,
         })
 
@@ -300,12 +295,7 @@ export default function HomePage() {
       </Collapse>
 
       <Collapse in={oobeStep === 0 && !loading}>
-        <Typography
-          color="text.secondary"
-          component="h3"
-          sx={{ mb: 2 }}
-          variant="h6"
-        >
+        <Typography color="text.secondary" component="h3" sx={{ mb: 2 }} variant="h6">
           To get started, please login (or don&apos;t).
         </Typography>
 
@@ -361,14 +351,8 @@ export default function HomePage() {
                 flexDirection: 'row',
               }}
             >
-              <FormControl
-                error={!libraryPathValid}
-                fullWidth={true}
-                variant="standard"
-              >
-                <InputLabel>
-                  Path to your Steam Library containing Lethal Company
-                </InputLabel>
+              <FormControl error={!libraryPathValid} fullWidth={true} variant="standard">
+                <InputLabel>Path to your Steam Library containing Lethal Company</InputLabel>
                 <Select
                   displayEmpty={true}
                   onChange={e => setChosenLibraryPath(e.target.value)}
@@ -393,9 +377,7 @@ export default function HomePage() {
                   <ListSubheader>Manually Selected</ListSubheader>
                   {chosenLibraryPath !== '' &&
                   detectedLibraryPaths.indexOf(chosenLibraryPath) === -1 ? (
-                    <MenuItem value={chosenLibraryPath}>
-                      {chosenLibraryPath}
-                    </MenuItem>
+                    <MenuItem value={chosenLibraryPath}>{chosenLibraryPath}</MenuItem>
                   ) : null}
                 </Select>
               </FormControl>
@@ -425,8 +407,7 @@ export default function HomePage() {
           {oobeStep < 3 ? (
             <Button
               disabled={
-                (oobeStep === 1 && !steamPathValid) ||
-                (oobeStep === 2 && !libraryPathValid)
+                (oobeStep === 1 && !steamPathValid) || (oobeStep === 2 && !libraryPathValid)
               }
               fullWidth={true}
               onClick={advanceOOBE}
