@@ -58,16 +58,16 @@ export interface ProfileStore {
 const createModSlice: StateCreator<ModStore & ProfileStore, [], [], ModStore> = (set, get) => ({
   mods: [],
 
-  addMod: mod => {
+  addMod: (mod) => {
     const state = get()
 
     // check the UUID doesn't already exist (if so, replace it)
-    const existingMod = state.mods.find(x => x.id === mod.id)
+    const existingMod = state.mods.find((x) => x.id === mod.id)
     const merged = existingMod ? { ...existingMod, ...mod, updated: Date.now() } : mod
 
     set({
       mods: [
-        ...state.mods.filter(x => x.id !== mod.id),
+        ...state.mods.filter((x) => x.id !== mod.id),
         {
           ...merged,
           id: merged.id ?? uuidv4(),
@@ -80,11 +80,11 @@ const createModSlice: StateCreator<ModStore & ProfileStore, [], [], ModStore> = 
     })
   },
 
-  deleteMod: id => {
+  deleteMod: (id) => {
     const mods = get().mods
 
     set({
-      mods: mods.filter(x => x.id !== id),
+      mods: mods.filter((x) => x.id !== id),
     })
   },
 
@@ -94,13 +94,13 @@ const createModSlice: StateCreator<ModStore & ProfileStore, [], [], ModStore> = 
     mod.id = id
 
     const newMod = {
-      ...mods.find(x => x.id === id),
+      ...mods.find((x) => x.id === id),
       ...mod,
       updated: Date.now(),
     } as Mod
 
     set({
-      mods: mods.map(x => (x.id === id ? newMod : x)),
+      mods: mods.map((x) => (x.id === id ? newMod : x)),
     })
   },
 })
@@ -111,7 +111,7 @@ const createProfileSlice: StateCreator<ModStore & ProfileStore, [], [], ProfileS
 ) => ({
   profiles: [],
 
-  addProfile: profile => {
+  addProfile: (profile) => {
     const state = get()
 
     set({
@@ -132,16 +132,16 @@ const createProfileSlice: StateCreator<ModStore & ProfileStore, [], [], ProfileS
     })
   },
 
-  deleteProfile: id => {
+  deleteProfile: (id) => {
     const profiles = get().profiles
 
     set({
-      profiles: profiles.filter(x => x.id !== id),
+      profiles: profiles.filter((x) => x.id !== id),
     })
   },
 
   reorderProfile: (sourceIndex, targetIndex) =>
-    set(state => {
+    set((state) => {
       const newProfiles = [...state.profiles]
       const [removed] = newProfiles.splice(sourceIndex, 1)
       newProfiles.splice(targetIndex, 0, removed)
@@ -163,13 +163,13 @@ const createProfileSlice: StateCreator<ModStore & ProfileStore, [], [], ProfileS
     profile.id = id
 
     const newProfile = {
-      ...profiles.find(x => x.id === id),
+      ...profiles.find((x) => x.id === id),
       ...profile,
       updated: Date.now(),
     } as Profile
 
     set({
-      profiles: profiles.map(x => (x.id === id ? newProfile : x)),
+      profiles: profiles.map((x) => (x.id === id ? newProfile : x)),
     })
   },
 })

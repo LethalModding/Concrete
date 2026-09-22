@@ -61,9 +61,9 @@ export default function DashboardPage() {
   //
 
   const [selectedProfileID, setSelectedProfileID] = useState<string>('')
-  const sortedProfiles = useStore(state =>
+  const sortedProfiles = useStore((state) =>
     state.profiles
-      .filter(x => x.visible)
+      .filter((x) => x.visible)
       .sort((a, b) => {
         if (a.order < b.order) {
           return -1
@@ -75,15 +75,15 @@ export default function DashboardPage() {
       }),
   )
   const activeProfileID =
-    sortedProfiles.find(x => x.id === selectedProfileID)?.id ?? sortedProfiles[0]?.id ?? ''
-  const selectedProfile = useStore(state => state.profiles.find(x => x.id === activeProfileID))
+    sortedProfiles.find((x) => x.id === selectedProfileID)?.id ?? sortedProfiles[0]?.id ?? ''
+  const selectedProfile = useStore((state) => state.profiles.find((x) => x.id === activeProfileID))
 
-  const addProfile = useStore(state => state.addProfile)
-  const recommendedMods = useStore(state => state.mods.filter(x => x.recommended))
+  const addProfile = useStore((state) => state.addProfile)
+  const recommendedMods = useStore((state) => state.mods.filter((x) => x.recommended))
   const createProfile = useCallback(
     (useRecommended = true) => {
       addProfile({
-        enabledMods: useRecommended ? recommendedMods.map(mod => mod.id) : [],
+        enabledMods: useRecommended ? recommendedMods.map((mod) => mod.id) : [],
         name: 'Default Profile',
         order: 1,
         visible: true,
@@ -288,7 +288,7 @@ export default function DashboardPage() {
                     </ListSubheader>
                   }
                 >
-                  {sortedProfiles.map(x => (
+                  {sortedProfiles.map((x) => (
                     <ListItemButton
                       key={x.id}
                       onClick={() => setSelectedProfileID(x.id)}

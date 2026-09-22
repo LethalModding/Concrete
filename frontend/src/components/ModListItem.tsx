@@ -23,9 +23,9 @@ interface Props {
 export function ModListItem(props: Props) {
   const { detailed, draggable, imageSize, profileID } = props
 
-  const profile = useStore(state => state.profiles.find(x => x.id === profileID))
+  const profile = useStore((state) => state.profiles.find((x) => x.id === profileID))
 
-  const updateProfile = useStore(state => state.updateProfile)
+  const updateProfile = useStore((state) => state.updateProfile)
   const deleteMod = useCallback(
     (modID: string) => {
       if (!profile) {
@@ -33,14 +33,14 @@ export function ModListItem(props: Props) {
       }
 
       updateProfile(profile.id, {
-        enabledMods: profile.enabledMods.filter(x => x !== modID),
-        disabledMods: profile.disabledMods?.filter(x => x !== modID) || [],
+        enabledMods: profile.enabledMods.filter((x) => x !== modID),
+        disabledMods: profile.disabledMods?.filter((x) => x !== modID) || [],
       })
     },
     [profile, updateProfile],
   )
 
-  const mod = useStore(state => state.mods.find(x => x.id === props.modID))
+  const mod = useStore((state) => state.mods.find((x) => x.id === props.modID))
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `mod-${profile?.id || 'invalid'}`,

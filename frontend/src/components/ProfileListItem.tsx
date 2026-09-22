@@ -25,11 +25,11 @@ interface Props {
 export function ProfileListItem(props: Props) {
   const { detailed, draggable, onClickRename, profileID } = props
 
-  const profile = useStore(state => state.profiles.find(x => x.id === profileID))
+  const profile = useStore((state) => state.profiles.find((x) => x.id === profileID))
 
-  const addProfile = useStore(state => state.addProfile)
-  const deleteProfile = useStore(state => state.deleteProfile)
-  const updateProfile = useStore(state => state.updateProfile)
+  const addProfile = useStore((state) => state.addProfile)
+  const deleteProfile = useStore((state) => state.deleteProfile)
+  const updateProfile = useStore((state) => state.updateProfile)
 
   const duplicateProfile = useCallback(() => {
     if (!profile) {

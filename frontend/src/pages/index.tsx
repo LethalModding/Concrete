@@ -40,7 +40,7 @@ export default function HomePage() {
   const [oobeStep, setOOBEStep] = useState(0)
   useEffect(() => {
     GetConfig()
-      .then(config => {
+      .then((config) => {
         setChosenSteamPath(config.steamPath)
         setChosenLibraryPath(config.libraryPath)
 
@@ -51,7 +51,7 @@ export default function HomePage() {
           setOOBEStep(2)
         }
 
-        return GetSteam().then(steam => {
+        return GetSteam().then((steam) => {
           if (!config.steamPath) {
             setChosenSteamPath(steam.installPath)
           }
@@ -73,7 +73,7 @@ export default function HomePage() {
 
   const router = useRouter()
   const advanceOOBE = useCallback(() => {
-    setOOBEStep(step => {
+    setOOBEStep((step) => {
       switch (step) {
         case 1:
           SetConfigValue('SteamPath', chosenSteamPath).catch(logRejection)
@@ -118,7 +118,7 @@ export default function HomePage() {
   const [steamPathValid, setSteamPathValid] = useState(false)
   const browseSteamPath = useCallback(() => {
     BrowseDirectory('Select Steam Directory')
-      .then(choice => {
+      .then((choice) => {
         if (choice) {
           setChosenSteamPath(choice)
         }
@@ -127,7 +127,7 @@ export default function HomePage() {
   }, [])
   useEffect(() => {
     ValidateSteamPath(chosenSteamPath)
-      .then(isValid => {
+      .then((isValid) => {
         setSteamPathValid(isValid)
       })
       .catch(logRejection)
@@ -140,7 +140,7 @@ export default function HomePage() {
   const [libraryPathValid, setLibraryPathValid] = useState(false)
   const browseLibraryPath = useCallback(() => {
     BrowseDirectory('Select Library Directory')
-      .then(choice => {
+      .then((choice) => {
         if (choice) {
           setChosenLibraryPath(choice)
         }
@@ -149,7 +149,7 @@ export default function HomePage() {
   }, [])
   useEffect(() => {
     ValidateLibraryPath(chosenLibraryPath)
-      .then(isValid => {
+      .then((isValid) => {
         setLibraryPathValid(isValid)
       })
       .catch(logRejection)
@@ -159,7 +159,7 @@ export default function HomePage() {
   // OOBE Step 3
   //
 
-  const addMod = useStore(state => state.addMod)
+  const addMod = useStore((state) => state.addMod)
   const hasLoadedRecommendedMods = useRef(false)
   useEffect(() => {
     // Wait for the config effect to clear `loading`, then run exactly once.
@@ -244,13 +244,13 @@ export default function HomePage() {
           ]
         */
 
-        setLoadedMods(loaded => loaded + 1)
+        setLoadedMods((loaded) => loaded + 1)
       }
 
       setLoading(false)
     }
 
-    loadAllMods().catch(error => {
+    loadAllMods().catch((error) => {
       logRejection(error)
       setLoading(false)
     })
@@ -335,7 +335,7 @@ export default function HomePage() {
                   },
                 }}
                 label="Path to your Steam Executable"
-                onChange={e => setChosenSteamPath(e.target.value)}
+                onChange={(e) => setChosenSteamPath(e.target.value)}
                 value={chosenSteamPath}
                 variant="standard"
               />
@@ -355,7 +355,7 @@ export default function HomePage() {
                 <InputLabel>Path to your Steam Library containing Lethal Company</InputLabel>
                 <Select
                   displayEmpty={true}
-                  onChange={e => setChosenLibraryPath(e.target.value)}
+                  onChange={(e) => setChosenLibraryPath(e.target.value)}
                   startAdornment={
                     libraryPathValid ? (
                       <CheckIcon color="success" sx={{ mr: 0.5 }} />
@@ -369,7 +369,7 @@ export default function HomePage() {
                   value={chosenLibraryPath}
                 >
                   <ListSubheader>Detected from Steam</ListSubheader>
-                  {detectedLibraryPaths.map(folder => (
+                  {detectedLibraryPaths.map((folder) => (
                     <MenuItem key={folder} value={folder}>
                       {folder}
                     </MenuItem>

@@ -30,7 +30,7 @@ export default function ProfilesPage() {
     setEditing(null)
   }, [])
 
-  const updateProfile = useStore(state => state.updateProfile)
+  const updateProfile = useStore((state) => state.updateProfile)
   const handleSubmitRename = useCallback(
     (name: string) => {
       if (editing === null) {
@@ -49,8 +49,8 @@ export default function ProfilesPage() {
   // Drag and Drop
   //
 
-  const reorderProfile = useStore(state => state.reorderProfile)
-  const sortedProfiles = useStore(state => state.profiles).sort((a, b) => {
+  const reorderProfile = useStore((state) => state.reorderProfile)
+  const sortedProfiles = useStore((state) => state.profiles).sort((a, b) => {
     if (a.order < b.order) {
       return -1
     }
@@ -60,7 +60,7 @@ export default function ProfilesPage() {
     return 0
   })
 
-  const addProfile = useStore(state => state.addProfile)
+  const addProfile = useStore((state) => state.addProfile)
   const handleClickAdd = useCallback(() => {
     const n = sortedProfiles.length + 1
 
@@ -78,7 +78,7 @@ export default function ProfilesPage() {
       }
 
       const sourceId = e.active.id.toString().split('profile-')[1]
-      const sourceIndex = sortedProfiles.findIndex(x => x.id === sourceId)
+      const sourceIndex = sortedProfiles.findIndex((x) => x.id === sourceId)
 
       const delta = e.delta.y / 75
       const targetIndex = Math.max(0, Math.min(sortedProfiles.length - 1, sourceIndex + delta))
@@ -179,7 +179,7 @@ export default function ProfilesPage() {
         }}
       >
         <DndContext autoScroll={true} onDragEnd={handleDragEnd} sensors={sensors}>
-          {sortedProfiles.map(x => (
+          {sortedProfiles.map((x) => (
             <ProfileListItem
               detailed={true}
               draggable={true}

@@ -28,19 +28,19 @@ export function ProfileDetailsPane(props: Props) {
     setSelectedTab(newValue)
   }, [])
 
-  const profile = useStore(state => state.profiles.find(x => x.id === profileID))
-  const recommendedMods = useStore(state => state.mods.filter(x => x.recommended))
-  const enabledMods = useStore(state => {
+  const profile = useStore((state) => state.profiles.find((x) => x.id === profileID))
+  const recommendedMods = useStore((state) => state.mods.filter((x) => x.recommended))
+  const enabledMods = useStore((state) => {
     if (!profile) {
       return []
     }
 
-    return state.mods.filter(x => profile.enabledMods.includes(x.id))
+    return state.mods.filter((x) => profile.enabledMods.includes(x.id))
   })
   const missingRecommendedMods = useMemo(() => {
     const missing: Mod[] = []
     for (const mod of recommendedMods) {
-      if (!enabledMods.find(x => x.id === mod.id)) {
+      if (!enabledMods.find((x) => x.id === mod.id)) {
         missing.push(mod)
       }
     }
@@ -48,12 +48,12 @@ export function ProfileDetailsPane(props: Props) {
     return missing
   }, [enabledMods, recommendedMods])
 
-  const updateProfile = useStore(state => state.updateProfile)
+  const updateProfile = useStore((state) => state.updateProfile)
   const addRecommendedMods = useCallback(() => {
     if (!profile) {
       return
     }
-    const newEnabledMods = [...profile.enabledMods, ...missingRecommendedMods.map(x => x.id)]
+    const newEnabledMods = [...profile.enabledMods, ...missingRecommendedMods.map((x) => x.id)]
 
     updateProfile(profile.id, {
       enabledMods: newEnabledMods,
@@ -246,7 +246,7 @@ export function ProfileDetailsPane(props: Props) {
               </Typography>
             )}
 
-            {profile.enabledMods.map(id => (
+            {profile.enabledMods.map((id) => (
               <ModListItem
                 imageSize={isMobile ? 48 : isTablet ? 64 : 96}
                 key={id}
@@ -255,7 +255,7 @@ export function ProfileDetailsPane(props: Props) {
               />
             ))}
 
-            {profile.disabledMods?.map(id => (
+            {profile.disabledMods?.map((id) => (
               <ModListItem
                 imageSize={isMobile ? 48 : isTablet ? 64 : 96}
                 key={id}
