@@ -89,7 +89,9 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "indentWidth": 2
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 100
   },
   "javascript": {
     "formatter": {
@@ -158,11 +160,7 @@
       }
     },
     {
-      "includes": [
-        "**/e2e/**",
-        "**/playwright.config.ts",
-        "**/playwright.*.config.ts"
-      ],
+      "includes": ["**/e2e/**", "**/playwright.config.ts", "**/playwright.*.config.ts"],
       "linter": {
         "rules": {
           "correctness": {
