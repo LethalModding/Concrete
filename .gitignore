@@ -1,2 +1,5 @@
 /build/bin/**/*
 !/build/bin/.gitkeep
+
+# Next.js regenerates this on every build
+next-env.d.ts
