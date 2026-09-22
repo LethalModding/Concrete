@@ -51,7 +51,12 @@
         "noMagicNumbers": "off",
         "noJsxLiterals": "off",
         "noContinue": "off",
-        "noIncrementDecrement": "off",
+        "noIncrementDecrement": {
+          "level": "on",
+          "options": {
+            "allowForLoopAfterthoughts": true
+          }
+        },
         "useDestructuring": "off",
         "useExportsLast": "off",
         "useExplicitLengthCheck": "off",
@@ -124,8 +129,20 @@
             "noConsole": "off"
           },
           "complexity": {
-            "noExcessiveCognitiveComplexity": "off",
-            "noExcessiveLinesPerFunction": "off"
+            "noExcessiveCognitiveComplexity": {
+              "level": "on",
+              "options": {
+                "maxAllowedComplexity": 30
+              }
+            },
+            "noExcessiveLinesPerFunction": {
+              "level": "on",
+              "options": {
+                "maxLines": 150,
+                "skipBlankLines": true,
+                "skipIifes": true
+              }
+            }
           },
           "style": {
             "noExcessiveLinesPerFile": {
