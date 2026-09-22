@@ -36,7 +36,6 @@
     }
   },
   "linter": {
-    "enabled": true,
     "rules": {
       "preset": "all",
       "correctness": {
@@ -110,7 +109,6 @@
       }
     },
     "domains": {
-      "qwik": "none",
       "solid": "none"
     }
   },
@@ -124,7 +122,8 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "semicolons": "asNeeded"
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
     }
   },
   "overrides": [
