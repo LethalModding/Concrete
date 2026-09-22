@@ -24,7 +24,8 @@
       "!**/*.min.js",
       "!**/vendor",
       "!**/public/pagefind",
-      "!**/dist-release"
+      "!**/dist-release",
+      "!.claude"
     ]
   },
   "assist": {
@@ -44,7 +45,8 @@
         "useQwikValidLexicalScope": "off"
       },
       "suspicious": {
-        "noReactSpecificProps": "off"
+        "noReactSpecificProps": "off",
+        "noExplicitAny": "error"
       },
       "performance": {
         "noAwaitInLoops": "off",
@@ -82,7 +84,9 @@
             "maxLines": 500
           }
         },
-        "noInferrableTypes": "off"
+        "noInferrableTypes": "off",
+        "useImportType": "error",
+        "noNonNullAssertion": "error"
       },
       "complexity": {
         "noExcessiveCognitiveComplexity": {
