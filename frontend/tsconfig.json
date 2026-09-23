@@ -2,17 +2,22 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "allowJs": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "esModuleInterop": true,
     "incremental": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "module": "ESNext",
+    "moduleDetection": "force",
     "moduleResolution": "bundler",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
@@ -26,19 +31,12 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "strictNullChecks": true,
     "target": "ES2020",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
   },
-  "include": [
-    "./src",
-    "./wailsjs",
-    "./dist/types/**/*.ts",
-    "./next-env.d.ts"
-    // "**/*.ts",
-    // "**/*.tsx"
-  ],
+  "include": ["./src", "./wailsjs", "./dist/types/**/*.ts", "./next-env.d.ts"],
   // Wails regenerates the .js bindings on every build and they carry no
   // annotations; their sibling .d.ts files are what callers type against.
-  "exclude": ["./node_modules", "./wailsjs/**/*.js"]
+  "exclude": ["./wailsjs/**/*.js"]
 }

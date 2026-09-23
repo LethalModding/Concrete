@@ -144,6 +144,9 @@ const createProfileSlice: StateCreator<ModStore & ProfileStore, [], [], ProfileS
     set((state) => {
       const newProfiles = [...state.profiles]
       const [removed] = newProfiles.splice(sourceIndex, 1)
+      if (removed === undefined) {
+        return state
+      }
       newProfiles.splice(targetIndex, 0, removed)
 
       // update order

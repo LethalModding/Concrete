@@ -4,3 +4,5 @@ reconciled = "canon v0.1.0-poc"
 # The app is a static export embedded in the Wails binary; there is no image-optimization
 # endpoint at runtime, so next/image breaks the built app and <img> is the correct element.
 "ts-next-biome-00003" = "Wails static export has no next/image optimizer"
+# Wails generates wailsjs/go/models.ts as TypeScript namespaces, which are not erasable syntax.
+"ts-typescript-00006" = "Wails-generated models.ts uses namespaces"
