@@ -10,8 +10,8 @@ import Tabs from '@mui/material/Tabs'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { type SyntheticEvent, useCallback, useMemo, useState } from 'react'
-import { type Mod, useStore } from '@/store'
-import { ModListItem } from './ModListItem'
+import { type Mod, useStore } from '@/store.ts'
+import { ModListItem } from './ModListItem.tsx'
 
 interface Props {
   profileID: string

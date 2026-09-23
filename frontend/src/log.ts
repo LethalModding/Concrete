@@ -1,4 +1,4 @@
-import { LogError } from '@/../wailsjs/runtime/runtime'
+import { LogError } from '@/../wailsjs/runtime/runtime.js'
 
 /**
  * Terminal handler for a promise nothing awaits. The Wails runtime log is the

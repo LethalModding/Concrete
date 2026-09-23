@@ -12,7 +12,7 @@ import {
   NextScript,
 } from 'next/document'
 
-import { darkTheme } from '@/styles/darkThemeOptions'
+import { darkTheme } from '@/styles/darkThemeOptions.ts'
 
 export default function Document(props: DocumentProps & DocumentHeadTagsProps) {
   return (

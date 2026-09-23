@@ -2,7 +2,7 @@ import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Link } from '@/components/mui/Link'
+import { Link } from '@/components/mui/Link.tsx'
 
 export function GlobalAppBar() {
   return (

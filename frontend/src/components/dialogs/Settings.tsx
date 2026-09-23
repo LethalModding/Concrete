@@ -9,9 +9,9 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Grow from '@mui/material/Grow'
 import IconButton from '@mui/material/IconButton'
 import { useCallback, useEffect, useState } from 'react'
-import { GetConfig } from '@/../wailsjs/go/gui/App'
-import type { types } from '@/../wailsjs/go/models'
-import { logRejection } from '@/log'
+import { GetConfig } from '@/../wailsjs/go/gui/App.js'
+import type { types } from '@/../wailsjs/go/models.ts'
+import { logRejection } from '@/log.ts'
 
 interface Props {
   open: boolean

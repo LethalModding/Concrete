@@ -22,11 +22,11 @@ import {
   GetSteam,
   GetTSMod,
   SetConfigValue,
-} from '@/../wailsjs/go/gui/App'
-import { ValidateLibraryPath, ValidateSteamPath } from '@/../wailsjs/go/steam/Steam'
-import { LoginButtons } from '@/components/LoginButtons'
-import { logRejection } from '@/log'
-import { useStore } from '@/store'
+} from '@/../wailsjs/go/gui/App.js'
+import { ValidateLibraryPath, ValidateSteamPath } from '@/../wailsjs/go/steam/Steam.js'
+import { LoginButtons } from '@/components/LoginButtons.tsx'
+import { logRejection } from '@/log.ts'
+import { useStore } from '@/store.ts'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true)

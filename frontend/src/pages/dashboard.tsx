@@ -15,19 +15,19 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import { type MouseEvent, useCallback, useEffect, useState } from 'react'
-import { BugReportDialog } from '@/components/dialogs/BugReport'
-import { SettingsDialog } from '@/components/dialogs/Settings'
-import { ProfileDetailsPane } from '@/components/ProfileDetailsPane'
-import { useStore } from '@/store'
+import { BugReportDialog } from '@/components/dialogs/BugReport.tsx'
+import { SettingsDialog } from '@/components/dialogs/Settings.tsx'
+import { ProfileDetailsPane } from '@/components/ProfileDetailsPane.tsx'
+import { useStore } from '@/store.ts'
 
 const sidebarMinWidth = 150
 const sidebarMaxWidth = 300
 
-import { GetConfig } from '@/../wailsjs/go/gui/App'
-import { DoLaunchGame } from '@/../wailsjs/go/launcher/Launcher'
-import { LogError } from '@/../wailsjs/runtime/runtime'
-import { logRejection } from '@/log'
-import type { types } from '../../wailsjs/go/models'
+import { GetConfig } from '@/../wailsjs/go/gui/App.js'
+import { DoLaunchGame } from '@/../wailsjs/go/launcher/Launcher.js'
+import { LogError } from '@/../wailsjs/runtime/runtime.js'
+import { logRejection } from '@/log.ts'
+import type { types } from '../../wailsjs/go/models.ts'
 
 export default function DashboardPage() {
   //

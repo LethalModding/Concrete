@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { darkTheme } from '@/styles/darkThemeOptions'
+import { darkTheme } from '@/styles/darkThemeOptions.ts'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props

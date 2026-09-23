@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
 import { type ChangeEvent, useCallback, useEffect, useId, useState } from 'react'
-import type { Profile } from '@/store'
+import type { Profile } from '@/store.ts'
 
 interface Props {
   onCancel: () => void

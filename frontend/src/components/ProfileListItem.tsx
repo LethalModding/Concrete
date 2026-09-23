@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { useCallback } from 'react'
-import { useStore } from '@/store'
+import { useStore } from '@/store.ts'
 
 interface Props {
   detailed?: boolean

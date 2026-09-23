@@ -9,112 +9,17 @@
     "includes": [
       "**",
       "!wailsjs",
-      "!public",
-      "!**/node_modules",
-      "!**/dist",
-      "!**/.next",
-      "!**/build",
-      "!**/coverage",
-      "!**/generated",
-      "!**/.turbo",
-      "!**/.venv",
-      "!**/playwright-report",
-      "!**/test-results",
       "!**/*.dc.html",
       "!**/*.min.js",
+      "!**/database.types.ts",
+      "!**/design/doc-page.js",
+      "!**/design/support.js",
+      "!**/generated",
       "!**/vendor",
-      "!**/public/pagefind",
-      "!**/dist-release",
       "!.claude"
     ]
   },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
-    }
-  },
-  "linter": {
-    "rules": {
-      "preset": "all",
-      "correctness": {
-        "useImportExtensions": "off",
-        "noSolidDestructuredProps": "off",
-        "useQwikValidLexicalScope": "off",
-        "noUnresolvedImports": "off"
-      },
-      "suspicious": {
-        "noReactSpecificProps": "off",
-        "noExplicitAny": "error"
-      },
-      "performance": {
-        "noAwaitInLoops": "off",
-        "noJsxPropsBind": "off",
-        "useSolidForComponent": "off"
-      },
-      "style": {
-        "noTernary": "off",
-        "noNestedTernary": "off",
-        "noMagicNumbers": "off",
-        "noJsxLiterals": "off",
-        "noContinue": "off",
-        "noIncrementDecrement": {
-          "level": "on",
-          "options": {
-            "allowForLoopAfterthoughts": true
-          }
-        },
-        "useDestructuring": "off",
-        "useExportsLast": "off",
-        "useExplicitLengthCheck": "off",
-        "useErrorCause": "off",
-        "useNamingConvention": "off",
-        "useFilenamingConvention": {
-          "level": "on",
-          "options": {
-            "strictCase": false,
-            "filenameCases": ["camelCase", "PascalCase", "kebab-case", "export"]
-          }
-        },
-        "noProcessEnv": "off",
-        "noExcessiveLinesPerFile": {
-          "level": "on",
-          "options": {
-            "maxLines": 500
-          }
-        },
-        "noInferrableTypes": "off",
-        "useImportType": "error",
-        "noNonNullAssertion": "error"
-      },
-      "complexity": {
-        "noExcessiveCognitiveComplexity": {
-          "level": "on",
-          "options": {
-            "maxAllowedComplexity": 25
-          }
-        },
-        "noExcessiveLinesPerFunction": {
-          "level": "on",
-          "options": {
-            "maxLines": 100,
-            "skipBlankLines": true,
-            "skipIifes": true
-          }
-        }
-      },
-      "nursery": {
-        "noFloatingPromises": "error",
-        "noMisusedPromises": "error"
-      }
-    },
-    "domains": {
-      "solid": "none"
-    }
-  },
   "formatter": {
-    "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
@@ -127,36 +32,132 @@
       "trailingCommas": "all"
     }
   },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "rules": {
+      "preset": "all",
+      "style": {
+        "noNonNullAssertion": "error",
+        "useImportType": "error",
+        "noExcessiveLinesPerFile": {
+          "level": "on",
+          "options": {
+            "maxLines": 500
+          }
+        },
+        "noIncrementDecrement": {
+          "level": "on",
+          "options": {
+            "allowForLoopAfterthoughts": true
+          }
+        },
+        "useFilenamingConvention": {
+          "level": "on",
+          "options": {
+            "strictCase": false,
+            "filenameCases": ["camelCase", "PascalCase", "kebab-case", "export"]
+          }
+        },
+        "useNamingConvention": {
+          "level": "on",
+          "options": {
+            "strictCase": false,
+            "conventions": [
+              {
+                "selector": {
+                  "kind": "objectLiteralProperty"
+                },
+                "match": "_?\\$?(.+)",
+                "formats": ["camelCase", "snake_case", "CONSTANT_CASE", "PascalCase"]
+              },
+              {
+                "selector": {
+                  "kind": "typeProperty"
+                },
+                "match": "_?\\$?(.+)",
+                "formats": ["camelCase", "snake_case", "CONSTANT_CASE"]
+              }
+            ]
+          }
+        },
+        "noTernary": "off",
+        "noNestedTernary": "off",
+        "noMagicNumbers": "off",
+        "noJsxLiterals": "off",
+        "noContinue": "off",
+        "useDestructuring": "off",
+        "useExportsLast": "off",
+        "useExplicitLengthCheck": "off",
+        "useErrorCause": "off",
+        "noProcessEnv": "off",
+        "noInferrableTypes": "off"
+      },
+      "complexity": {
+        "noExcessiveLinesPerFunction": {
+          "level": "on",
+          "options": {
+            "maxLines": 100,
+            "skipBlankLines": true,
+            "skipIifes": true
+          }
+        },
+        "noUselessReturn": "off",
+        "noExcessiveCognitiveComplexity": {
+          "level": "on",
+          "options": {
+            "maxAllowedComplexity": 25
+          }
+        }
+      },
+      "correctness": {
+        "useImportExtensions": "on",
+        "noUnresolvedImports": "off",
+        "noSolidDestructuredProps": "off",
+        "useQwikValidLexicalScope": "off",
+        "noProcessGlobal": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noReactSpecificProps": "off"
+      },
+      "security": {
+        "noSecrets": {
+          "level": "on",
+          "options": {
+            "entropyThreshold": 55
+          }
+        }
+      },
+      "nursery": {
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error"
+      },
+      "performance": {
+        "noAwaitInLoops": "off",
+        "noImgElement": "off",
+        "noJsxPropsBind": "off",
+        "useSolidForComponent": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "includes": [
-        "**/*.test.ts",
-        "**/*.test.tsx",
         "**/*.spec.ts",
         "**/*.spec.tsx",
-        "**/test/**",
-        "**/__tests__/**"
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/__tests__/**",
+        "**/test/**"
       ],
       "linter": {
         "rules": {
-          "correctness": {
-            "noNodejsModules": "off",
-            "noProcessGlobal": "off",
-            "noUnresolvedImports": "off"
-          },
-          "security": {
-            "noSecrets": "off"
-          },
-          "performance": {
-            "noAwaitInLoops": "off",
-            "useTopLevelRegex": "off"
-          },
-          "suspicious": {
-            "noBitwiseOperators": "off",
-            "noMisplacedAssertion": "off",
-            "noSkippedTests": "off",
-            "noConsole": "off"
-          },
           "complexity": {
             "noExcessiveCognitiveComplexity": {
               "level": "on",
@@ -173,6 +174,18 @@
               }
             }
           },
+          "correctness": {
+            "noNodejsModules": "off",
+            "noProcessGlobal": "off",
+            "noUnresolvedImports": "off"
+          },
+          "performance": {
+            "noNamespaceImport": "off",
+            "useTopLevelRegex": "off"
+          },
+          "security": {
+            "noSecrets": "off"
+          },
           "style": {
             "noExcessiveLinesPerFile": {
               "level": "on",
@@ -181,13 +194,21 @@
               }
             },
             "noMagicNumbers": "off",
-            "noProcessEnv": "off"
+            "noProcessEnv": "off",
+            "useComponentExportOnlyModules": "off"
+          },
+          "suspicious": {
+            "noBitwiseOperators": "off",
+            "noConsole": "off",
+            "noMisplacedAssertion": "off",
+            "noSkippedTests": "off",
+            "useAwait": "off"
           }
         }
       }
     },
     {
-      "includes": ["**/e2e/**", "**/playwright.config.ts", "**/playwright.*.config.ts"],
+      "includes": ["**/e2e/**", "**/playwright.*.config.ts", "**/playwright.config.ts"],
       "linter": {
         "rules": {
           "correctness": {
@@ -195,31 +216,30 @@
             "noProcessGlobal": "off",
             "noUnresolvedImports": "off"
           },
-          "security": {
-            "noSecrets": "off"
-          },
           "performance": {
-            "noAwaitInLoops": "off",
             "useTopLevelRegex": "off"
           },
-          "suspicious": {
-            "noConsole": "off"
+          "security": {
+            "noSecrets": "off"
           },
           "style": {
             "noDefaultExport": "off",
             "noMagicNumbers": "off",
             "noProcessEnv": "off"
+          },
+          "suspicious": {
+            "noConsole": "off"
           }
         }
       }
     },
     {
       "includes": [
-        "**/scripts/**",
-        "tools/**",
-        "**/*.config.ts",
+        "**/*.config.js",
         "**/*.config.mjs",
-        "**/*.config.js"
+        "**/*.config.ts",
+        "**/scripts/**",
+        "tools/**"
       ],
       "linter": {
         "rules": {
@@ -231,33 +251,25 @@
           "performance": {
             "useTopLevelRegex": "off"
           },
-          "suspicious": {
-            "noConsole": "off"
-          },
           "style": {
             "noDefaultExport": "off",
             "noProcessEnv": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["**/src/store.ts"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUnresolvedImports": "off"
+          },
+          "suspicious": {
+            "noConsole": "off"
           }
         }
       }
     },
     {
       "includes": [
-        "**/src/server/**",
+        "**/app/**/route.ts",
         "**/apps/server/**",
         "**/apps/worker/**",
-        "**/app/**/route.ts",
-        "**/src/app/api/**"
+        "**/lib/server/**",
+        "**/pages/api/**",
+        "**/src/app/api/**",
+        "**/src/server/**"
       ],
       "linter": {
         "rules": {
@@ -269,7 +281,7 @@
       }
     },
     {
-      "includes": ["**/src/pages/**", "next.config.*"],
+      "includes": ["**/*.d.ts"],
       "linter": {
         "rules": {
           "style": {
@@ -279,11 +291,75 @@
       }
     },
     {
-      "includes": ["**/src/**"],
+      "includes": ["**/cli.ts", "**/logger.ts", "**/log.ts", "**/main.ts"],
       "linter": {
         "rules": {
-          "performance": {
-            "noImgElement": "off"
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/scroll-region.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noNoninteractiveTabindex": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/app/**/apple-icon.tsx",
+        "**/app/**/default.tsx",
+        "**/app/**/error.tsx",
+        "**/app/**/global-error.tsx",
+        "**/app/**/icon.tsx",
+        "**/app/**/layout.tsx",
+        "**/app/**/loading.tsx",
+        "**/app/**/manifest.ts",
+        "**/app/**/not-found.tsx",
+        "**/app/**/opengraph-image.tsx",
+        "**/app/**/page.tsx",
+        "**/app/**/robots.ts",
+        "**/app/**/route.ts",
+        "**/app/**/sitemap.ts",
+        "**/app/**/template.tsx",
+        "**/app/**/twitter-image.tsx",
+        "**/instrumentation.ts",
+        "**/middleware.ts",
+        "**/pages/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off",
+            "useComponentExportOnlyModules": {
+              "level": "on",
+              "options": {
+                "allowExportNames": [
+                  "alt",
+                  "contentType",
+                  "dynamic",
+                  "dynamicParams",
+                  "fetchCache",
+                  "generateImageMetadata",
+                  "generateMetadata",
+                  "generateSitemaps",
+                  "generateStaticParams",
+                  "generateViewport",
+                  "maxDuration",
+                  "metadata",
+                  "preferredRegion",
+                  "revalidate",
+                  "runtime",
+                  "size",
+                  "viewport"
+                ]
+              }
+            }
           }
         }
       }

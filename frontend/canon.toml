@@ -1,0 +1,6 @@
+reconciled = "canon v0.1.0-poc"
+
+[deviations]
+# The app is a static export embedded in the Wails binary; there is no image-optimization
+# endpoint at runtime, so next/image breaks the built app and <img> is the correct element.
+"ts-next-biome-00003" = "Wails static export has no next/image optimizer"

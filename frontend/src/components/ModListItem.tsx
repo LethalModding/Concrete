@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import { useCallback, useMemo } from 'react'
-import { useStore } from '@/store'
+import { useStore } from '@/store.ts'
 
 interface Props {
   detailed?: boolean

@@ -19,10 +19,10 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
-import { ProfileRenameDialog } from '@/components/dialogs/ProfileRename'
-import { ProfileListItem } from '@/components/ProfileListItem'
-import { logRejection } from '@/log'
-import { type Profile, useStore } from '@/store'
+import { ProfileRenameDialog } from '@/components/dialogs/ProfileRename.tsx'
+import { ProfileListItem } from '@/components/ProfileListItem.tsx'
+import { logRejection } from '@/log.ts'
+import { type Profile, useStore } from '@/store.ts'
 
 export default function ProfilesPage() {
   const [editing, setEditing] = useState<Profile | null>(null)

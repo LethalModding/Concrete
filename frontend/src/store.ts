@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid'
 import { create, type StateCreator } from 'zustand'
 
-type UUID = string
+type Uuid = string
 
 export interface Base {
-  id: UUID
+  id: Uuid
 
   created: number
   deleted?: number
@@ -23,15 +23,15 @@ export type DisplayBase = Base & {
 }
 
 export type Mod = DisplayBase & {
-  conflicts?: UUID[]
-  dependencies?: UUID[]
+  conflicts?: Uuid[]
+  dependencies?: Uuid[]
   instructions?: string
   recommended?: boolean
 }
 
 export type Profile = DisplayBase & {
-  disabledMods?: UUID[]
-  enabledMods: UUID[]
+  disabledMods?: Uuid[]
+  enabledMods: Uuid[]
   instructions?: string
 
   order: number
@@ -42,17 +42,17 @@ export interface ModStore {
   mods: Mod[]
 
   addMod: (mod: Partial<Mod>) => void
-  deleteMod: (id: UUID) => void
-  updateMod: (id: UUID, mod: Partial<Mod>) => void
+  deleteMod: (id: Uuid) => void
+  updateMod: (id: Uuid, mod: Partial<Mod>) => void
 }
 
 export interface ProfileStore {
   profiles: Profile[]
 
   addProfile: (profile: Partial<Profile>) => void
-  deleteProfile: (id: UUID) => void
+  deleteProfile: (id: Uuid) => void
   reorderProfile: (sourceIndex: number, targetIndex: number) => void
-  updateProfile: (id: UUID, profile: Partial<Profile>) => void
+  updateProfile: (id: Uuid, profile: Partial<Profile>) => void
 }
 
 const createModSlice: StateCreator<ModStore & ProfileStore, [], [], ModStore> = (set, get) => ({
