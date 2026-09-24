@@ -1,0 +1,49 @@
+# canon go-golangci-lint-00001
+version: "2"
+
+linters:
+  # canon go-golangci-lint-00002
+  default: standard
+  enable:
+    - bodyclose
+    - contextcheck
+    - errorlint
+    - gosec
+    - modernize
+    - nilerr
+    - noctx
+    - nolintlint
+  settings:
+    # canon go-golangci-lint-00004
+    errcheck:
+      exclude-functions:
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
+    # canon go-golangci-lint-00005
+    staticcheck:
+      checks: ["all"]
+    # canon go-golangci-lint-00006
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+  # canon go-golangci-lint-00008
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters:
+          - contextcheck
+          - errorlint
+          - gosec
+          - noctx
+
+# canon go-golangci-lint-00003
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+# canon go-golangci-lint-00007
+formatters:
+  enable:
+    - gofumpt
+    - goimports
