@@ -67,6 +67,14 @@ linters:
       check:
         - map
         - switch
+    # canon go-golangci-lint-00013
+    ireturn:
+      allow:
+        - anon
+        - empty
+        - error
+        - generic
+        - stdlib
     # canon go-golangci-lint-00011
     gomoddirectives:
       replace-local: true
