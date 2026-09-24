@@ -3,11 +3,10 @@ package gui
 import (
 	"context"
 
-	"lethalmodding.com/concrete/src/app/loopbackServer"
+	loopbackserver "lethalmodding.com/concrete/src/app/loopbackServer"
 )
 
-// onStartup is a Wails function that is called when the application is started.
-// It is used to initialize the application.
+// OnStartup initializes the application and its local services.
 func (app *App) OnStartup(ctx context.Context) {
 	app.logger.Info("=== OnStartup ===")
 	app.ctx = ctx
@@ -28,7 +27,7 @@ func (app *App) OnStartup(ctx context.Context) {
 	//
 	// Initialize local web server to handle OAuth2 redirects
 	//
-	app.LoopbackServer = loopbackServer.NewServer(app.Config.LoopbackServerPort)
+	app.LoopbackServer = loopbackserver.NewServer(app.Config.LoopbackServerPort)
 	app.logger.Info("Starting local web server to handle OAuth2 redirects",
 		"url", app.LoopbackServer.URL())
 	go func() {

@@ -2,9 +2,9 @@ package gui
 
 import log "github.com/AlbinoGeek/logxi/v1"
 
-func (a *App) StdLogger() LogxiStdLogger {
+func (app *App) StdLogger() LogxiStdLogger {
 	return LogxiStdLogger{
-		logger: a.logger,
+		logger: app.logger,
 	}
 }
 

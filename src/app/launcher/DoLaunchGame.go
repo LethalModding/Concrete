@@ -1,3 +1,4 @@
+// Package launcher installs the game loader and starts the game with a profile.
 package launcher
 
 import (

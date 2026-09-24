@@ -35,27 +35,27 @@ func APIGet(path string) (string, error) {
 	return string(body), nil
 }
 
-func (a *App) GetRecommendedMods() []string {
+func (app *App) GetRecommendedMods() []string {
 	result, err := APIGet("concrete/mods/recommended")
 	if err != nil {
-		_ = a.logger.Error("Error getting recommended mods", "error", err)
+		_ = app.logger.Error("Error getting recommended mods", "error", err)
 		return nil
 	}
 
 	var mods []string
 	err = json.Unmarshal([]byte(result), &mods)
 	if err != nil {
-		_ = a.logger.Error("Error unmarshalling response", "error", err)
+		_ = app.logger.Error("Error unmarshalling response", "error", err)
 		return nil
 	}
 
 	return mods
 }
 
-func (a *App) GetTSMod(name string) string {
+func (app *App) GetTSMod(name string) string {
 	result, err := APIGet(fmt.Sprintf("ts/package/%s", name))
 	if err != nil {
-		_ = a.logger.Error("Error getting TS mod", "error", err)
+		_ = app.logger.Error("Error getting TS mod", "error", err)
 		return ""
 	}
 

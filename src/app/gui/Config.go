@@ -2,14 +2,14 @@ package gui
 
 import "lethalmodding.com/concrete/src/app/types"
 
-func (a *App) GetConfig() types.Config {
-	return *a.Config
+func (app *App) GetConfig() types.Config {
+	return *app.Config
 }
 
-func (a *App) GetConfigValue(key string) string {
-	return a.Config.Get(key)
+func (app *App) GetConfigValue(key string) string {
+	return app.Config.Get(key)
 }
 
-func (a *App) SetConfigValue(key string, value string) {
-	a.Config.Set(key, value)
+func (app *App) SetConfigValue(key string, value string) {
+	app.Config.Set(key, value)
 }

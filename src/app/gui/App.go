@@ -1,3 +1,4 @@
+// Package gui manages the Concrete desktop application's lifecycle and integrations.
 package gui
 
 import (
@@ -5,7 +6,7 @@ import (
 
 	log "github.com/AlbinoGeek/logxi/v1"
 
-	"lethalmodding.com/concrete/src/app/loopbackServer"
+	loopbackserver "lethalmodding.com/concrete/src/app/loopbackServer"
 	"lethalmodding.com/concrete/src/app/steam"
 	"lethalmodding.com/concrete/src/app/types"
 )
@@ -15,7 +16,7 @@ type App struct {
 	logger log.Logger
 
 	Config         *types.Config
-	LoopbackServer *loopbackServer.Server
+	LoopbackServer *loopbackserver.Server
 	Steam          *steam.Steam
 }
 
@@ -28,8 +29,8 @@ func NewApp() *App {
 	}
 }
 
-func (a *App) GetSteam() steam.Steam {
-	return *a.Steam
+func (app *App) GetSteam() steam.Steam {
+	return *app.Steam
 }
 
 //!! Lifecycle Documentation !!

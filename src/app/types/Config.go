@@ -1,3 +1,4 @@
+// Package types defines the configuration and profile data exchanged by Concrete's services.
 package types
 
 import "strconv"

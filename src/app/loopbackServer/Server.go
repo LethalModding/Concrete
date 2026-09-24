@@ -1,4 +1,5 @@
-package loopbackServer
+// Package loopbackserver serves the local HTTP endpoint used by the desktop application.
+package loopbackserver
 
 import (
 	"fmt"

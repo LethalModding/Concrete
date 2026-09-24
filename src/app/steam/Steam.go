@@ -1,3 +1,4 @@
+// Package steam discovers Steam's installation and library locations.
 package steam
 
 import "errors"
