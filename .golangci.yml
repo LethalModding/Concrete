@@ -1,18 +1,65 @@
 # canon go-golangci-lint-00001
 version: "2"
+
 linters:
   # canon go-golangci-lint-00002
   default: standard
   enable:
+    - asasalint
+    - bidichk
     - bodyclose
+    - canonicalheader
+    - containedctx
     - contextcheck
+    - durationcheck
     - errorlint
+    - exhaustive
+    - exptostd
+    - fatcontext
+    - forcetypeassert
+    - gocheckcompilerdirectives
+    - gochecksumtype
+    - gocritic
     - gosec
+    - loggercheck
+    - makezero
+    - mirror
     - modernize
+    - musttag
     - nilerr
+    - nilnil
     - noctx
     - nolintlint
+    - nosprintfhostport
+    - protogetter
+    - reassign
+    - recvcheck
+    - rowserrcheck
+    - sloglint
+    - spancheck
+    - sqlclosecheck
+    - testifylint
+    - tparallel
+    - unconvert
+    - unparam
+    - usestdlibvars
+    - usetesting
+    - wastedassign
+    - zerologlint
   settings:
+    # canon go-golangci-lint-00008
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+        - shadow
+    # canon go-golangci-lint-00009
+    gocritic:
+      disabled-tags:
+        - style
+        - performance
+        - opinionated
+        - experimental
     # canon go-golangci-lint-00004
     errcheck:
       exclude-functions:
@@ -26,10 +73,12 @@ linters:
     nolintlint:
       require-explanation: true
       require-specific: true
+
 # canon go-golangci-lint-00003
 issues:
   max-issues-per-linter: 0
   max-same-issues: 0
+
 # canon go-golangci-lint-00007
 formatters:
   enable:
