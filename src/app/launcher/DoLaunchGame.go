@@ -113,7 +113,7 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 		}
 
 		// Ensure the directory exists
-		if err := os.MkdirAll(filepath.Dir(targetPath), 0o755); err != nil {
+		if err := os.MkdirAll(filepath.Dir(targetPath), 0o750); err != nil {
 			return err
 		}
 
