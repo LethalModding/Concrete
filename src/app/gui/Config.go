@@ -10,6 +10,6 @@ func (app *App) GetConfigValue(key string) string {
 	return app.Config.Get(key)
 }
 
-func (app *App) SetConfigValue(key string, value string) {
+func (app *App) SetConfigValue(key, value string) {
 	app.Config.Set(key, value)
 }

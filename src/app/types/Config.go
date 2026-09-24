@@ -51,7 +51,7 @@ func (c *Config) Get(key string) string {
 	return ""
 }
 
-func (c *Config) Set(key string, value string) {
+func (c *Config) Set(key, value string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
