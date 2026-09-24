@@ -7,4 +7,4 @@
 run = "mkdir -p frontend/dist && touch frontend/dist/index.html && go build ./..."
 
 [gates.test]
-run = "mkdir -p frontend/dist && touch frontend/dist/index.html && go test ./..."
+run = "mkdir -p frontend/dist && touch frontend/dist/index.html && go test -race ./..."
