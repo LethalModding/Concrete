@@ -118,7 +118,7 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 		}
 
 		// Create the output file
-		fileWriter, err := os.Create(targetPath)
+		fileWriter, err := os.Create(targetPath) //nolint:gosec // secureArchivePath confines archive entries beneath the destination.
 		if err != nil {
 			return err
 		}
