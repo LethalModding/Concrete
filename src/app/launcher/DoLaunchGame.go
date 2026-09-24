@@ -185,7 +185,7 @@ func (l *Launcher) DoLaunchGame(libraryPath, steamPath, profileJSON string) erro
 		profile.ID + "/BepInEx/core/BepInEx.Preloader.dll",
 	}
 
-	cmd := exec.CommandContext(context.Background(), filepath.Join(steamPath, exeName), args...)
+	cmd := exec.CommandContext(context.Background(), filepath.Join(steamPath, exeName), args...) //nolint:gosec // SteamPath is user-selected and exec.CommandContext bypasses shell interpretation.
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
