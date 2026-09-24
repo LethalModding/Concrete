@@ -14,7 +14,6 @@ func (app *App) OnBeforeClose(ctx context.Context) (prevent bool) {
 		Title:   "Quit?",
 		Message: "Are you sure you want to quit?",
 	})
-
 	if err != nil {
 		return false
 	}

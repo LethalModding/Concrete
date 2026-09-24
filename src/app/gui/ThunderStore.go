@@ -1,6 +1,7 @@
 package gui
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -14,7 +15,7 @@ func APIPath(path string) string {
 }
 
 func APIGet(path string) (string, error) {
-	req, err := http.NewRequest("GET", APIPath(path), nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", APIPath(path), nil)
 	if err != nil {
 		return "", err
 	}

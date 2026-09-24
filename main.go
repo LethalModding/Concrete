@@ -72,7 +72,6 @@ func main() {
 			WebviewIsTransparent: true,
 		},
 	})
-
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -3,6 +3,7 @@ package launcher
 import (
 	"archive/zip"
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -17,10 +18,7 @@ import (
 	"lethalmodding.com/concrete/src/app/types"
 )
 
-var ()
-
-type Launcher struct {
-}
+type Launcher struct{}
 
 func NewLauncher() *Launcher {
 	return &Launcher{}
@@ -49,9 +47,7 @@ func secureArchivePath(basePath, archiveName string) (string, error) {
 	return targetPath, nil
 }
 
-var (
-	bepinexRelease = "https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip"
-)
+var bepinexRelease = "https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip"
 
 func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 	// Ensure gamePath and profilePath exist
@@ -116,7 +112,7 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 		}
 
 		// Ensure the directory exists
-		if err := os.MkdirAll(filepath.Dir(targetPath), 0755); err != nil {
+		if err := os.MkdirAll(filepath.Dir(targetPath), 0o755); err != nil {
 			return err
 		}
 
@@ -183,7 +179,7 @@ func (l *Launcher) DoLaunchGame(libraryPath, steamPath, profileJSON string) erro
 		profile.ID + "/BepInEx/core/BepInEx.Preloader.dll",
 	}
 
-	cmd := exec.Command(filepath.Join(steamPath, exeName), args...)
+	cmd := exec.CommandContext(context.Background(), filepath.Join(steamPath, exeName), args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
