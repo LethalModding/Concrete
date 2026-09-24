@@ -31,14 +31,24 @@ func (s *Steam) FindLibraryFolders() error {
 			"could not parse Steam library folders", err)
 	}
 
-	vdfMap = vdfMap["libraryfolders"].(map[string]any)
-	for _, entry := range vdfMap {
-		this := entry.(map[string]any)
-		if this["path"] == nil {
+	libraryFoldersMap, ok := vdfMap["libraryfolders"].(map[string]any)
+	if !ok {
+		return fmt.Errorf("%w: %s", ErrSteamNotFound,
+			"could not parse Steam library folders")
+	}
+
+	for _, entry := range libraryFoldersMap {
+		this, ok := entry.(map[string]any)
+		if !ok {
 			continue
 		}
 
-		libraryFolders = append(libraryFolders, this["path"].(string))
+		path, ok := this["path"].(string)
+		if !ok {
+			continue
+		}
+
+		libraryFolders = append(libraryFolders, path)
 	}
 
 	// Set the library folders
