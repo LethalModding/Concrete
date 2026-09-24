@@ -12,7 +12,7 @@ import (
 )
 
 type App struct {
-	ctx    context.Context
+	ctx    context.Context //nolint:containedctx // Wails bound methods need the lifecycle context for runtime calls.
 	logger log.Logger
 
 	Config         *types.Config
