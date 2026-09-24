@@ -48,7 +48,7 @@ func secureArchivePath(basePath, archiveName string) (string, error) {
 	return targetPath, nil
 }
 
-var bepinexRelease = "https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip"
+const bepinexRelease = "https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip"
 
 func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 	// Ensure gamePath and profilePath exist
