@@ -1,9 +1,13 @@
 // Package types defines the configuration and profile data exchanged by Concrete's services.
 package types
 
-import "strconv"
+import (
+	"strconv"
+	"sync"
+)
 
 type Config struct {
+	mu                 sync.RWMutex
 	DismissLogin       bool   `json:"dismissLogin"`
 	LibraryPath        string `json:"libraryPath"`
 	LoopbackServerPort int    `json:"loopbackServerPort"`
@@ -17,7 +21,22 @@ func NewConfig() *Config {
 	}
 }
 
+func (c *Config) Snapshot() Config {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+
+	return Config{
+		DismissLogin:       c.DismissLogin,
+		LibraryPath:        c.LibraryPath,
+		LoopbackServerPort: c.LoopbackServerPort,
+		SteamPath:          c.SteamPath,
+	}
+}
+
 func (c *Config) Get(key string) string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+
 	switch key {
 	case "DismissLogin":
 		return strconv.FormatBool(c.DismissLogin)
@@ -33,6 +52,9 @@ func (c *Config) Get(key string) string {
 }
 
 func (c *Config) Set(key string, value string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
 	switch key {
 	case "DismissLogin":
 		if b, err := strconv.ParseBool(value); err == nil {

@@ -3,7 +3,7 @@ package gui
 import "lethalmodding.com/concrete/src/app/types"
 
 func (app *App) GetConfig() types.Config {
-	return *app.Config
+	return app.Config.Snapshot()
 }
 
 func (app *App) GetConfigValue(key string) string {

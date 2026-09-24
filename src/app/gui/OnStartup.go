@@ -10,6 +10,7 @@ import (
 func (app *App) OnStartup(ctx context.Context) {
 	app.logger.Info("=== OnStartup ===")
 	app.ctx = ctx
+	config := app.Config.Snapshot()
 
 	//
 	// Initialize reference to the Steam installation
@@ -18,7 +19,7 @@ func (app *App) OnStartup(ctx context.Context) {
 		_ = app.logger.Error("Failed to find Steam installation", "error", err)
 	} else {
 		app.logger.Info("Found Steam installation",
-			"configured path", app.Config.SteamPath,
+			"configured path", config.SteamPath,
 			"detected path", app.Steam.InstallPath,
 			"library folders", app.Steam.LibraryFolders,
 		)
@@ -27,7 +28,7 @@ func (app *App) OnStartup(ctx context.Context) {
 	//
 	// Initialize local web server to handle OAuth2 redirects
 	//
-	app.LoopbackServer = loopbackserver.NewServer(app.Config.LoopbackServerPort)
+	app.LoopbackServer = loopbackserver.NewServer(config.LoopbackServerPort)
 	app.logger.Info("Starting local web server to handle OAuth2 redirects",
 		"url", app.LoopbackServer.URL())
 	go func() {
