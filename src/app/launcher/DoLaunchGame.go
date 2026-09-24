@@ -90,19 +90,6 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 			continue
 		}
 
-		// Open the input file
-		fileReader, err := file.Open()
-		if err != nil {
-			return err
-		}
-		defer func() { _ = fileReader.Close() }()
-
-		// TODO: Chunking for large files
-		data := make([]byte, file.UncompressedSize64)
-		if _, err = fileReader.Read(data); err != nil && !errors.Is(err, io.EOF) {
-			return err
-		}
-
 		var destinationPath string
 
 		// Write /doorstop_config.ini and /winhttp.dll to the game directory
@@ -117,28 +104,45 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 			return err
 		}
 
-		// Ensure the directory exists
-		if err := os.MkdirAll(filepath.Dir(targetPath), 0o750); err != nil {
-			return err
-		}
-
-		// Create the output file
-		fileWriter, err := os.Create(targetPath) //nolint:gosec // secureArchivePath confines archive entries beneath the destination.
-		if err != nil {
-			return err
-		}
-
-		// Write the output file
-		if _, err = fileWriter.Write(data); err != nil {
-			return err
-		}
-
-		// Close the output file, flushing it to disk
-		if err := fileWriter.Close(); err != nil {
+		if err := extractEntry(file, targetPath); err != nil {
 			return err
 		}
 	}
 
+	return nil
+}
+
+// maxArchiveEntryBytes caps each extracted entry so a crafted size header
+// cannot expand one entry without bound.
+const maxArchiveEntryBytes = 256 << 20
+
+func extractEntry(file *zip.File, targetPath string) error {
+	if file.FileInfo().IsDir() {
+		return os.MkdirAll(targetPath, 0o750)
+	}
+	if err := os.MkdirAll(filepath.Dir(targetPath), 0o750); err != nil {
+		return err
+	}
+	src, err := file.Open()
+	if err != nil {
+		return err
+	}
+	defer func() { _ = src.Close() }()
+
+	dst, err := os.Create(targetPath) //nolint:gosec // secureArchivePath confines archive entries beneath the destination.
+	if err != nil {
+		return err
+	}
+	n, err := io.Copy(dst, io.LimitReader(src, maxArchiveEntryBytes+1))
+	if cerr := dst.Close(); err == nil {
+		err = cerr
+	}
+	if err != nil {
+		return err
+	}
+	if n > maxArchiveEntryBytes {
+		return fmt.Errorf("archive entry %s exceeds %d bytes", file.Name, maxArchiveEntryBytes)
+	}
 	return nil
 }
 
