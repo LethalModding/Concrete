@@ -61,7 +61,12 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 	}
 
 	// Download the latest BepInEx release
-	resp, err := http.Get(bepinexRelease)
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, bepinexRelease, nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return err
 	}
