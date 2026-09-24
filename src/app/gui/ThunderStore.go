@@ -15,7 +15,7 @@ func APIPath(path string) string {
 }
 
 func APIGet(path string) (string, error) {
-	req, err := http.NewRequestWithContext(context.Background(), "GET", APIPath(path), nil)
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, APIPath(path), nil)
 	if err != nil {
 		return "", err
 	}
