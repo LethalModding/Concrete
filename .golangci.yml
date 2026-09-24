@@ -1,6 +1,5 @@
 # canon go-golangci-lint-00001
 version: "2"
-
 linters:
   # canon go-golangci-lint-00002
   default: standard
@@ -27,21 +26,10 @@ linters:
     nolintlint:
       require-explanation: true
       require-specific: true
-  # canon go-golangci-lint-00008
-  exclusions:
-    rules:
-      - path: _test\.go
-        linters:
-          - contextcheck
-          - errorlint
-          - gosec
-          - noctx
-
 # canon go-golangci-lint-00003
 issues:
   max-issues-per-linter: 0
   max-same-issues: 0
-
 # canon go-golangci-lint-00007
 formatters:
   enable:
