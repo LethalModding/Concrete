@@ -93,7 +93,7 @@ func (l *Launcher) InstallBepInEx(gamePath, profilePath string) error {
 
 		// TODO: Chunking for large files
 		data := make([]byte, file.UncompressedSize64)
-		if _, err = fileReader.Read(data); err != nil && err != io.EOF {
+		if _, err = fileReader.Read(data); err != nil && !errors.Is(err, io.EOF) {
 			return err
 		}
 

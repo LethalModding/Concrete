@@ -18,7 +18,7 @@ func (s *Steam) FindLibraryFolders() error {
 	libraryFolders := make([]string, 0)
 	f, err := os.Open(filepath.Join(s.InstallPath, "steamapps", libraryFoldersVDF))
 	if err != nil {
-		return fmt.Errorf("%w: %s: %v", ErrSteamNotFound,
+		return fmt.Errorf("%w: %s: %w", ErrSteamNotFound,
 			"could not read Steam library folders", err)
 	}
 	defer func() { _ = f.Close() }()
@@ -27,7 +27,7 @@ func (s *Steam) FindLibraryFolders() error {
 	parser := vdf.NewParser(f)
 	vdfMap, err := parser.Parse()
 	if err != nil {
-		return fmt.Errorf("%w: %s: %v", ErrSteamNotFound,
+		return fmt.Errorf("%w: %s: %w", ErrSteamNotFound,
 			"could not parse Steam library folders", err)
 	}
 

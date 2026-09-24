@@ -16,7 +16,7 @@ import (
 func (s *Steam) Find() error {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		return fmt.Errorf("%w: %s: %v", ErrSteamNotFound,
+		return fmt.Errorf("%w: %s: %w", ErrSteamNotFound,
 			"could not find Steam installation", err)
 	}
 
