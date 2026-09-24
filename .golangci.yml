@@ -11,6 +11,7 @@ linters:
     - canonicalheader
     - containedctx
     - contextcheck
+    - dogsled
     - durationcheck
     - errorlint
     - exhaustive
@@ -21,7 +22,12 @@ linters:
     - gochecknoinits
     - gochecksumtype
     - gocritic
+    - godot
+    - godox
+    - gomoddirectives
     - gosec
+    - interfacebloat
+    - ireturn
     - loggercheck
     - makezero
     - mirror
@@ -59,15 +65,18 @@ linters:
     # canon go-golangci-lint-00010
     exhaustive:
       check:
-        - switch
         - map
+        - switch
+    # canon go-golangci-lint-00011
+    gomoddirectives:
+      replace-local: true
     # canon go-golangci-lint-00009
     gocritic:
       disabled-tags:
-        - style
-        - performance
-        - opinionated
         - experimental
+        - opinionated
+        - performance
+        - style
     # canon go-golangci-lint-00004
     errcheck:
       exclude-functions:
@@ -92,3 +101,8 @@ formatters:
   enable:
     - gofumpt
     - goimports
+  settings:
+    # canon go-golangci-lint-00012
+    gofumpt:
+      extra:
+        group-params: true
