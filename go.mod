@@ -5,7 +5,7 @@ go 1.27.1
 require (
 	github.com/AlbinoGeek/logxi v0.0.0-20260814053308-6796234b10ca
 	github.com/andygrunwald/vdf v1.1.0
-	github.com/labstack/echo/v4 v4.15.4
+	github.com/labstack/echo/v4 v4.16.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/wailsapp/wails/v2 v2.16.0
 	golang.org/x/sys v0.48.0
