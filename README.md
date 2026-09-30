@@ -9,6 +9,9 @@
 
 ---
 
+> [!IMPORTANT]
+> Concrete is archived and no longer maintained. Its successor, **Mortar**, is a multi-game mod manager being built from scratch; Lethal Company support follows its first release.
+
 Concrete is a desktop mod manager for [Lethal Company](https://store.steampowered.com/app/1966720/Lethal_Company/) from [LethalModding.com](https://lethalmodding.com). It discovers your Steam library, curates ThunderStore mods, and launches the game with profile-specific BepInEx plugin sets.
 
 Built with [Wails](https://wails.io) (Go backend, embedded Next.js UI).
