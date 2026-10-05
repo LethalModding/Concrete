@@ -10,7 +10,7 @@
 ---
 
 > [!IMPORTANT]
-> Concrete is archived and no longer maintained. Its successor, **Mortar**, is a multi-game mod manager being built from scratch; Lethal Company support follows its first release.
+> Concrete is archived and no longer maintained. Its successor is **[Mortar](https://github.com/Rethunk-Tech/mortar)** ([mortar.rethunk.tech](https://mortar.rethunk.tech)), a desktop mod manager rebuilt from scratch for several games. Mortar supports Stardew Valley today; Lethal Company support is planned for a later release.
 
 Concrete is a desktop mod manager for [Lethal Company](https://store.steampowered.com/app/1966720/Lethal_Company/) from [LethalModding.com](https://lethalmodding.com). It discovers your Steam library, curates ThunderStore mods, and launches the game with profile-specific BepInEx plugin sets.
 
